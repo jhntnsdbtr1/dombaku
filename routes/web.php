@@ -14,5 +14,41 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('landingpage');
+})->name('landingpage');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/charts', function () {
+    return view('charts');
+})->name('charts');
+
+Route::get('/manajemenkandang', function () {
+    return view('manajemenkandang');
+})->name('manajemenkandang');
+
+Route::get('/manajemendomba', function () {
+    return view('manajemendomba');
+})->name('manajemendomba');
+
+Route::get('/chart', function () {
+    return view('chart');
+})->name('chart');
+
+Route::get('/kesehatan', function () {
+    return view('kesehatan');
+})->name('kesehatan');
+
+Route::get('/perkawinan', function () {
+    return view('perkawinan');
+})->name('perkawinan');
