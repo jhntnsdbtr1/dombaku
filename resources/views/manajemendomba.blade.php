@@ -15,6 +15,35 @@
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/css/select2.min.css') }}" rel="stylesheet">
+
+    <style>
+    .legend-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Jarak antar elemen */
+        margin-bottom: 2px; /* Jarak dari elemen di bawah */
+        padding: 20px; /* Tambahkan padding */
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        
+    }
+    .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+    .putih { background-color: white; border: 1px solid black; }
+    .merah { background-color: red; border: 1px solid black; }
+    .biru { background-color: blue; border: 1px solid black; }
+    .hijau { background-color: green; border: 1px solid black; }
+    .kuning { background-color: yellow; border: 1px solid black; }
+</style>
+
 </head>
 
 <body id="page-top">
@@ -29,62 +58,66 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <a class="nav-link" href="/dashboard">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+          </a>
       </li>
+
       <hr class="sidebar-divider">
+
       <div class="sidebar-heading">
-        Features
+          Features
       </div>
 
-    <!-- Manajemen -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-        aria-controls="collapseTable">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Manajemen</span>
-      </a>
-      <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Manajemen Data</h6>
-          <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
-          <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-        </div>
-      </div>
-    </li>
+      <!-- Manajemen -->
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+              aria-controls="collapseTable">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Manajemen</span>
+          </a>
+          <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Manajemen Data</h6>
+                  <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
+                  <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
+                  <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
+              </div>
+          </div>
+      </li>
 
-    <!-- Perkawinan & Silsilah -->
-    <li class="nav-item">
-      <a class="nav-link" href="/perkawinan">
-        <i class="fas fa-fw fa-link"></i>
-        <span>Perkawinan & Silsilah</span>
-      </a>
-    </li>
+      <!-- Perkawinan & Silsilah -->
+      <li class="nav-item">
+          <a class="nav-link" href="/perkawinan">
+              <i class="fas fa-fw fa-link"></i>
+              <span>Perkawinan</span>
+          </a>
+      </li>
 
-    <!-- Kesehatan -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
-        aria-controls="collapseForm">
-        <i class="fas fa-fw fa-heartbeat"></i>
-        <span>Kesehatan</span>
-      </a>
-      <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Pemantauan Kesehatan</h6>
-          <a class="collapse-item" href="/kesehatan">Riwayat Kesehatan</a>
-        </div>
-      </div>
-    </li>
+      <!-- Denah Kandang -->
+      <li class="nav-item">
+          <a class="nav-link" href="/kandang">
+              <i class="fas fa-fw fa-map"></i>
+              <span>Denah Kandang</span> <!-- Ditambahkan -->
+          </a>
+      </li>
 
-    <!-- Laporan & Analisis -->
-    <li class="nav-item">
-      <a class="nav-link" href="/charts">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Laporan & Analisis</span>
-      </a>
-    </li>
+      <!-- History -->
+      <li class="nav-item">
+          <a class="nav-link" href="/history">
+              <i class="fas fa-fw fa-history"></i>
+              <span>History</span> <!-- Ditambahkan -->
+          </a>
+      </li>
 
+      <!-- Laporan & Analisis -->
+      <li class="nav-item">
+          <a class="nav-link" href="/charts">
+              <i class="fas fa-fw fa-chart-area"></i>
+              <span>Laporan & Analisis</span>
+          </a>
+      </li>
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -162,89 +195,6 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
             </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <span class="badge badge-warning badge-counter">2</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/man.png" style="max-width: 60px" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
-                      having.</div>
-                    <div class="small text-gray-500">Udin Cilok · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/girl.png" style="max-width: 60px" alt="">
-                    <div class="status-indicator bg-default"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
-                      say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Jaenab · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-tasks fa-fw"></i>
-                <span class="badge badge-success badge-counter">3</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Task
-                </h6>
-                <a class="dropdown-item align-items-center" href="#">
-                  <div class="mb-3">
-                    <div class="small text-gray-500">Design Button
-                      <div class="small float-right"><b>50%</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item align-items-center" href="#">
-                  <div class="mb-3">
-                    <div class="small text-gray-500">Make Beautiful Transitions
-                      <div class="small float-right"><b>30%</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item align-items-center" href="#">
-                  <div class="mb-3">
-                    <div class="small text-gray-500">Create Pie Chart
-                      <div class="small float-right"><b>75%</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">View All Taks</a>
-              </div>
-            </li>
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -256,14 +206,6 @@
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
@@ -281,7 +223,7 @@
             <h1 class="h3 mb-0 text-gray-800">Manajemen Domba</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
+              <li class="breadcrumb-item">Manajemen</li>
               <li class="breadcrumb-item active" aria-current="page">Manajemen Domba</li>
             </ol>
           </div>
@@ -292,71 +234,183 @@
     <div class="card mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary w-100">Detail Domba</h6>
+        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-toggle="modal" data-target="#tambahModal">
+                  <i class="fas fa-plus mr-2"></i> Tambah
+              </button>
       </div>
+
+      <div class="legend-box">
+        <div class="legend-item">
+            <span class="legend-color putih"></span> <span>Betina lahir di kandang, siap kawin</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color merah"></span> <span>Indukan luar</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color biru"></span> <span>Jantan</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color hijau"></span> <span>Cempe < 1 bulan</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color kuning"></span> <span>Cempe > 1 bulan</span>
+        </div>
+    </div>
       <div class="table-responsive p-3">
-        <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
-        <thead class="thead-light">
-            <tr>
-                <th>ID Domba</th>
-                <th>Jenis</th>
-                <th>Jenis Kelamin</th>
-                <th>Usia</th>
-                <th>Berat (kg)</th>
-                <th>Kondisi</th>
-                <th>Aksi</th>
-            </tr>
-            </thead>
-            <tbody>                
-            <tr>
-                <td>DM001</td>
-                <td>Garut</td>
-                <td>Jantan</td>
-                <td>2 Tahun</td>
-                <td>45</td>
-                <td><span class="badge badge-success">Sehat</span></td>
-                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-            </tr>
-            <tr>
-                <td>DM002</td>
-                <td>Merino</td>
-                <td>Betina</td>
-                <td>1.5 Tahun</td>
-                <td>38</td>
-                <td><span class="badge badge-warning">Perlu Perhatian</span></td>
-                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-            </tr>
-            <tr>
-                <td>DM003</td>
-                <td>Texel</td>
-                <td>Jantan</td>
-                <td>3 Tahun</td>
-                <td>50</td>
-                <td><span class="badge badge-success">Sehat</span></td>
-                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-            </tr>
-            <tr>
-                <td>DM004</td>
-                <td>Lokal</td>
-                <td>Betina</td>
-                <td>2.5 Tahun</td>
-                <td>42</td>
-                <td><span class="badge badge-danger">Sakit</span></td>
-                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-            </tr>
-            <tr>
-                <td>DM005</td>
-                <td>Suffolk</td>
-                <td>Jantan</td>
-                <td>2 Tahun</td>
-                <td>47</td>
-                <td><span class="badge badge-success">Sehat</span></td>
-                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-            </tr>
-            </tbody>
-        </table>
+      <style>
+    .eartag-putih { background-color: white; color: black; font-weight: bold; }
+    .eartag-merah { background-color: red; color: white; font-weight: bold; }
+    .eartag-biru { background-color: blue; color: white; font-weight: bold; }
+    .eartag-hijau { background-color: green; color: white; font-weight: bold; }
+    .eartag-kuning { background-color: yellow; color: black; font-weight: bold; }
+</style>
+
+<table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
+    <thead class="thead-light">
+        <tr>
+            <th>No</th>
+            <th>EARTAG</th>
+            <th>Kelamin</th>
+            <th>Tanggal Lahir</th>
+            <th>Induk Betina</th>
+            <th>Induk Jantan</th>
+            <th>Bobot Badan (kg)</th>
+            <th>Kandang</th>
+            <th>Keterangan</th>
+            <th>Kesehatan</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>                
+        <tr>
+            <td>1</td>
+            <td class="eartag-biru">DM001</td>
+            <td>Jantan</td>
+            <td>10-03-2023</td>
+            <td>IB001</td>
+            <td>IJ001</td>
+            <td>45</td>
+            <td>Kandang A</td>
+            <td></td>
+            <td><span class="badge badge-success">Sehat</span></td>
+            <td><a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal">Detail</a></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="eartag-putih">DM002</td>
+            <td>Betina</td>
+            <td>15-08-2023</td>
+            <td>IB002</td>
+            <td>IJ002</td>
+            <td>38</td>
+            <td>Kandang B</td>
+            <td>Kurang nafsu makan dalam seminggu terakhir</td>
+            <td><span class="badge badge-warning">Perlu Perhatian</span></td>
+            <td><a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal">Detail</a></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="eartag-biru">DM003</td>
+            <td>Jantan</td>
+            <td>05-06-2022</td>
+            <td>IB003</td>
+            <td>IJ003</td>
+            <td>50</td>
+            <td>Kandang C</td>
+            <td></td>
+            <td><span class="badge badge-success">Sehat</span></td>
+            <td><a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailModal">Detail</a></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="eartag-merah">DM004</td>
+            <td>Betina</td>
+            <td>20-11-2022</td>
+            <td>IB004</td>
+            <td>IJ004</td>
+            <td>42</td>
+            <td>Kandang D</td>
+            <td>Mengalami batuk dan lemas dalam dua hari terakhir</td>
+            <td><span class="badge badge-danger">Sakit</span></td>
+            <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="eartag-kuning">DM005</td>
+            <td>Jantan</td>
+            <td>12-07-2023</td>
+            <td>IB005</td>
+            <td>IJ005</td>
+            <td>47</td>
+            <td>Kandang E</td>
+            <td></td>
+            <td><span class="badge badge-success">Sehat</span></td>
+            <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+        </tr>
+    </tbody>
+</table>
+
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal Tambah Data Domba -->
+<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahModalLabel">Tambah Data Domba</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formTambah">
+                    <div class="form-group">
+                        <label for="eartag">EARTAG</label>
+                        <input type="text" class="form-control" id="eartag" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kelamin">Kelamin</label>
+                        <select class="form-control" id="kelamin" required>
+                            <option value="Jantan">Jantan</option>
+                            <option value="Betina">Betina</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_lahir">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="tanggal_lahir" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="induk_betina">Induk Betina</label>
+                        <input type="text" class="form-control" id="induk_betina">
+                    </div>
+                    <div class="form-group">
+                        <label for="induk_jantan">Induk Jantan</label>
+                        <input type="text" class="form-control" id="induk_jantan">
+                    </div>
+                    <div class="form-group">
+                        <label for="bobot_badan">Bobot Badan (kg)</label>
+                        <input type="number" class="form-control" id="bobot_badan" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kandang">Kandang</label>
+                        <input type="text" class="form-control" id="kandang" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea class="form-control" id="keterangan"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="kesehatan">Kesehatan</label>
+                        <textarea class="form-control" id="kesehatan"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -410,6 +464,8 @@
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+<script src="{{ asset('vendor/js/select2.min.js') }}"></script>
+
 
 <!-- Page level plugins -->
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
@@ -418,8 +474,13 @@
 <!-- Page level custom scripts -->
 <script>
     $(document).ready(function () {
-        $('#dataTable').DataTable(); // ID untuk DataTable utama
-        $('#dataTableHover').DataTable(); // ID untuk DataTable dengan efek hover
+        $('#dataTable').DataTable();
+        $('#dataTableHover').DataTable();
+        $('#eartag_betina').select2({
+    placeholder: "Pilih hingga 20 eartag betina",
+    maximumSelectionLength: 20,
+    width: '100%',
+});
     });
 </script>
 

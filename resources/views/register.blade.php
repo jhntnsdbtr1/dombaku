@@ -59,7 +59,7 @@
                         placeholder="Repeat Password">
                     </div>
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Register</button>
+                      <button type="submit" class="btn btn-block" style="background-color: #0F382A; color: white;">Register</button>
                     </div>
                     <hr>
                   </form>

@@ -9,15 +9,46 @@
     <meta name="author" content="">
     
     <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
-    <title>@yield('title', 'Manajemen Perkawinan Domba')</title>
+    <title>@yield('title', 'Manajemen Kandang Domba')</title>
 
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/css/select2.min.css') }}" rel="stylesheet">
 
+    <style>
 
+        .denah-container {
+            display: grid;
+            grid-template-columns: 0.5fr 2fr 0.5fr 2fr 0.5fr;
+            grid-template-rows: repeat(8, 200px);
+            gap: 2px;
+            background-color: #FFFFFF;
+            padding: 20px;
+        }
+        .jalan {
+            background-color: yellow;
+            border: 1px solid #000;
+            padding: 10px;
+        }
+        .kandang {
+            border: 1px solid #000;
+            background-color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sekat {
+            writing-mode: vertical-rl;
+            text-align: center;
+            font-weight: bold;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -181,14 +212,6 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -202,183 +225,46 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Manajemen Perkawinan Domba</h1>
+            <h1 class="h3 mb-0 text-gray-800">Denah Kandang</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active" aria-current="page">Manajemen Perkawinan Domba</li>
+              <li class="breadcrumb-item active" aria-current="page">Denah Kandang</li>
             </ol>
           </div>
 
           <div class="row">
-                <!-- DataTable with Hover -->
-                <div class="col-lg-12">
-                  <div class="card mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary w-100">Detail Perkawinan Domba</h6>
-                      <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-toggle="modal" data-target="#tambahModal">
-                  <i class="fas fa-plus mr-2"></i> Tambah
-              </button>
-                    </div>
-                    <div class="table-responsive p-3">
-                      <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
-                      <thead class="thead-light">
-                          <tr>
-                              <th>ID</th>
-                              <th>Eartag Pejantan</th>
-                              <th>Tanggal Kawin</th>
-                              <th>Tanggal Selesai</th>
-                              <th>Kandang</th>
-                              <th>Jumlah Betina</th>
-                              <th>Aksi</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>DM001</td>
-                                <td>14-11-2024</td>
-                                <td>14-01-2025</td>
-                                <td>Koloni Baru</td>
-                                <td>20</td>
-                                <td><button class="btn btn-sm btn-primary detail-btn" data-toggle="modal" data-target="#detailModal">Detail</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>DM002</td>
-                                <td>05-03-2024</td>
-                                <td>05-05-2024</td>
-                                <td>Semi Umbaran</td>
-                                <td>20</td>
-                                <td><button class="btn btn-sm btn-primary detail-btn" data-toggle="modal" data-target="#detailModal">Detail</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>DM003</td>
-                                <td>10-03-2024</td>
-                                <td>10-05-2024</td>
-                                <td>Koloni 1</td>
-                                <td>20</td>
-                                <td><button class="btn btn-sm btn-primary detail-btn" data-toggle="modal" data-target="#detailModal">Detail</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Tambah Data -->
-<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tambahModalLabel">Tambah Perkawinan Domba</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="formTambah">
-                    <div class="form-group">
-                        <label for="eartagPejantan">Eartag Pejantan</label>
-                        <input type="text" class="form-control" id="eartagPejantan" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggalKawin">Tanggal Kawin</label>
-                        <input type="date" class="form-control" id="tanggalKawin" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggalSelesai">Tanggal Selesai</label>
-                        <input type="date" class="form-control" id="tanggalSelesai" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="kandang">Kandang</label>
-                        <input type="text" class="form-control" id="kandang" required>
-                    </div>
-                    <!-- Eartag Betina (Max 20) -->
-                    <div class="form-group">
-                        <label for="eartag_betina">Eartag Betina (Maks. 20)</label>
-                        <select class="form-control select2" id="eartag_betina" name="eartag_betina[]" multiple="multiple">
-                            <option value="BETINA-001">BETINA-001</option>
-                            <option value="BETINA-002">BETINA-002</option>
-                            <option value="BETINA-003">BETINA-003</option>
-                            <option value="BETINA-004">BETINA-004</option>
-                            <option value="BETINA-005">BETINA-005</option>
-                            <option value="BETINA-006">BETINA-006</option>
-                            <option value="BETINA-007">BETINA-007</option>
-                            <option value="BETINA-008">BETINA-008</option>
-                            <option value="BETINA-009">BETINA-009</option>
-                            <option value="BETINA-010">BETINA-010</option>
-                            <option value="BETINA-011">BETINA-011</option>
-                            <option value="BETINA-012">BETINA-012</option>
-                            <option value="BETINA-013">BETINA-013</option>
-                            <option value="BETINA-014">BETINA-014</option>
-                            <option value="BETINA-015">BETINA-015</option>
-                            <option value="BETINA-016">BETINA-016</option>
-                            <option value="BETINA-017">BETINA-017</option>
-                            <option value="BETINA-018">BETINA-018</option>
-                            <option value="BETINA-019">BETINA-019</option>
-                            <option value="BETINA-020">BETINA-020</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Detail Betina -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Detail 20 Betina dan % Kehamilan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered text-center">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Eartag Betina</th>
-                            <th>Persentase Kehamilan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="betinaTableBody">
-                        <tr><td>1</td><td>BT001</td><td>75%</td></tr>
-                        <tr><td>2</td><td>BT002</td><td>80%</td></tr>
-                        <tr><td>3</td><td>BT003</td><td>65%</td></tr>
-                        <tr><td>4</td><td>BT004</td><td>85%</td></tr>
-                        <tr><td>5</td><td>BT005</td><td>90%</td></tr>
-                        <tr><td>6</td><td>BT006</td><td>70%</td></tr>
-                        <tr><td>7</td><td>BT007</td><td>95%</td></tr>
-                        <tr><td>8</td><td>BT008</td><td>60%</td></tr>
-                        <tr><td>9</td><td>BT009</td><td>88%</td></tr>
-                        <tr><td>10</td><td>BT010</td><td>92%</td></tr>
-                        <tr><td>11</td><td>BT011</td><td>78%</td></tr>
-                        <tr><td>12</td><td>BT012</td><td>85%</td></tr>
-                        <tr><td>13</td><td>BT013</td><td>80%</td></tr>
-                        <tr><td>14</td><td>BT014</td><td>70%</td></tr>
-                        <tr><td>15</td><td>BT015</td><td>89%</td></tr>
-                        <tr><td>16</td><td>BT016</td><td>77%</td></tr>
-                        <tr><td>17</td><td>BT017</td><td>91%</td></tr>
-                        <tr><td>18</td><td>BT018</td><td>68%</td></tr>
-                        <tr><td>19</td><td>BT019</td><td>73%</td></tr>
-                        <tr><td>20</td><td>BT020</td><td>87%</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-        </table>
+  <!-- DataTable with Hover -->
+  <div class="col-lg-12">
+    <div class="card mb-4">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary w-100">Berikut adalah denah kandang beserta sekat dan jalan:</h6>
       </div>
+        <div class="denah-container">
+            <div class="sekat">Sekat 1</div>
+            <div class="kandang">Koloni 1</div>
+            <div class="jalan" rowspan="8"></div>
+            <div class="kandang">Koloni 2</div>
+            <div class="sekat">Sekat 2</div>
+            
+            <div class="sekat">Sekat 3</div>
+            <div class="kandang">Koloni 3</div>
+            <div class="jalan"></div>
+            <div class="kandang">Koloni 4</div>
+            <div class="sekat">Sekat 4</div>
+            
+            
+            <div class="sekat">Sekat 5</div>
+            <div class="kandang">Koloni 5</div>
+            <div class="jalan"></div>
+            <div class="kandang">Koloni 6</div>
+            <div class="sekat">Sekat 6</div>
+            
+            <div class="sekat">Sekat 7</div>
+            <div class="kandang">Koloni 7</div>
+            <div class="jalan"></div>
+            <div class="kandang">Koloni 8</div>
+            <div class="sekat">Sekat 8</div>
+        </div>
     </div>
   </div>
 </div>
@@ -429,32 +315,25 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-<!-- Load jQuery (Pastikan ini hanya ada 1x) -->
+<!-- Scripts -->
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-
-<!-- Load Bootstrap -->
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('js/ruang-admin.min.js') }}"></script>
 
-<!-- Load DataTables -->
+<!-- Page level plugins -->
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-<script src="{{ asset('vendor/js/select2.min.js') }}"></script>
-
-
+<!-- Page level custom scripts -->
 <script>
     $(document).ready(function () {
-        $('#dataTable').DataTable();
-        $('#dataTableHover').DataTable();
-        $('#eartag_betina').select2({
-    placeholder: "Pilih hingga 20 eartag betina",
-    maximumSelectionLength: 20,
-    width: '100%',
-});
+        $('#dataTable').DataTable(); // ID untuk DataTable utama
+        $('#dataTableHover').DataTable(); // ID untuk DataTable dengan efek hover
     });
 </script>
-<script>
-    console.log("jQuery version:", $.fn.jquery);
-</script>
+
+
 </body>
+
 </html>

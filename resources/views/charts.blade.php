@@ -30,61 +30,66 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <a class="nav-link" href="/dashboard">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+          </a>
       </li>
+
       <hr class="sidebar-divider">
+
       <div class="sidebar-heading">
-        Features
+          Features
       </div>
 
-    <!-- Manajemen -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-        aria-controls="collapseTable">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Manajemen</span>
-      </a>
-      <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Manajemen Data</h6>
-          <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
-          <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-        </div>
-      </div>
-    </li>
+      <!-- Manajemen -->
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+              aria-controls="collapseTable">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Manajemen</span>
+          </a>
+          <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Manajemen Data</h6>
+                  <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
+                  <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
+                  <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
+              </div>
+          </div>
+      </li>
 
-    <!-- Perkawinan & Silsilah -->
-    <li class="nav-item">
-      <a class="nav-link" href="/perkawinan">
-        <i class="fas fa-fw fa-link"></i>
-        <span>Perkawinan & Silsilah</span>
-      </a>
-    </li>
+      <!-- Perkawinan & Silsilah -->
+      <li class="nav-item">
+          <a class="nav-link" href="/perkawinan">
+              <i class="fas fa-fw fa-link"></i>
+              <span>Perkawinan</span>
+          </a>
+      </li>
 
-    <!-- Kesehatan -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
-        aria-controls="collapseForm">
-        <i class="fas fa-fw fa-heartbeat"></i>
-        <span>Kesehatan</span>
-      </a>
-      <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Pemantauan Kesehatan</h6>
-          <a class="collapse-item" href="/kesehatan">Riwayat Kesehatan</a>
-        </div>
-      </div>
-    </li>
+      <!-- Denah Kandang -->
+      <li class="nav-item">
+          <a class="nav-link" href="/kandang">
+              <i class="fas fa-fw fa-map"></i>
+              <span>Denah Kandang</span> <!-- Ditambahkan -->
+          </a>
+      </li>
 
-    <!-- Laporan & Analisis -->
-    <li class="nav-item">
-      <a class="nav-link" href="/charts">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Laporan & Analisis</span>
-      </a>
-    </li>
+      <!-- History -->
+      <li class="nav-item">
+          <a class="nav-link" href="/history">
+              <i class="fas fa-fw fa-history"></i>
+              <span>History</span> <!-- Ditambahkan -->
+          </a>
+      </li>
+
+      <!-- Laporan & Analisis -->
+      <li class="nav-item">
+          <a class="nav-link" href="/charts">
+              <i class="fas fa-fw fa-chart-area"></i>
+              <span>Laporan & Analisis</span>
+          </a>
+      </li>
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -160,89 +165,6 @@
                   </div>
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <span class="badge badge-warning badge-counter">2</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/man.png" style="max-width: 60px" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
-                      having.</div>
-                    <div class="small text-gray-500">Udin Cilok · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/girl.png" style="max-width: 60px" alt="">
-                    <div class="status-indicator bg-default"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
-                      say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Jaenab · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-tasks fa-fw"></i>
-                <span class="badge badge-success badge-counter">3</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Task
-                </h6>
-                <a class="dropdown-item align-items-center" href="#">
-                  <div class="mb-3">
-                    <div class="small text-gray-500">Design Button
-                      <div class="small float-right"><b>50%</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item align-items-center" href="#">
-                  <div class="mb-3">
-                    <div class="small text-gray-500">Make Beautiful Transitions
-                      <div class="small float-right"><b>30%</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item align-items-center" href="#">
-                  <div class="mb-3">
-                    <div class="small text-gray-500">Create Pie Chart
-                      <div class="small float-right"><b>75%</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">View All Taks</a>
               </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>

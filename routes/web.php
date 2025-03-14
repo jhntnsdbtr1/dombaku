@@ -52,3 +52,11 @@ Route::get('/kesehatan', function () {
 Route::get('/perkawinan', function () {
     return view('perkawinan');
 })->name('perkawinan');
+
+Route::get('/kelahiran', function () {
+    return view('kelahiran');
+})->name('kelahiran');
+
+Route::get('/kandang', function () {
+    return view('kandang');
+})->name('kandang');

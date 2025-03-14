@@ -32,7 +32,9 @@
                     <img src="{{ asset('img/logo/dombaku.png') }}" alt="Logo DombaKu" class="mb-3" width="100">
 
                     <!-- Tambahkan teks Selamat Datang -->
-                    <h2 class="text-gray-900 font-weight-bold">Selamat Datang di DombaKu</h2>
+                    <h2 class="font-weight-bold" style="color: #000000;">
+                        Selamat Datang di <span style="color: #0F382A;">DombaKu</span>
+                    </h2>
                 </div>
                   <form class="user">
                     <div class="form-group">
