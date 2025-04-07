@@ -2,19 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
-    <title>@yield('title', 'Kesehatan Domba')</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
+  <title>@yield('title', 'Kesehatan Domba')</title>
+
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -38,52 +38,52 @@
         Features
       </div>
 
-    <!-- Manajemen -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-        aria-controls="collapseTable">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Manajemen</span>
-      </a>
-      <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Manajemen Data</h6>
-          <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
-          <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
+      <!-- Manajemen -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+          aria-controls="collapseTable">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Manajemen</span>
+        </a>
+        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manajemen Data</h6>
+            <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
+            <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
 
-    <!-- Perkawinan & Silsilah -->
-    <li class="nav-item">
-      <a class="nav-link" href="/perkawinan">
-        <i class="fas fa-fw fa-link"></i>
-        <span>Perkawinan & Silsilah</span>
-      </a>
-    </li>
+      <!-- Perkawinan & Silsilah -->
+      <li class="nav-item">
+        <a class="nav-link" href="/perkawinan">
+          <i class="fas fa-fw fa-link"></i>
+          <span>Perkawinan</span>
+        </a>
+      </li>
 
-    <!-- Kesehatan -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
-        aria-controls="collapseForm">
-        <i class="fas fa-fw fa-heartbeat"></i>
-        <span>Kesehatan</span>
-      </a>
-      <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Pemantauan Kesehatan</h6>
-          <a class="collapse-item" href="/kesehatan">Riwayat Kesehatan</a>
+      <!-- Kesehatan -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
+          aria-controls="collapseForm">
+          <i class="fas fa-fw fa-heartbeat"></i>
+          <span>Kesehatan</span>
+        </a>
+        <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Pemantauan Kesehatan</h6>
+            <a class="collapse-item" href="/kesehatan">Riwayat Kesehatan</a>
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
 
-    <!-- Laporan & Analisis -->
-    <li class="nav-item">
-      <a class="nav-link" href="/charts">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Laporan & Analisis</span>
-      </a>
-    </li>
+      <!-- Laporan & Analisis -->
+      <li class="nav-item">
+        <a class="nav-link" href="/charts">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Laporan</span>
+        </a>
+      </li>
 
     </ul>
     <!-- Sidebar -->
@@ -252,11 +252,7 @@
                 <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px">
                 <span class="ml-2 d-none d-lg-inline text-white small">Jhonatan Sidabutar</span>
               </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">               
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -287,89 +283,89 @@
           </div>
 
           <div class="row">
-  <!-- DataTable with Hover -->
-  <div class="col-lg-12">
-    <div class="card mb-4">
-      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary w-100">Detail History Domba</h6>
-      </div>
-      <div class="table-responsive p-3">
-        <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
-        <thead class="thead-light">
-        <tr>
-        <th>ID Domba</th>
-        <th>Jenis</th>
-        <th>Jenis Kelamin</th>
-        <th>Usia</th>
-        <th>Berat (kg)</th>
-        <th>Deskripsi</th>
-        <th>Diagnosa</th>
-        <th>Kondisi</th>
-        <th>Aksi</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-        <td>DM001</td>
-        <td>Garut</td>
-        <td>Jantan</td>
-        <td>2 Tahun</td>
-        <td>45</td>
-        <td>Aktif dan nafsu makan baik</td>
-        <td>-</td>
-        <td><span class="badge badge-success">Sehat</span></td>
-        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-    </tr>
-    <tr>
-        <td>DM002</td>
-        <td>Merino</td>
-        <td>Betina</td>
-        <td>1.5 Tahun</td>
-        <td>38</td>
-        <td>Sering lesu dan kurang nafsu makan</td>
-        <td>Infeksi ringan</td>
-        <td><span class="badge badge-warning">Perlu Perhatian</span></td>
-        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-    </tr>
-    <tr>
-        <td>DM003</td>
-        <td>Texel</td>
-        <td>Jantan</td>
-        <td>3 Tahun</td>
-        <td>50</td>
-        <td>Sehat, aktif, dan berbulu bersih</td>
-        <td>-</td>
-        <td><span class="badge badge-success">Sehat</span></td>
-        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-    </tr>
-    <tr>
-        <td>DM004</td>
-        <td>Lokal</td>
-        <td>Betina</td>
-        <td>2.5 Tahun</td>
-        <td>42</td>
-        <td>Demam dan diare</td>
-        <td>Infeksi pencernaan</td>
-        <td><span class="badge badge-danger">Sakit</span></td>
-        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-    </tr>
-    <tr>
-        <td>DM005</td>
-        <td>Suffolk</td>
-        <td>Jantan</td>
-        <td>2 Tahun</td>
-        <td>47</td>
-        <td>Sehat dan nafsu makan baik</td>
-        <td>-</td>
-        <td><span class="badge badge-success">Sehat</span></td>
-        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-    </tr>
-</tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+            <!-- DataTable with Hover -->
+            <div class="col-lg-12">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary w-100">Detail History Domba</h6>
+                </div>
+                <div class="table-responsive p-3">
+                  <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>ID Domba</th>
+                        <th>Jenis</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Usia</th>
+                        <th>Berat (kg)</th>
+                        <th>Deskripsi</th>
+                        <th>Diagnosa</th>
+                        <th>Kondisi</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>DM001</td>
+                        <td>Garut</td>
+                        <td>Jantan</td>
+                        <td>2 Tahun</td>
+                        <td>45</td>
+                        <td>Aktif dan nafsu makan baik</td>
+                        <td>-</td>
+                        <td><span class="badge badge-success">Sehat</span></td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                      </tr>
+                      <tr>
+                        <td>DM002</td>
+                        <td>Merino</td>
+                        <td>Betina</td>
+                        <td>1.5 Tahun</td>
+                        <td>38</td>
+                        <td>Sering lesu dan kurang nafsu makan</td>
+                        <td>Infeksi ringan</td>
+                        <td><span class="badge badge-warning">Perlu Perhatian</span></td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                      </tr>
+                      <tr>
+                        <td>DM003</td>
+                        <td>Texel</td>
+                        <td>Jantan</td>
+                        <td>3 Tahun</td>
+                        <td>50</td>
+                        <td>Sehat, aktif, dan berbulu bersih</td>
+                        <td>-</td>
+                        <td><span class="badge badge-success">Sehat</span></td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                      </tr>
+                      <tr>
+                        <td>DM004</td>
+                        <td>Lokal</td>
+                        <td>Betina</td>
+                        <td>2.5 Tahun</td>
+                        <td>42</td>
+                        <td>Demam dan diare</td>
+                        <td>Infeksi pencernaan</td>
+                        <td><span class="badge badge-danger">Sakit</span></td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                      </tr>
+                      <tr>
+                        <td>DM005</td>
+                        <td>Suffolk</td>
+                        <td>Jantan</td>
+                        <td>2 Tahun</td>
+                        <td>47</td>
+                        <td>Sehat dan nafsu makan baik</td>
+                        <td>-</td>
+                        <td><span class="badge badge-success">Sehat</span></td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
           <!-- Modal Logout -->
@@ -402,7 +398,9 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+            <span>copyright &copy; <script>
+                document.write(new Date().getFullYear());
+              </script> - developed by
               <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
             </span>
           </div>
@@ -417,23 +415,23 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-<!-- Scripts -->
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+  <!-- Scripts -->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
 
-<!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <!-- Page level plugins -->
+  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-<!-- Page level custom scripts -->
-<script>
-    $(document).ready(function () {
-        $('#dataTable').DataTable(); // ID untuk DataTable utama
-        $('#dataTableHover').DataTable(); // ID untuk DataTable dengan efek hover
+  <!-- Page level custom scripts -->
+  <script>
+    $(document).ready(function() {
+      $('#dataTable').DataTable(); // ID untuk DataTable utama
+      $('#dataTableHover').DataTable(); // ID untuk DataTable dengan efek hover
     });
-</script>
+  </script>
 
 
 </body>

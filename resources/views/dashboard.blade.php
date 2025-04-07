@@ -2,18 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
-    <title>@yield('title', 'DombaKu - Dashboard')</title>
+  <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
+  <title>@yield('title', 'DombaKu - Dashboard')</title>
 
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -28,66 +28,75 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
-          <a class="nav-link" href="/dashboard">
-              <i class="fas fa-fw fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-          </a>
+        <a class="nav-link" href="/dashboard">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
       </li>
 
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
-          Features
+        Features
       </div>
 
       <!-- Manajemen -->
       <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-              aria-controls="collapseTable">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Manajemen</span>
-          </a>
-          <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Manajemen Data</h6>
-                  <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
-                  <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-                  <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
-              </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+          aria-controls="collapseTable">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Manajemen</span>
+        </a>
+        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manajemen Data</h6>
+            <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
+            <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
+            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
           </div>
+        </div>
       </li>
 
       <!-- Perkawinan & Silsilah -->
       <li class="nav-item">
-          <a class="nav-link" href="/perkawinan">
-              <i class="fas fa-fw fa-link"></i>
-              <span>Perkawinan</span>
-          </a>
+        <a class="nav-link" href="/perkawinan">
+          <i class="fas fa-fw fa-link"></i>
+          <span>Perkawinan</span>
+        </a>
       </li>
 
       <!-- Denah Kandang -->
       <li class="nav-item">
-          <a class="nav-link" href="/kandang">
-              <i class="fas fa-fw fa-map"></i>
-              <span>Denah Kandang</span> <!-- Ditambahkan -->
-          </a>
+        <a class="nav-link" href="/kandang">
+          <i class="fas fa-fw fa-map"></i>
+          <span>Denah Kandang</span> <!-- Ditambahkan -->
+        </a>
       </li>
 
       <!-- History -->
       <li class="nav-item">
-          <a class="nav-link" href="/history">
-              <i class="fas fa-fw fa-history"></i>
-              <span>History</span> <!-- Ditambahkan -->
-          </a>
+        <a class="nav-link" href="/history">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Riwayat</span> <!-- Ditambahkan -->
+        </a>
       </li>
 
       <!-- Laporan & Analisis -->
       <li class="nav-item">
-          <a class="nav-link" href="/charts">
-              <i class="fas fa-fw fa-chart-area"></i>
-              <span>Laporan & Analisis</span>
-          </a>
+        <a class="nav-link" href="/charts">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Laporan</span>
+        </a>
       </li>
+
+      <!-- Users -->
+      <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-fw fa-user"></i> <!-- Mengubah ikon menjadi user -->
+          <span>Pengguna</span> <!-- Mengubah teks -->
+        </a>
+      </li>
+
     </ul>
 
     <!-- Sidebar -->
@@ -171,13 +180,11 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px">
-                <span class="ml-2 d-none d-lg-inline text-white small">Jhonatan Sidabutar</span>
+                <span class="ml-2 d-none d-lg-inline text-white small">
+                  {{ session('username', 'Guest') }}
+                </span>
               </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -199,290 +206,255 @@
             </ol>
           </div>
 
+          <!-- Row untuk statistik -->
           <div class="row mb-3">
-    <!-- Domba Jantan -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
+            <!-- Domba Jantan -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Domba Jantan</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">45</div>
-                        <div class="mt-2 mb-0 text-muted text-xs">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5%</span>
-                            <span>Since last month</span>
-                        </div>
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Domba Jantan</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">45</div>
+                      <div class="mt-2 mb-0 text-muted text-xs">
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5%</span>
+                        <span>Since last month</span>
+                      </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-mars fa-2x text-primary"></i>
+                      <i class="fas fa-mars fa-2x text-primary"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Domba Betina -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Domba Betina</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
-                        <div class="mt-2 mb-0 text-muted text-xs">
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 2%</span>
-                            <span>Since last month</span>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-venus fa-2x text-danger"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Domba Bayi -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Domba Anakan</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
-                        <div class="mt-2 mb-0 text-muted text-xs">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                            <span>Since last month</span>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-baby fa-2x text-warning"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Domba -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Total Domba</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
-                        <div class="mt-2 mb-0 text-muted text-xs">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 4%</span>
-                            <span>Since last month</span>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-success"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="row mb-3">
-    <!-- Area Chart: Laporan Rekap Bulanan -->
-    <div class="col-xl-8 col-lg-7">
-        <div class="card mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Laporan Rekap Bulanan</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Filter Periode:</div>
-                        <a class="dropdown-item" href="#">Mingguan</a>
-                        <a class="dropdown-item" href="#">Bulanan</a>
-                        <a class="dropdown-item" href="#">Tahunan</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="chartRekapBulanan"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pie Chart: Distribusi Populasi Domba -->
-    <div class="col-xl-4 col-lg-5">
-        <div class="card mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Distribusi Populasi Domba</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle btn btn-primary btn-sm" href="#" role="button" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Periode <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Pilih Periode</div>
-                        <a class="dropdown-item" href="#">Hari Ini</a>
-                        <a class="dropdown-item" href="#">Minggu Ini</a>
-                        <a class="dropdown-item active" href="#">Bulan Ini</a>
-                        <a class="dropdown-item" href="#">Tahun Ini</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <div class="small text-gray-500">Domba Jantan
-                        <div class="small float-right"><b>45 dari 120</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 37.5%" aria-valuenow="37.5"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="small text-gray-500">Domba Betina
-                        <div class="small float-right"><b>50 dari 120</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 41.7%" aria-valuenow="41.7"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="small text-gray-500">Domba Anakan
-                        <div class="small float-right"><b>25 dari 120</b></div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 20.8%" aria-valuenow="20.8"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer text-center">
-                <a class="m-0 small text-primary card-link" href="#">Lihat Detail <i
-                        class="fas fa-chevron-right"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-  <div class="container my-auto">
-    <div class="copyright text-center w-100">
-      <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
-        <b><a>PBL TRPL-605 DombaKu</a></b>
-      </span>
-    </div>
-  </div>
-</footer>
-<!-- Footer -->
-
-
-          <!-- Modal Logout -->
-          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Are you sure you want to logout?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="{{ route('landingpage') }}" class="btn btn-primary">Logout</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-        </div>
-        <!---Container Fluid-->
-      </div>
-    </div>
-  </div>
+            <!-- Domba Betina -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Domba Betina</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
+                      <div class="mt-2 mb-0 text-muted text-xs">
+                        <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 2%</span>
+                        <span>Since last month</span>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-venus fa-2x text-danger"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+            <!-- Domba Anakan -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Domba Anakan</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
+                      <div class="mt-2 mb-0 text-muted text-xs">
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+                        <span>Since last month</span>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-baby fa-2x text-warning"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('js/ruang-admin.min.js') }}"></script>
-<script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-<script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+            <!-- Total Domba -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Total Domba</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                      <div class="mt-2 mb-0 text-muted text-xs">
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 4%</span>
+                        <span>Since last month</span>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-success"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End row statistik -->
 
-<!-- Tambahkan Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <!-- Row untuk grafik -->
+          <div class="row mb-3">
+            <!-- Grafik Rekap Bulanan -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Laporan Rekap Bulanan</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                      aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Filter Periode:</div>
+                      <a class="dropdown-item" href="#">Mingguan</a>
+                      <a class="dropdown-item" href="#">Bulanan</a>
+                      <a class="dropdown-item" href="#">Tahunan</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="chartRekapBulanan"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<script>
-    // Data untuk Chart Rekap Bulanan (Area Chart)
-    var ctxArea = document.getElementById("chartRekapBulanan").getContext("2d");
-    var chartRekapBulanan = new Chart(ctxArea, {
-        type: "line",
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [{
-                label: "Total Domba",
-                data: [100, 120, 130, 110, 150, 160, 170, 165, 180, 200, 220, 230],
-                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgba(78, 115, 223, 1)",
-                pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointBorderColor: "#fff",
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "#fff",
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                x: { grid: { display: false } },
-                y: { beginAtZero: true }
-            }
-        }
-    });
+            <!-- Grafik Pie: Distribusi Populasi -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary text-center">Distribusi Populasi Domba</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-pie">
+                    <canvas id="chartDistribusiDomba"></canvas>
+                  </div>
+                  <div class="mb-3">
+                    <div class="small text-gray-500">Domba Jantan
+                      <div class="small float-right"><b>45 dari 120</b></div>
+                    </div>
+                    <div class="progress" style="height: 12px;">
+                      <div class="progress-bar bg-primary" style="width: 37.5%"></div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="small text-gray-500">Domba Betina
+                      <div class="small float-right"><b>50 dari 120</b></div>
+                    </div>
+                    <div class="progress" style="height: 12px;">
+                      <div class="progress-bar bg-danger" style="width: 41.7%"></div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="small text-gray-500">Domba Anakan
+                      <div class="small float-right"><b>25 dari 120</b></div>
+                    </div>
+                    <div class="progress" style="height: 12px;">
+                      <div class="progress-bar bg-warning" style="width: 20.8%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End row grafik -->
 
-    // Data untuk Chart Distribusi Populasi Domba (Pie Chart)
-    var ctxPie = document.getElementById("chartDistribusiDomba").getContext("2d");
-    var chartDistribusiDomba = new Chart(ctxPie, {
-        type: "doughnut",
-        data: {
-            labels: ["Domba Jantan", "Domba Betina", "Domba Anakan"],
-            datasets: [{
-                data: [45, 50, 25], // Sesuaikan dengan data yang diambil dari database
-                backgroundColor: ["#4e73df", "#e74a3b", "#f6c23e"],
-                hoverBackgroundColor: ["#2e59d9", "#d62c1a", "#f4b400"],
-                hoverBorderColor: "rgba(234, 236, 244, 1)"
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: "bottom" }
-            }
-        }
-    });
-</script>
+          <!-- Footer -->
+          <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center w-100">
+                <span>Copyright &copy; 2025 - Developed by <b>PBL TRPL-605 DombaKu</b></span>
+              </div>
+            </div>
+          </footer>
 
-</body>
+        </div> <!-- End container-wrapper -->
+
+        <!-- Scroll to top -->
+        <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fas fa-angle-up"></i>
+        </a>
+
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+
+        <!-- Tambahkan Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+              try {
+                // Inisialisasi Chart Rekap Bulanan (Line Chart)
+                var ctxArea = document.getElementById("chartRekapBulanan");
+                if (!ctxArea) {
+                  console.warn("⚠️ Elemen #chartRekapBulanan tidak ditemukan. Chart tidak akan dirender.");
+                  return;
+                }
+                var chartRekapBulanan = new Chart(ctxArea.getContext("2d"), {
+                  type: "line",
+                  data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+                    datasets: [{
+                      label: "Total Domba",
+                      data: [100, 120, 130, 110, 150, 160, 170, 165, 180, 200, 220, 230],
+                      backgroundColor: "rgba(78, 115, 223, 0.05)",
+                      borderColor: "rgba(78, 115, 223, 1)",
+                      fill: true,
+                      tension: 0.4
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        display: true
+                      }
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+
+                // Inisialisasi Chart Distribusi Populasi Domba (Doughnut Chart)
+                var ctxPie = document.getElementById("chartDistribusiDomba");
+                if (!ctxPie) {
+                  console.warn("⚠️ Elemen #chartDistribusiDomba tidak ditemukan. Chart tidak akan dirender.");
+                  return;
+                }
+                var chartDistribusiDomba = new Chart(ctxPie.getContext("2d"), {
+                  type: "doughnut",
+                  data: {
+                    labels: ["Domba Jantan", "Domba Betina", "Domba Anakan"],
+                    datasets: [{
+                      data: [45, 50, 25],
+                      backgroundColor: ["#4e73df", "#e74a3b", "#f6c23e"],
+                      hoverBorderColor: "rgba(234, 236, 244, 1)"
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        position: "bottom"
+                      }
+                    }
+                  }
+                });
+
+              } catch (error) {
+                console.error("❌ Terjadi kesalahan saat merender chart:", error);
+              }
+            }, 100); // Delay kecil untuk memastikan elemen sudah termuat
+          });
+        </script>
+  </body>
 
 </html>

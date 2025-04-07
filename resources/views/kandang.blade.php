@@ -2,53 +2,55 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
-    <title>@yield('title', 'Manajemen Kandang Domba')</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
+  <title>@yield('title', 'Manajemen Kandang Domba')</title>
 
-    <style>
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
-        .denah-container {
-            display: grid;
-            grid-template-columns: 0.5fr 2fr 0.5fr 2fr 0.5fr;
-            grid-template-rows: repeat(8, 200px);
-            gap: 2px;
-            background-color: #FFFFFF;
-            padding: 20px;
-        }
-        .jalan {
-            background-color: yellow;
-            border: 1px solid #000;
-            padding: 10px;
-        }
-        .kandang {
-            border: 1px solid #000;
-            background-color: white;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .sekat {
-            writing-mode: vertical-rl;
-            text-align: center;
-            font-weight: bold;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+  <style>
+    .denah-container {
+      display: grid;
+      grid-template-columns: 0.5fr 2fr 0.5fr 2fr 0.5fr;
+      grid-template-rows: repeat(8, 200px);
+      gap: 2px;
+      background-color: #FFFFFF;
+      padding: 20px;
+    }
+
+    .jalan {
+      background-color: yellow;
+      border: 1px solid #000;
+      padding: 10px;
+    }
+
+    .kandang {
+      border: 1px solid #000;
+      background-color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sekat {
+      writing-mode: vertical-rl;
+      text-align: center;
+      font-weight: bold;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -63,66 +65,75 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
-          <a class="nav-link" href="/dashboard">
-              <i class="fas fa-fw fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-          </a>
+        <a class="nav-link" href="/dashboard">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
       </li>
 
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
-          Features
+        Features
       </div>
 
       <!-- Manajemen -->
       <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-              aria-controls="collapseTable">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Manajemen</span>
-          </a>
-          <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Manajemen Data</h6>
-                  <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
-                  <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-                  <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
-              </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+          aria-controls="collapseTable">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Manajemen</span>
+        </a>
+        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manajemen Data</h6>
+            <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
+            <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
+            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
           </div>
+        </div>
       </li>
 
       <!-- Perkawinan & Silsilah -->
       <li class="nav-item">
-          <a class="nav-link" href="/perkawinan">
-              <i class="fas fa-fw fa-link"></i>
-              <span>Perkawinan</span>
-          </a>
+        <a class="nav-link" href="/perkawinan">
+          <i class="fas fa-fw fa-link"></i>
+          <span>Perkawinan</span>
+        </a>
       </li>
 
       <!-- Denah Kandang -->
       <li class="nav-item">
-          <a class="nav-link" href="/kandang">
-              <i class="fas fa-fw fa-map"></i>
-              <span>Denah Kandang</span> <!-- Ditambahkan -->
-          </a>
+        <a class="nav-link" href="/kandang">
+          <i class="fas fa-fw fa-map"></i>
+          <span>Denah Kandang</span> <!-- Ditambahkan -->
+        </a>
       </li>
 
       <!-- History -->
       <li class="nav-item">
-          <a class="nav-link" href="/history">
-              <i class="fas fa-fw fa-history"></i>
-              <span>History</span> <!-- Ditambahkan -->
-          </a>
+        <a class="nav-link" href="/history">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Riwayat</span> <!-- Ditambahkan -->
+        </a>
       </li>
 
       <!-- Laporan & Analisis -->
       <li class="nav-item">
-          <a class="nav-link" href="/charts">
-              <i class="fas fa-fw fa-chart-area"></i>
-              <span>Laporan & Analisis</span>
-          </a>
+        <a class="nav-link" href="/charts">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Laporan & Analisis</span>
+        </a>
       </li>
+
+      <!-- Users -->
+      <li class="nav-item">
+        <a class="nav-link" href="/users">
+          <i class="fas fa-fw fa-user"></i> <!-- Mengubah ikon menjadi user -->
+          <span>Pengguna</span> <!-- Mengubah teks -->
+        </a>
+      </li>
+
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -205,13 +216,11 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px">
-                <span class="ml-2 d-none d-lg-inline text-white small">Jhonatan Sidabutar</span>
+                <span class="ml-2 d-none d-lg-inline text-white small">
+                  {{ session('username', 'Guest') }}
+                </span>
               </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">            
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -233,46 +242,44 @@
           </div>
 
           <div class="row">
-  <!-- DataTable with Hover -->
-  <div class="col-lg-12">
-    <div class="card mb-4">
-      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary w-100">Berikut adalah denah kandang beserta sekat dan jalan:</h6>
-      </div>
-        <div class="denah-container">
-            <div class="sekat">Sekat 1</div>
-            <div class="kandang">Koloni 1</div>
-            <div class="jalan" rowspan="8"></div>
-            <div class="kandang">Koloni 2</div>
-            <div class="sekat">Sekat 2</div>
-            
-            <div class="sekat">Sekat 3</div>
-            <div class="kandang">Koloni 3</div>
-            <div class="jalan"></div>
-            <div class="kandang">Koloni 4</div>
-            <div class="sekat">Sekat 4</div>
-            
-            
-            <div class="sekat">Sekat 5</div>
-            <div class="kandang">Koloni 5</div>
-            <div class="jalan"></div>
-            <div class="kandang">Koloni 6</div>
-            <div class="sekat">Sekat 6</div>
-            
-            <div class="sekat">Sekat 7</div>
-            <div class="kandang">Koloni 7</div>
-            <div class="jalan"></div>
-            <div class="kandang">Koloni 8</div>
-            <div class="sekat">Sekat 8</div>
-        </div>
-    </div>
-  </div>
-</div>
+            <!-- DataTable with Hover -->
+            <div class="col-lg-12">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary w-100">Berikut adalah denah kandang beserta sekat dan jalan:</h6>
+                </div>
+                <div class="denah-container">
+                  <div class="sekat">Sekat 1</div>
+                  <div class="kandang">Koloni 1</div>
+                  <div class="jalan" rowspan="8"></div>
+                  <div class="kandang">Koloni 2</div>
+                  <div class="sekat">Sekat 2</div>
 
+                  <div class="sekat">Sekat 3</div>
+                  <div class="kandang">Koloni 3</div>
+                  <div class="jalan"></div>
+                  <div class="kandang">Koloni 4</div>
+                  <div class="sekat">Sekat 4</div>
+
+
+                  <div class="sekat">Sekat 5</div>
+                  <div class="kandang">Koloni 5</div>
+                  <div class="jalan"></div>
+                  <div class="kandang">Koloni 6</div>
+                  <div class="sekat">Sekat 6</div>
+
+                  <div class="sekat">Sekat 7</div>
+                  <div class="kandang">Koloni 7</div>
+                  <div class="jalan"></div>
+                  <div class="kandang">Koloni 8</div>
+                  <div class="sekat">Sekat 8</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Modal Logout -->
-          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true">
+          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -286,12 +293,11 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="{{ route('landingpage') }}" class="btn btn-primary">Logout</a>
+                  <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
         <!---Container Fluid-->
       </div>
@@ -300,9 +306,13 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+            <span>copyright &copy; <script>
+                document.write(new Date().getFullYear());
+              </script> - developed by
               <b><a>PBL TRPL-605 DombaKu</a></b>
             </span>
+            <br>
+            <span id="version-ruangadmin"></span>
           </div>
         </div>
       </footer>
@@ -315,23 +325,23 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-<!-- Scripts -->
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+  <!-- Scripts -->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
 
-<!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <!-- Page level plugins -->
+  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-<!-- Page level custom scripts -->
-<script>
-    $(document).ready(function () {
-        $('#dataTable').DataTable(); // ID untuk DataTable utama
-        $('#dataTableHover').DataTable(); // ID untuk DataTable dengan efek hover
+  <!-- Page level custom scripts -->
+  <script>
+    $(document).ready(function() {
+      $('#dataTable').DataTable(); // ID untuk DataTable utama
+      $('#dataTableHover').DataTable(); // ID untuk DataTable dengan efek hover
     });
-</script>
+  </script>
 
 
 </body>

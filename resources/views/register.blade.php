@@ -2,22 +2,22 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- Favicon -->
-    <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
+  <!-- Favicon -->
+  <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
 
-    <!-- Title Dinamis -->
-    <title>@yield('title', 'DombaKu - Register')</title>
+  <!-- Title Dinamis -->
+  <title>@yield('title', 'DombaKu - Register')</title>
 
-    <!-- CSS Styles -->
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
+  <!-- CSS Styles -->
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
 </head>
 
 
@@ -32,8 +32,8 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                  <img src="{{ asset('img/logo/dombaku.png') }}" alt="Logo DombaKu" class="mb-3" width="100">
-                  <h2 class="text-gray-900 font-weight-bold">Daftar Sekarang !</h2>
+                    <img src="{{ asset('img/logo/dombaku.png') }}" alt="Logo DombaKu" class="mb-3" width="100">
+                    <h2 class="text-gray-900 font-weight-bold">Daftar Sekarang !</h2>
                   </div>
                   <form>
                     <div class="form-group">
@@ -65,7 +65,7 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                      Sudah Punya Akun? <a class="font-weight-bold small" href="/login">Masuk</a>
+                    Sudah Punya Akun? <a class="font-weight-bold small" href="/login">Masuk</a>
                   </div>
                   <div class="text-center">
                   </div>
@@ -77,11 +77,11 @@
       </div>
     </div>
   </div>
-<!-- Register Content -->
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+  <!-- Register Content -->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
 
 </body>
 
