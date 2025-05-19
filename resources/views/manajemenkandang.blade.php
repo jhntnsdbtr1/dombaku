@@ -16,20 +16,44 @@
   <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/css/select2.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
 
   <style>
     .table {
-      margin-right: 20px;
-      /* Tambah jarak kanan */
-      border-spacing: 10px;
-      /* Beri ruang antar sel */
+      width: 100%;
+      table-layout: auto;
+      /* Agar lebar tabel menyesuaikan isi */
+      font-size: 12px;
+      /* Ukuran font lebih kecil supaya lebih muat */
+      border-collapse: collapse;
     }
 
     .table th,
     .table td {
-      padding: 12px 15px;
-      /* Buat lebih luas */
+      padding: 8px;
+      text-align: center;
+      white-space: nowrap;
+      /* Agar header tetap dalam satu baris */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* Jika terlalu panjang, tampilkan '...' */
+    }
+
+    .table th {
+      background-color: #f8f9fa;
+      /* Warna header lebih jelas */
+      font-size: 12px;
+    }
+
+    .table td {
+      font-size: 12px;
+    }
+
+    /* Atur ukuran tombol supaya tetap kecil */
+    .btn {
+      padding: 4px 8px;
+      font-size: 12px;
     }
 
     .badge-success {
@@ -45,6 +69,41 @@
     .badge-danger {
       background-color: #dc3545;
       color: white;
+    }
+
+    .badge-putih {
+      background-color: #ffffff;
+      color: black;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-merah {
+      background-color: #ff0000;
+      color: #fff;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-biru {
+      background-color: #0000ff;
+      color: #fff;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-hijau {
+      background-color: #00ff00;
+      color: black;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-kuning {
+      background-color: #ffff00;
+      color: #000;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
     }
   </style>
 </head>
@@ -63,14 +122,14 @@
       <li class="nav-item active">
         <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span>Beranda</span>
         </a>
       </li>
 
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
-        Features
+        Fitur
       </div>
 
       <!-- Manajemen -->
@@ -90,12 +149,20 @@
         </div>
       </li>
 
-      <!-- Perkawinan & Silsilah -->
+      <!-- Perkawinan Domba -->
       <li class="nav-item">
-        <a class="nav-link" href="/perkawinan">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerkawinan" aria-expanded="false" aria-controls="collapsePerkawinan">
           <i class="fas fa-fw fa-link"></i>
-          <span>Perkawinan</span>
+          <span>Perkawinan Domba</span>
         </a>
+        <div id="collapsePerkawinan" class="collapse" aria-labelledby="headingPerkawinan" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Perkawinan & Rekomendasi</h6>
+            <a class="collapse-item" href="/uploadcsv">Upload Training Data</a>
+            <a class="collapse-item" href="/rekomendasikawin">Rekomendasi Kawin</a>
+            <a class="collapse-item" href="/perkawinan">Manajemen Perkawinan</a>
+          </div>
+        </div>
       </li>
 
       <!-- Denah Kandang -->
@@ -140,71 +207,12 @@
             <i class="fa fa-bars"></i>
           </button>
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
+             <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
-                      aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="voiceDropdown">
+                <p id="voiceOutput" class="mt-2">Perintah akan ditampilkan di sini...</p>
               </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -215,11 +223,11 @@
                 <span class="ml-2 d-none d-lg-inline text-white small">
                   {{ session('username', 'Guest') }}
                 </span> </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">            
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  Keluar
                 </a>
               </div>
             </li>
@@ -231,7 +239,7 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Manajemen Kandang Domba</h1>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item"><a href="./">Halaman Utama</a></li>
               <li class="breadcrumb-item">Manajemen</li>
               <li class="breadcrumb-item active" aria-current="page">Manajemen Kandang</li>
             </ol>
@@ -243,7 +251,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary w-100">Detail Kandang Domba</h6>
-                  <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-toggle="modal" data-target="#tambahModal">
+                  <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
                     <i class="fas fa-plus mr-2"></i> Tambah
                   </button>
                 </div>
@@ -251,6 +259,7 @@
                   <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
+                        <th>No</th>
                         <th>Nama Kandang</th>
                         <th>Total Domba</th>
                         <th>Kapasitas Maksimal</th>
@@ -259,27 +268,29 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($kandangs as $index => $kandang)
                       <tr>
-                        <td>Koloni 1</td>
-                        <td>20</td>
-                        <td>30</td>
-                        <td><span class="badge badge-success">Tersedia</span></td>
-                        <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailKandang1">Detail</button></td>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $kandang['nama_kandang'] }}</td>
+                        <td>{{ count($kandang['eartag_domba']) }}</td>
+                        <td>{{ $kandang['kapasitas_maks'] }}</td>
+                        <td>{{ $kandang['status'] }}</td>
+                        <td>
+                          <!-- Tombol Detail -->
+                          <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal{{ $kandang['id'] }}">Detail</button>
+
+                          <!-- Tombol Edit -->
+                          <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $kandang['id'] }}">Edit</button>
+
+                          <!-- Tombol Delete -->
+                          <form action="{{ route('manajemenkandang.destroy', $kandang['id']) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kandang ini?')">Delete</button>
+                          </form>
+                        </td>
                       </tr>
-                      <tr>
-                        <td>Koloni 2</td>
-                        <td>21</td>
-                        <td>30</td>
-                        <td><span class="badge badge-warning">Hampir Penuh</span></td>
-                        <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailKandang2">Detail</button></td>
-                      </tr>
-                      <tr>
-                        <td>Koloni 3</td>
-                        <td>28</td>
-                        <td>30</td>
-                        <td><span class="badge badge-danger">Penuh</span></td>
-                        <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailKandang3">Detail</button></td>
-                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -301,11 +312,7 @@
                   <form id="formTambah">
                     <div class="form-group">
                       <label for="namaKandang">Nama Kandang</label>
-                      <select class="form-control" id="namaKandang" required>
-                        <option value="Koloni 1">Koloni 1</option>
-                        <option value="Koloni 2">Koloni 2</option>
-                        <option value="Koloni 3">Koloni 3</option>
-                      </select>
+                      <input type="text" class="form-control" id="namaKandang" required>
                     </div>
                     <div class="form-group">
                       <label for="kapasitasMaks">Kapasitas Maksimal</label>
@@ -314,24 +321,18 @@
                     <div class="form-group">
                       <label for="statusKandang">Status</label>
                       <select class="form-control" id="statusKandang">
-                        <option value="Tersedia">Tersedia</option>
-                        <option value="Hampir Penuh">Hampir Penuh</option>
+                        <option value="Terisi">Terisi</option>
                         <option value="Penuh">Penuh</option>
                       </select>
                     </div>
                     <div class="form-group">
                       <label for="eartagDomba">Eartag Domba (Maks. sesuai kapasitas)</label>
                       <select class="form-control select2" id="eartagDomba" name="eartagDomba[]" multiple="multiple">
-                        <option value="DMB-001">DMB-001</option>
-                        <option value="DMB-002">DMB-002</option>
-                        <option value="DMB-003">DMB-003</option>
-                        <option value="DMB-004">DMB-004</option>
-                        <option value="DMB-005">DMB-005</option>
-                        <option value="DMB-006">DMB-006</option>
-                        <option value="DMB-007">DMB-007</option>
-                        <option value="DMB-008">DMB-008</option>
-                        <option value="DMB-009">DMB-009</option>
-                        <option value="DMB-010">DMB-010</option>
+                        @foreach ($semuaEartag as $eartag)
+                        <option value="{{ $eartag['eartag'] }}">
+                          {{ $eartag['eartag'] }} - {{ $eartag['warna_eartag'] }}
+                        </option>
+                        @endforeach
                       </select>
                     </div>
                     <div class="d-flex justify-content-end">
@@ -344,205 +345,531 @@
             </div>
           </div>
 
+          @foreach($kandangs as $kandang)
+          <!-- Modal Edit -->
+          <div class="modal fade" id="editModal{{ $kandang['id'] }}" tabindex="-1" aria-labelledby="editModalLabel{{ $kandang['id'] }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form id="editForm{{ $kandang['id'] }}">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Edit Kandang - {{ $kandang['nama_kandang'] }}</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden" id="editDocId{{ $kandang['id'] }}" value="{{ $kandang['id'] }}">
+
+                    <div class="form-group">
+                      <label>Nama Kandang</label>
+                      <input type="text" class="form-control" id="editNamaKandang{{ $kandang['id'] }}" value="{{ $kandang['nama_kandang'] }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Kapasitas Maksimal</label>
+                      <input type="number" class="form-control" id="editKapasitasMaks{{ $kandang['id'] }}" value="{{ $kandang['kapasitas_maks'] }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Status</label>
+                      <select class="form-control" id="editStatus{{ $kandang['id'] }}">
+                        <option value="Terisi" {{ $kandang['status'] == 'Terisi' ? 'selected' : '' }}>Terisi</option>
+                        <option value="Penuh" {{ $kandang['status'] == 'Penuh' ? 'selected' : '' }}>Penuh</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Eartag Domba</label>
+                      <select class="form-control select2" id="eartagSelect{{ $kandang['id'] }}" name="eartag_domba[]" multiple="multiple" style="width: 100%;">
+                        @foreach($semuaEartag as $tag)
+                        <option value="{{ $tag['eartag'] }}" {{ in_array($tag['eartag'], $kandang['eartag_domba']) ? 'selected' : '' }}>
+                          {{ $tag['eartag'] }} ({{ $tag['warna_eartag'] }})
+                        </option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-warning">Update</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
           <!-- Modal Detail Kandang -->
-          <div class="modal fade" id="detailKandang1" tabindex="-1" aria-labelledby="detailKandangLabel1" aria-hidden="true">
+          <div class="modal fade" id="detailModal{{ $kandang['id'] }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $kandang['id'] }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="detailKandangLabel1">Detail Domba di Koloni 1</h5>
+                  <h5 class="modal-title">Detail Domba - {{ $kandang['nama_kandang'] }}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                   <table class="table table-bordered text-center">
-                    <thead>
+                    <thead class="thead-light">
                       <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Eartag</th>
-                        <th>Jenis Kelamin</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @if(isset($kandang['eartag_domba']) && is_array($kandang['eartag_domba']) && count($kandang['eartag_domba']) > 0)
+                      @foreach($kandang['eartag_domba'] as $i => $eartag)
+                      @php
+                      // Tentukan warna berdasarkan eartag yang diambil dari dombaMap
+                      $warna = 'badge-secondary';
+
+                      // Cek jika ada informasi warna pada dombaMap
+                      foreach ($dombaMap as $data) {
+                      if ($data['eartag'] == $eartag) {
+                      $warnaEartag = $data['warna_eartag'];
+                      break;
+                      }
+                      }
+
+                      // Tentukan class badge berdasarkan warna eartag
+                      switch ($warnaEartag) {
+                      case 'Putih': $warna = 'badge-putih'; break;
+                      case 'Merah': $warna = 'badge-merah'; break;
+                      case 'Biru': $warna = 'badge-biru'; break;
+                      case 'Hijau': $warna = 'badge-hijau'; break;
+                      case 'Kuning': $warna = 'badge-kuning'; break;
+                      }
+                      @endphp
                       <tr>
-                        <td>1</td>
-                        <td>D001</td>
-                        <td>Betina</td>
+                        <td>{{ $i + 1 }}</td>
+                        <td>
+                          <span class="badge {{ $warna }}">
+                            {{ $eartag }}
+                          </span>
+                        </td>
                       </tr>
+                      @endforeach
+                      @else
                       <tr>
-                        <td>2</td>
-                        <td>D002</td>
-                        <td>Betina</td>
+                        <td colspan="2">Tidak ada domba dalam kandang ini.</td>
                       </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>D003</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>D004</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>D005</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>6</td>
-                        <td>D006</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>7</td>
-                        <td>D007</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>8</td>
-                        <td>D008</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>9</td>
-                        <td>D009</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>D010</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>11</td>
-                        <td>D011</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>12</td>
-                        <td>D012</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>13</td>
-                        <td>D013</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>14</td>
-                        <td>D014</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>15</td>
-                        <td>D015</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>16</td>
-                        <td>D016</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>17</td>
-                        <td>D017</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>18</td>
-                        <td>D018</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>19</td>
-                        <td>D019</td>
-                        <td>Betina</td>
-                      </tr>
-                      <tr>
-                        <td>20</td>
-                        <td>D020</td>
-                        <td>Betina</td>
-                      </tr>
+                      @endif
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
+          @endforeach
 
           <!-- Modal Logout -->
           <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabelLogout">Keluar dari Sistem?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Are you sure you want to logout?</p>
+                  <p>Apakah Anda yakin ingin keluar?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                  <button type="button" class="btn btn-outline-success" data-dismiss="modal">Batal</button>
+                  <a href="{{ route('logout') }}" class="btn btn-success">Keluar</a>
                 </div>
               </div>
             </div>
           </div>
+          <!---Container Fluid-->
         </div>
-        <!---Container Fluid-->
-      </div>
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script>
-                document.write(new Date().getFullYear());
-              </script> - developed by
-              <b><a>PBL TRPL-605 DombaKu</a></b>
-            </span>
-            <br>
-            <span id="version-ruangadmin"></span>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>copyright &copy; <script>
+                  document.write(new Date().getFullYear());
+                </script> - developed by
+                <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
+              </span>
+              <br>
+              <span id="version-ruangadmin"></span>
+            </div>
           </div>
-        </div>
-      </footer>
-      <!-- Footer -->
+        </footer>
+        <!-- Footer -->
+      </div>
     </div>
-  </div>
 
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-  <!-- Scripts -->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-  <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
 
-  <!-- Page level plugins -->
-  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="{{ asset('vendor/js/select2.min.js') }}"></script>
+    <!-- Page level plugins -->
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/js/select2.min.js') }}"></script>
 
-  <script>
-    $(document).ready(function() {
-      $('#dataTable').DataTable();
-      $('#dataTableHover').DataTable();
-      $('#eartagDomba').select2({
-        placeholder: "Pilih hingga 20 Eartag Domba",
-        maximumSelectionLength: 20,
-        width: '100%',
+    <!-- DataTables & Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="{{ asset('js/firebase-init.js') }}"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // ✅ Fungsi reload tabel
+        function reloadKandangTable() {
+          if ($.fn.DataTable.isDataTable('#dataTable')) {
+            $('#dataTable').DataTable().ajax.reload(null, false); // jika pakai AJAX
+          } else {
+            location.reload(); // jika datatable biasa
+          }
+        }
+
+        $('#dataTable').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+            'copy',
+            {
+              extend: 'csvHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'pdfHtml5',
+              orientation: 'landscape',
+              pageSize: 'A4',
+              title: 'Data Ternak Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'print',
+              orientation: 'landscape',
+              title: 'Data Ternak Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            }
+          ]
+        });
+
+        $('#dataTableHover').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+            'copy',
+            {
+              extend: 'csvHtml5',
+              text: 'CSV', // Nama tombol untuk ekspor CSV
+              exportOptions: {
+                // Pilih kolom yang ingin di-export
+                columns: [1, 2, 3, 4] // Kolom Nama Kandang, Jumlah Domba, Kapasitas Maksimal, Status
+              },
+              // Atur nama file CSV yang akan di-download
+              filename: 'data_kandang',
+              // Ganti delimiter jika diperlukan
+              fieldSeparator: ','
+            },
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'pdfHtml5',
+              orientation: 'landscape',
+              pageSize: 'A4',
+              title: 'Data Kandang Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'print',
+              orientation: 'landscape',
+              title: 'Data Kandang Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            }
+          ]
+        });
+
+        // ✅ Ambil data domba dari Firestore yang belum punya kandang
+
+        firebase.firestore().collection("manajemendomba").get()
+          .then((querySnapshot) => {
+            $('#eartagDomba').empty();
+
+            querySnapshot.forEach((doc) => {
+              const data = doc.data();
+              const tidakPunyaKandang = !data.kandang || data.kandang === "";
+
+              if (tidakPunyaKandang) {
+                // ⛔ Salah: option pakai value = data.eartag
+                // const option = new Option(data.eartag, data.eartag, false, false);
+
+                // ✅ Benar: value = doc.id (Firestore doc ID), label = eartag
+                const label = `${data.eartag} - ${data.warna_eartag || 'Tanpa Warna'}`;
+                const option = new Option(label, doc.id, false, false);
+
+                $('#eartagDomba').append(option);
+              }
+            });
+
+            // Inisialisasi Select2
+            $('#eartagDomba').select2({
+              placeholder: "Pilih Eartag Domba",
+              maximumSelectionLength: 20,
+              width: '100%',
+              dropdownParent: $('#tambahModal')
+            });
+          })
+
+          .catch((error) => {
+            console.error("Error mengambil data domba:", error);
+          });
+
+        // ✅ Inisialisasi Select2 di dalam Modal Edit
+        $('[id^="editModal"]').on('shown.bs.modal', function() {
+          const modalId = $(this).attr('id');
+          const selectId = '#eartagSelect' + modalId.replace('editModal', '');
+          $(selectId).select2({
+            dropdownParent: $('#' + modalId),
+            width: '100%',
+            placeholder: "Pilih Eartag Domba"
+          });
+        });
+
+        // ✅ Submit Tambah ke Firebase
+        $('#formTambah').submit(function(e) {
+          e.preventDefault();
+
+          const namaKandang = $('#namaKandang').val();
+          const kapasitasMaks = parseInt($('#kapasitasMaks').val());
+          const status = $('#statusKandang').val();
+          const selectedEartags = $('#eartagDomba').val(); // array of Firestore doc IDs
+
+          // 1. Query untuk ambil eartag berdasarkan doc IDs
+          const db = firebase.firestore();
+          const batch = db.batch(); // Membuat batch operation
+
+          // Ambil semua eartag berdasarkan selectedEartags
+          const eartagPromises = selectedEartags.map(docId => {
+            return db.collection("manajemendomba").doc(docId).get()
+              .then(doc => {
+                if (doc.exists) {
+                  const eartag = doc.data().eartag; // Ambil eartag dari dokumen domba
+
+                  // Menambahkan eartag ke array (jika belum ada)
+                  return eartag;
+                }
+              })
+              .catch(error => {
+                console.error("Error fetching eartag for docId " + docId, error);
+              });
+          });
+
+          // Tunggu semua promise selesai
+          Promise.all(eartagPromises)
+            .then((eartags) => {
+              // Membuat dokumen kandang baru atau update dokumen yang sudah ada
+              const kandangRef = db.collection("manajemenkandang").doc(); // Membuat dokumen baru untuk kandang
+
+              // Menambahkan eartag ke dalam array eartag_domba di dokumen kandang
+              batch.set(kandangRef, {
+                nama_kandang: namaKandang,
+                kapasitas_maks: kapasitasMaks,
+                status: status,
+                eartag_domba: firebase.firestore.FieldValue.arrayUnion(...eartags) // Menambahkan semua eartag ke array
+              });
+
+              // Update domba dengan kandang yang baru
+              selectedEartags.forEach(docId => {
+                const dombaRef = db.collection("manajemendomba").doc(docId);
+                batch.update(dombaRef, {
+                  kandang: namaKandang
+                });
+              });
+
+              // Commit batch setelah semua update selesai
+              return batch.commit();
+            })
+            .then(() => {
+              alert("✅ Kandang berhasil ditambahkan dan domba di-update!");
+              $('#tambahModal').modal('hide');
+              $('#formTambah')[0].reset();
+              $('#eartagDomba').val(null).trigger('change');
+              reloadKandangTable(); // Refresh DataTable setelah tambah
+            })
+            .catch((error) => {
+              console.error("❌ Error saat simpan kandang:", error);
+              alert("Gagal menyimpan kandang.");
+            });
+        });
       });
-    });
-  </script>
-  <script>
-    console.log("jQuery version:", $.fn.jquery);
-  </script>
+
+      // Cek versi jQuery (debugging)
+      console.log("jQuery version:", $.fn.jquery);
+    </script>
+    <script>
+      $(document).ready(function() {
+        // Inisialisasi semua Select2 untuk edit modal
+        $('[id^="editModal"]').on('shown.bs.modal', function() {
+          const modalId = $(this).attr('id').replace('editModal', '');
+          $('#eartagSelect' + modalId).select2({
+            dropdownParent: $('#editModal' + modalId),
+            width: '100%',
+            placeholder: "Pilih Eartag Domba"
+          });
+        });
+
+        // Event submit semua form edit
+        $('[id^="editForm"]').on('submit', function(e) {
+          e.preventDefault();
+
+          const formId = $(this).attr('id').replace('editForm', '');
+          const kandangId = $('#editDocId' + formId).val();
+          const namaKandang = $('#editNamaKandang' + formId).val();
+          const kapasitasMaks = parseInt($('#editKapasitasMaks' + formId).val());
+          const status = $('#editStatus' + formId).val();
+          const selectedEartags = $('#eartagSelect' + formId).val() || [];
+
+          const db = firebase.firestore();
+          const kandangRef = db.collection('manajemenkandang').doc(kandangId);
+
+          kandangRef.get().then((doc) => {
+            if (!doc.exists) {
+              alert("Kandang tidak ditemukan.");
+              return;
+            }
+
+            const oldData = doc.data();
+            const oldEartags = oldData.eartag_domba || [];
+
+            const batch = db.batch();
+
+            // Hapus eartag yang tidak dipilih lagi (reset kandang jadi kosong)
+            const removed = oldEartags.filter(e => !selectedEartags.includes(e));
+            removed.forEach(docId => {
+              const dombaRef = db.collection("manajemendomba").doc(docId);
+              batch.update(dombaRef, {
+                kandang: ""
+              });
+            });
+
+            // Tambah eartag baru yang belum punya kandang
+            const added = selectedEartags.filter(e => !oldEartags.includes(e));
+            added.forEach(docId => {
+              const dombaRef = db.collection("manajemendomba").doc(docId);
+              batch.update(dombaRef, {
+                kandang: namaKandang
+              });
+            });
+
+            // Update kandang
+            batch.update(kandangRef, {
+              nama_kandang: namaKandang,
+              kapasitas_maks: kapasitasMaks,
+              status: status,
+              eartag_domba: selectedEartags
+            });
+
+            return batch.commit();
+          }).then(() => {
+            alert("✅ Kandang berhasil diupdate!");
+            $('#editModal' + formId).modal('hide');
+            reloadKandangTable(); // Fungsi custom kamu
+          }).catch((error) => {
+            console.error("❌ Error saat update kandang:", error);
+            alert("Terjadi kesalahan saat menyimpan perubahan.");
+          });
+        });
+      });
+    </script>
+
+    <!-- Tambahkan compromise.js -->
+    <script src="https://unpkg.com/compromise"></script>
+
+    <script>
+      document.getElementById("voiceButton").addEventListener("click", function() {
+        const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'id-ID'; // Bahasa Indonesia
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.start();
+
+        recognition.onresult = function(event) {
+          const command = event.results[0][0].transcript.toLowerCase();
+          document.getElementById("voiceOutput").innerText = "Perintah: " + command;
+
+          // Proses NLP dengan compromise.js
+          const doc = nlp(command);
+          const nouns = doc.nouns().out('array'); // ekstrak kata benda
+          const verbs = doc.verbs().out('array'); // ekstrak kata kerja
+
+          // Ubah jadi format string agar masih cocok dengan kode asli
+          const commandNLP = nouns.concat(verbs).join(" ");
+
+          // Kodingan asli tetap dipakai
+          if (commandNLP.includes("refresh halaman")) {
+            location.reload();
+          } else if (commandNLP.includes("beranda")) {
+            window.location.href = `/dashboard`;
+          } else if (commandNLP.includes("manajemen domba")) {
+            window.location.href = `/manajemendomba`;
+          } else if (commandNLP.includes("manajemen kandang")) {
+            window.location.href = `/manajemenkandang`;
+          } else if (commandNLP.includes("manajemen kelahiran")) {
+            window.location.href = `/kelahiran`;
+          } else if (commandNLP.includes("upload") || commandNLP.includes("training data")) {
+            window.location.href = `/uploadcsv`;
+          } else if (commandNLP.includes("rekomendasi kawin")) {
+            window.location.href = `/rekomendasikawin`;
+          } else if (commandNLP.includes("manajemen perkawinan")) {
+            window.location.href = `/perkawinan`;
+          } else if (commandNLP.includes("riwayat")) {
+            window.location.href = `/history`;
+          } else if (commandNLP.includes("denah kandang")) {
+            window.location.href = `/kandang`;
+          } else if (commandNLP.includes("laporan")) {
+            window.location.href = `/charts`;
+          } else if (commandNLP.includes("pengguna")) {
+            window.location.href = `/users`;
+          } else {
+            alert("Perintah tidak dikenali: " + command);
+          }
+        };
+
+        recognition.onerror = function(event) {
+          alert("Terjadi error: " + event.error);
+        };
+      });
+    </script>
+
 </body>
 
 </html>

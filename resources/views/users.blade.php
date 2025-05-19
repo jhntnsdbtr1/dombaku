@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,14 +10,14 @@
     <meta name="author" content="">
 
     <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
-    <title>@yield('title', 'Users')</title>
+    <title>@yield('title', 'Manajemen Pengguna')</title>
 
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/css/select2.min.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
     <style>
         .table {
@@ -73,20 +72,19 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+                    <span>Beranda</span>
                 </a>
             </li>
 
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
-                Features
+                Fitur
             </div>
 
             <!-- Manajemen -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-                    aria-controls="collapseTable">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Manajemen</span>
                 </a>
@@ -95,16 +93,32 @@
                         <h6 class="collapse-header">Manajemen Data</h6>
                         <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
                         <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-                        <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
+                        <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Perkawinan & Silsilah -->
+            <!-- Perkawinan Domba -->
             <li class="nav-item">
-                <a class="nav-link" href="/perkawinan">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerkawinan" aria-expanded="false" aria-controls="collapsePerkawinan">
                     <i class="fas fa-fw fa-link"></i>
-                    <span>Perkawinan</span>
+                    <span>Perkawinan Domba</span>
+                </a>
+                <div id="collapsePerkawinan" class="collapse" aria-labelledby="headingPerkawinan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Perkawinan & Rekomendasi</h6>
+                        <a class="collapse-item" href="/uploadcsv">Upload Training Data</a>
+                        <a class="collapse-item" href="/rekomendasikawin">Rekomendasi Kawin</a>
+                        <a class="collapse-item" href="/perkawinan">Manajemen Perkawinan</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Riwayat -->
+            <li class="nav-item">
+                <a class="nav-link" href="/history">
+                    <i class="fas fa-fw fa-history"></i>
+                    <span>Riwayat</span>
                 </a>
             </li>
 
@@ -112,15 +126,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/kandang">
                     <i class="fas fa-fw fa-map"></i>
-                    <span>Denah Kandang</span> <!-- Ditambahkan -->
-                </a>
-            </li>
-
-            <!-- History -->
-            <li class="nav-item">
-                <a class="nav-link" href="/history">
-                    <i class="fas fa-fw fa-history"></i>
-                    <span>Riwayat</span> <!-- Ditambahkan -->
+                    <span>Denah Kandang</span>
                 </a>
             </li>
 
@@ -132,14 +138,13 @@
                 </a>
             </li>
 
-            <!-- Users -->
+            <!-- Pengguna -->
             <li class="nav-item">
                 <a class="nav-link" href="/users">
-                    <i class="fas fa-fw fa-user"></i> <!-- Mengubah ikon menjadi user -->
-                    <span>Pengguna</span> <!-- Mengubah teks -->
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Pengguna</span>
                 </a>
             </li>
-
         </ul>
         <!-- Sidebar -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -151,70 +156,11 @@
                     </button>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
+                            <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
-                                            aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="voiceDropdown">
+                                <p id="voiceOutput" class="mt-2">Perintah akan ditampilkan di sini...</p>
                             </div>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -229,7 +175,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Keluar
                                 </a>
                             </div>
                         </li>
@@ -241,8 +187,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Manajemen Pengguna</h1>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="./">Home</a></li>
-                            <li class="breadcrumb-item">Tables</li>
+                            <li class="breadcrumb-item"><a href="./">Halaman Utama</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Manajemen Pengguna</li>
                         </ol>
                     </div>
@@ -253,7 +198,7 @@
                             <div class="card mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary w-100">Daftar Pengguna</h6>
-                                    <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-toggle="modal" data-target="#tambahModal">
+                                    <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
                                         <i class="fas fa-plus mr-2"></i> Tambah
                                     </button>
                                 </div>
@@ -261,8 +206,8 @@
                                     <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Email</th>
+                                                <th>No</th>
+                                                <th>Email</th> <!-- ID kolom dihapus -->
                                                 <th>Username</th>
                                                 <th>Role</th> <!-- Tambahkan kolom Role -->
                                                 <th>Status</th>
@@ -271,9 +216,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse($userList as $user)
+                                            @forelse($userList as $index => $user)
                                             <tr>
-                                                <td>{{ $user['id'] }}</td> <!-- ID sudah diambil di controller -->
+                                                <td>{{ $index + 1 }}</td>
+                                                <!-- ID tidak ditampilkan di sini -->
                                                 <td>{{ $user['email'] }}</td>
                                                 <td>{{ $user['username'] }}</td>
                                                 <td>{{ $user['role'] }}</td>
@@ -286,7 +232,7 @@
                                                 <td class="text-center">
                                                     <div class="d-inline-flex">
                                                         <!-- Button Detail -->
-                                                        <button class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#detailModal" data-id="{{ $user['id'] }}">Detail</button>
+                                                        <button class="btn btn-sm btn-info mr-2 detail-btn" data-toggle="modal" data-target="#detailModal" data-id="{{ $user['id'] }}">Detail</button>
 
                                                         <!-- Button Edit -->
                                                         <button class="btn btn-sm btn-warning mr-2 edit-btn" data-toggle="modal" data-target="#editModal" data-id="{{ $user['id'] }}">Edit</button>
@@ -459,17 +405,17 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title" id="exampleModalLabelLogout">Keluar dari Sistem?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure you want to logout?</p>
+                            <p>Apakah Anda yakin ingin keluar?</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                            <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">Batal</button>
+                            <a href="{{ route('logout') }}" class="btn btn-success">Keluar</a>
                         </div>
                     </div>
                 </div>
@@ -482,7 +428,7 @@
                         <span>copyright &copy; <script>
                                 document.write(new Date().getFullYear());
                             </script> - developed by
-                            <b><a>PBL TRPL-605 DombaKu</a></b>
+                            <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
                         </span>
                         <br>
                         <span id="version-ruangadmin"></span>
@@ -510,10 +456,89 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
+    <!-- DataTables & Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
     <!-- Page level custom scripts -->
     <script>
         $(document).ready(function() {
-            $('#dataTableHover').DataTable(); // Hanya menggunakan #dataTableHover
+            $('#dataTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Data Pengguna',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        orientation: 'landscape',
+                        title: 'Data Pengguna',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    }
+                ]
+            });
+
+            $('#dataTableHover').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Data Pengguna',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        orientation: 'landscape',
+                        title: 'Data Pengguna',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    }
+                ]
+            });
         });
     </script>
 
@@ -661,6 +686,67 @@
             });
         });
     </script>
+
+    <!-- Tambahkan compromise.js -->
+    <script src="https://unpkg.com/compromise"></script>
+
+    <script>
+        document.getElementById("voiceButton").addEventListener("click", function() {
+            const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'id-ID'; // Bahasa Indonesia
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const command = event.results[0][0].transcript.toLowerCase();
+                document.getElementById("voiceOutput").innerText = "Perintah: " + command;
+
+                // Proses NLP dengan compromise.js
+                const doc = nlp(command);
+                const nouns = doc.nouns().out('array'); // ekstrak kata benda
+                const verbs = doc.verbs().out('array'); // ekstrak kata kerja
+
+                // Ubah jadi format string agar masih cocok dengan kode asli
+                const commandNLP = nouns.concat(verbs).join(" ");
+
+                // Kodingan asli tetap dipakai
+                if (commandNLP.includes("refresh halaman")) {
+                    location.reload();
+                } else if (commandNLP.includes("beranda")) {
+                    window.location.href = `/dashboard`;
+                } else if (commandNLP.includes("manajemen domba")) {
+                    window.location.href = `/manajemendomba`;
+                } else if (commandNLP.includes("manajemen kandang")) {
+                    window.location.href = `/manajemenkandang`;
+                } else if (commandNLP.includes("manajemen kelahiran")) {
+                    window.location.href = `/kelahiran`;
+                } else if (commandNLP.includes("upload") || commandNLP.includes("training data")) {
+                    window.location.href = `/uploadcsv`;
+                } else if (commandNLP.includes("rekomendasi kawin")) {
+                    window.location.href = `/rekomendasikawin`;
+                } else if (commandNLP.includes("manajemen perkawinan")) {
+                    window.location.href = `/perkawinan`;
+                } else if (commandNLP.includes("riwayat")) {
+                    window.location.href = `/history`;
+                } else if (commandNLP.includes("denah kandang")) {
+                    window.location.href = `/kandang`;
+                } else if (commandNLP.includes("laporan")) {
+                    window.location.href = `/charts`;
+                } else if (commandNLP.includes("pengguna")) {
+                    window.location.href = `/users`;
+                } else {
+                    alert("Perintah tidak dikenali: " + command);
+                }
+            };
+
+            recognition.onerror = function(event) {
+                alert("Terjadi error: " + event.error);
+            };
+        });
+    </script>
+
 </body>
 
 </html>

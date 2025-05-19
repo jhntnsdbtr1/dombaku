@@ -10,13 +10,14 @@
   <meta name="author" content="">
 
   <link href="{{ asset('img/logo/domba.png') }}" rel="icon">
-  <title>@yield('title', 'Manajemen Kandang Domba')</title>
+  <title>@yield('title', 'Manajemen Domba')</title>
 
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/css/select2.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
 
   <style>
@@ -51,22 +52,22 @@
     }
 
     .merah {
-      background-color: red;
+      background-color: #ff0000;
       border: 1px solid black;
     }
 
     .biru {
-      background-color: blue;
+      background-color: #0000ff;
       border: 1px solid black;
     }
 
     .hijau {
-      background-color: green;
+      background-color: #00ff00;
       border: 1px solid black;
     }
 
     .kuning {
-      background-color: yellow;
+      background-color: #ffff00;
       border: 1px solid black;
     }
 
@@ -105,6 +106,71 @@
       padding: 4px 8px;
       font-size: 12px;
     }
+
+    .eartag-putih {
+      background-color: white;
+      color: black;
+      font-weight: bold;
+    }
+
+    .eartag-merah {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+    }
+
+    .eartag-biru {
+      background-color: blue;
+      color: white;
+      font-weight: bold;
+    }
+
+    .eartag-hijau {
+      background-color: #00ff00;
+      color: white;
+      font-weight: bold;
+    }
+
+    .eartag-kuning {
+      background-color: yellow;
+      color: black;
+      font-weight: bold;
+    }
+
+    .badge-putih {
+      background-color: #ffffff;
+      color: black;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-merah {
+      background-color: #ff0000;
+      color: #fff;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-biru {
+      background-color: #0000ff;
+      color: #fff;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-hijau {
+      background-color: #00ff00;
+      color: black;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-kuning {
+      background-color: #ffff00;
+      color: #000;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
   </style>
 
 </head>
@@ -123,20 +189,19 @@
       <li class="nav-item active">
         <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span>Beranda</span>
         </a>
       </li>
 
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
-        Features
+        Fitur
       </div>
 
       <!-- Manajemen -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-          aria-controls="collapseTable">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
           <span>Manajemen</span>
         </a>
@@ -145,16 +210,32 @@
             <h6 class="collapse-header">Manajemen Data</h6>
             <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
             <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
+            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a>
           </div>
         </div>
       </li>
 
-      <!-- Perkawinan & Silsilah -->
+      <!-- Perkawinan Domba -->
       <li class="nav-item">
-        <a class="nav-link" href="/perkawinan">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerkawinan" aria-expanded="false" aria-controls="collapsePerkawinan">
           <i class="fas fa-fw fa-link"></i>
-          <span>Perkawinan</span>
+          <span>Perkawinan Domba</span>
+        </a>
+        <div id="collapsePerkawinan" class="collapse" aria-labelledby="headingPerkawinan" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Perkawinan & Rekomendasi</h6>
+            <a class="collapse-item" href="/uploadcsv">Upload Training Data</a>
+            <a class="collapse-item" href="/rekomendasikawin">Rekomendasi Kawin</a>
+            <a class="collapse-item" href="/perkawinan">Manajemen Perkawinan</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Riwayat -->
+      <li class="nav-item">
+        <a class="nav-link" href="/history">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Riwayat</span>
         </a>
       </li>
 
@@ -162,15 +243,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/kandang">
           <i class="fas fa-fw fa-map"></i>
-          <span>Denah Kandang</span> <!-- Ditambahkan -->
-        </a>
-      </li>
-
-      <!-- History -->
-      <li class="nav-item">
-        <a class="nav-link" href="/history">
-          <i class="fas fa-fw fa-history"></i>
-          <span>Riwayat</span> <!-- Ditambahkan -->
+          <span>Denah Kandang</span>
         </a>
       </li>
 
@@ -182,14 +255,13 @@
         </a>
       </li>
 
-      <!-- Users -->
+      <!-- Pengguna -->
       <li class="nav-item">
         <a class="nav-link" href="/users">
-          <i class="fas fa-fw fa-user"></i> <!-- Mengubah ikon menjadi user -->
-          <span>Pengguna</span> <!-- Mengubah teks -->
+          <i class="fas fa-fw fa-user"></i>
+          <span>Pengguna</span>
         </a>
       </li>
-
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -201,70 +273,11 @@
           </button>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
+              <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
-                      aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="voiceDropdown">
+                <p id="voiceOutput" class="mt-2">Perintah akan ditampilkan di sini...</p>
               </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -279,7 +292,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  Keluar
                 </a>
               </div>
             </li>
@@ -291,7 +304,7 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Manajemen Domba</h1>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item"><a href="./">Halaman Utama</a></li>
               <li class="breadcrumb-item">Manajemen</li>
               <li class="breadcrumb-item active" aria-current="page">Manajemen Domba</li>
             </ol>
@@ -303,61 +316,20 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary w-100">Detail Domba</h6>
-                  <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-toggle="modal" data-target="#tambahModal">
+                  <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
                     <i class="fas fa-plus mr-2"></i> Tambah
                   </button>
                 </div>
 
-                <div class="legend-box">
-                  <div class="legend-item">
-                    <span class="legend-color putih"></span> <span>Betina lahir di kandang, siap kawin</span>
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-color merah"></span> <span>Indukan luar</span>
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-color biru"></span> <span>Jantan</span>
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-color hijau"></span> <span>Cempe < 1 bulan</span>
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-color kuning"></span> <span>Cempe > 1 bulan</span>
-                  </div>
+                <div class="legend-box mb-3 d-flex flex-wrap gap-4 align-items-center text-center">
+                  <label><span class="legend-color putih"></span> Betina lahir di kandang, siap kawin <input type="checkbox" class="filter-checkbox ms-2" value="Putih"></label>
+                  <label><span class="legend-color merah"></span> Indukan luar <input type="checkbox" class="filter-checkbox ms-2" value="Merah"></label>
+                  <label><span class="legend-color biru"></span> Jantan <input type="checkbox" class="filter-checkbox ms-2" value="Biru"></label>
+                  <label><span class="legend-color hijau"></span> Cempe &lt; 1 bulan <input type="checkbox" class="filter-checkbox ms-2" value="Hijau"></label>
+                  <label><span class="legend-color kuning"></span> Cempe &gt; 1 bulan <input type="checkbox" class="filter-checkbox ms-2" value="Kuning"></label>
                 </div>
+
                 <div class="table-responsive p-3">
-                  <style>
-                    .eartag-putih {
-                      background-color: white;
-                      color: black;
-                      font-weight: bold;
-                    }
-
-                    .eartag-merah {
-                      background-color: red;
-                      color: white;
-                      font-weight: bold;
-                    }
-
-                    .eartag-biru {
-                      background-color: blue;
-                      color: white;
-                      font-weight: bold;
-                    }
-
-                    .eartag-hijau {
-                      background-color: green;
-                      color: white;
-                      font-weight: bold;
-                    }
-
-                    .eartag-kuning {
-                      background-color: yellow;
-                      color: black;
-                      font-weight: bold;
-                    }
-                  </style>
-
                   <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
@@ -365,41 +337,124 @@
                         <th>EARTAG</th>
                         <th>Kelamin</th>
                         <th>Tanggal Lahir</th>
-                        <th>Umur</th> <!-- Kolom Umur -->
+                        <th>Umur</th>
+                        <th>Bobot Badan (kg)</th>
                         <th>Induk Betina</th>
                         <th>Induk Jantan</th>
-                        <th>Bobot Badan (kg)</th>
+                        <th>Kakek</th>
+                        <th>Buyut</th>
                         <th>Kandang</th>
-                        <th>Keterangan</th>
                         <th>Kesehatan</th>
-                        <th>Dokumentasi</th>
-                        <th>Aksi</th>
+                        <th>Keterangan</th>
+                        <th class="noExport">Dokumentasi</th>
+                        <th class="noExport">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach($dombaData as $index => $domba)
-                      <tr>
+                      <tr data-warna="{{ $domba['warna_eartag'] }}">
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $domba['eartag'] }}</td>
+                        <td>
+                          <a href="{{ route('manajemendomba.show', $domba['id']) }}" class="badge
+                            @if($domba['warna_eartag'] == 'Putih') badge-putih
+                            @elseif($domba['warna_eartag'] == 'Merah') badge-merah
+                            @elseif($domba['warna_eartag'] == 'Biru') badge-biru
+                            @elseif($domba['warna_eartag'] == 'Hijau') badge-hijau
+                            @elseif($domba['warna_eartag'] == 'Kuning') badge-kuning
+                            @else badge-secondary @endif">
+                            {{ $domba['eartag'] }}
+                          </a>
+                        </td>
                         <td>{{ $domba['kelamin'] }}</td>
                         <td>{{ $domba['tanggal_lahir'] }}</td>
-                        <td>{{ $domba['umur'] }}</td> <!-- Menampilkan umur dalam format Tahun, Bulan, Hari -->
-                        <td>{{ $domba['induk_betina'] }}</td>
-                        <td>{{ $domba['induk_jantan'] }}</td>
+                        <td>{{ $domba['umur'] }}</td>
                         <td>{{ $domba['bobot_badan'] }}</td>
-                        <td>{{ $domba['kandang'] }}</td>
-                        <td>{{ $domba['keterangan'] }}</td>
-                        <td><span class="badge bg-info">{{ $domba['kesehatan'] }}</span></td>
+                        <!-- Induk Betina -->
                         <td>
-                          <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalLihat{{ $domba['id'] }}">
+                          @if(!empty($domba['induk_betina']))
+                          <a href="{{ isset($domba['induk_betina_id']) ? route('manajemendomba.show', $domba['induk_betina_id']) : '#' }}" class="badge
+      @if(($domba['warna_induk_betina'] ?? '') == 'Putih') badge-putih
+      @elseif(($domba['warna_induk_betina'] ?? '') == 'Merah') badge-merah
+      @elseif(($domba['warna_induk_betina'] ?? '') == 'Biru') badge-biru
+      @elseif(($domba['warna_induk_betina'] ?? '') == 'Hijau') badge-hijau
+      @elseif(($domba['warna_induk_betina'] ?? '') == 'Kuning') badge-kuning
+      @else badge-secondary @endif">
+                            {{ $domba['induk_betina'] }}
+                          </a>
+                          @else
+                          -
+                          @endif
+                        </td>
+
+                        <!-- Induk Jantan -->
+                        <td>
+                          @if(!empty($domba['induk_jantan']))
+                          <a href="{{ isset($domba['induk_jantan_id']) ? route('manajemendomba.show', $domba['induk_jantan_id']) : '#' }}" class="badge
+      @if(($domba['warna_induk_jantan'] ?? '') == 'Putih') badge-putih
+      @elseif(($domba['warna_induk_jantan'] ?? '') == 'Merah') badge-merah
+      @elseif(($domba['warna_induk_jantan'] ?? '') == 'Biru') badge-biru
+      @elseif(($domba['warna_induk_jantan'] ?? '') == 'Hijau') badge-hijau
+      @elseif(($domba['warna_induk_jantan'] ?? '') == 'Kuning') badge-kuning
+      @else badge-secondary @endif">
+                            {{ $domba['induk_jantan'] }}
+                          </a>
+                          @else
+                          -
+                          @endif
+                        </td>
+
+                        <!-- Kakek -->
+                        <td>
+                          @if(!empty($domba['kakek']))
+                          <a href="{{ isset($domba['kakek_id']) ? route('manajemendomba.show', $domba['kakek_id']) : '#' }}" class="badge
+      @if(($domba['warna_kakek'] ?? '') == 'Putih') badge-putih
+      @elseif(($domba['warna_kakek'] ?? '') == 'Merah') badge-merah
+      @elseif(($domba['warna_kakek'] ?? '') == 'Biru') badge-biru
+      @elseif(($domba['warna_kakek'] ?? '') == 'Hijau') badge-hijau
+      @elseif(($domba['warna_kakek'] ?? '') == 'Kuning') badge-kuning
+      @else badge-secondary @endif">
+                            {{ $domba['kakek'] }}
+                          </a>
+                          @else
+                          -
+                          @endif
+                        </td>
+
+                        <!-- Buyut -->
+                        <td>
+                          @if(!empty($domba['buyut']))
+                          <a href="{{ isset($domba['buyut_id']) ? route('manajemendomba.show', $domba['buyut_id']) : '#' }}" class="badge
+      @if(($domba['warna_buyut'] ?? '') == 'Putih') badge-putih
+      @elseif(($domba['warna_buyut'] ?? '') == 'Merah') badge-merah
+      @elseif(($domba['warna_buyut'] ?? '') == 'Biru') badge-biru
+      @elseif(($domba['warna_buyut'] ?? '') == 'Hijau') badge-hijau
+      @elseif(($domba['warna_buyut'] ?? '') == 'Kuning') badge-kuning
+      @else badge-secondary @endif">
+                            {{ $domba['buyut'] }}
+                          </a>
+                          @else
+                          -
+                          @endif
+                        </td>
+                        <td>{{ $domba['kandang'] }}</td>
+                        <td>
+                          <span class="badge 
+                            @if($domba['kesehatan'] == 'Sehat') bg-success 
+                            @elseif($domba['kesehatan'] == 'Sakit') bg-danger 
+                            @else bg-secondary @endif
+                            text-white">
+                            {{ $domba['kesehatan'] }}
+                          </span>
+                        </td>
+                        <td>{{ $domba['keterangan'] }}</td>
+                        <td>
+                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalLihat{{ $domba['id'] }}">
                             Lihat
                           </button>
                         </td>
                         <td>
-                          <a href="{{ route('manajemendomba.show', $domba['id']) }}" class="btn btn-sm btn-primary">Detail</a>
-
+                          <a href="{{ route('manajemendomba.show', $domba['id']) }}" class="btn btn-sm btn-info">Detail</a>
                           <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editModal{{ $domba['id'] }}" data-id="{{ $domba['id'] }}">Edit</button>
-
                           <form action="{{ route('manajemendomba.destroy', $domba['id']) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
@@ -433,6 +488,16 @@
                       <input type="text" class="form-control" id="eartag" name="eartag" required>
                     </div>
                     <div class="form-group">
+                      <label for="warna_eartag">Warna Eartag</label>
+                      <select class="form-control" id="warna_eartag" name="warna_eartag" required>
+                        <option value="Putih">Putih - Betina lahir di kandang, siap kawin</option>
+                        <option value="Merah">Merah - Indukan luar</option>
+                        <option value="Biru">Biru - Jantan</option>
+                        <option value="Hijau">Hijau - Cempe &lt; 1 bulan</option>
+                        <option value="Kuning">Kuning - Cempe &gt; 1 bulan</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label for="kelamin">Kelamin</label>
                       <select class="form-control" id="kelamin" name="kelamin" required>
                         <option value="Jantan">Jantan</option>
@@ -457,7 +522,7 @@
                     </div>
                     <div class="form-group">
                       <label for="kandang">Kandang</label>
-                      <input type="text" class="form-control" id="kandang" name="kandang" required>
+                      <input type="text" class="form-control" id="kandang" name="kandang">
                     </div>
                     <div class="form-group">
                       <label for="keterangan">Keterangan</label>
@@ -465,13 +530,15 @@
                     </div>
                     <div class="form-group">
                       <label for="kesehatan">Kesehatan</label>
-                      <textarea class="form-control" id="kesehatan" name="kesehatan"></textarea>
+                      <select class="form-control" id="kesehatan" name="kesehatan" required>
+                        <option value="Sehat">Sehat</option>
+                        <option value="Sakit">Sakit</option>
+                      </select>
                     </div>
-
                     <!-- Input Upload Dokumentasi -->
                     <div class="form-group">
                       <label for="dokumentasi">Upload Dokumentasi (JPG, PNG, PDF)</label>
-                      <input type="file" class="form-control-file" id="dokumentasi" name="dokumentasi" accept=".jpg, .jpeg, .png, .pdf" required>
+                      <input type="file" class="form-control-file" id="dokumentasi" name="dokumentasi" accept=".jpg, .jpeg, .png, .pdf">
                       <small class="form-text text-muted">Maksimum 2MB</small>
                       <div id="previewDokumentasi" class="mt-2"></div>
                     </div>
@@ -502,7 +569,18 @@
                     <input type="hidden" name="_method" value="PATCH">
                     <div class="form-group">
                       <label for="eartag">EARTAG</label>
-                      <input type="text" class="form-control" name="eartag" value="{{ $domba['eartag'] }}" required>
+                      <input type="text" class="form-control" name="eartag" value="{{ $domba['eartag'] }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="warna_eartag">Warna Eartag</label>
+                      <select class="form-control" name="warna_eartag" required>
+                        <option value="Putih" {{ $domba['warna_eartag'] == 'Putih' ? 'selected' : '' }}>Putih - Betina lahir di kandang, siap kawin</option>
+                        <option value="Merah" {{ $domba['warna_eartag'] == 'Merah' ? 'selected' : '' }}>Merah - Indukan luar</option>
+                        <option value="Biru" {{ $domba['warna_eartag'] == 'Biru' ? 'selected' : '' }}>Biru - Jantan</option>
+                        <option value="Hijau" {{ $domba['warna_eartag'] == 'Hijau' ? 'selected' : '' }}>Hijau - Cempe &lt; 1 bulan</option>
+                        <option value="Kuning" {{ $domba['warna_eartag'] == 'Kuning' ? 'selected' : '' }}>Kuning - Cempe &gt; 1 bulan</option>
+                      </select>
                     </div>
 
                     <div class="form-group">
@@ -535,14 +613,29 @@
 
                     <div class="form-group">
                       <label for="kesehatan">Kesehatan</label>
-                      <textarea class="form-control" name="kesehatan">{{ $domba['kesehatan'] }}</textarea>
+                      <select class="form-control" name="kesehatan" required>
+                        <option value="Sehat" {{ $domba['kesehatan'] == 'Sehat' ? 'selected' : '' }}>Sehat</option>
+                        <option value="Sakit" {{ $domba['kesehatan'] == 'Sakit' ? 'selected' : '' }}>Sakit</option>
+                      </select>
                     </div>
 
                     <div class="form-group">
                       <label for="foto">Dokumentasi (Foto)</label>
-                      <input type="file" class="form-control" name="foto">
-                    </div>
 
+                      <!-- Tampilkan foto lama jika ada -->
+                      @if (isset($domba['foto']) && $domba['foto'])
+                      <div class="mb-2">
+                        <img src="{{ Storage::url($domba['foto']) }}" alt="Dokumentasi Lama" style="max-width: 150px; max-height: 150px;">
+                      </div>
+                      <small>Foto Lama</small>
+                      @else
+                      <p>Tidak ada dokumentasi yang tersedia.</p>
+                      @endif
+
+                      <!-- Input untuk mengganti foto jika ingin -->
+                      <input type="file" class="form-control" name="foto">
+
+                    </div>
 
                     <div class="form-group">
                       <label for="deskripsi">Deskripsi Perubahan</label>
@@ -550,8 +643,8 @@
                     </div>
 
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Update</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                   </form>
                 </div>
@@ -591,107 +684,282 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabelLogout">Keluar dari Sistem?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Are you sure you want to logout?</p>
+                  <p>Apakah Anda yakin ingin keluar?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                  <button type="button" class="btn btn-outline-success" data-dismiss="modal">Batal</button>
+                  <a href="{{ route('logout') }}" class="btn btn-success">Keluar</a>
                 </div>
               </div>
             </div>
           </div>
+          <!---Container Fluid-->
         </div>
-        <!---Container Fluid-->
-      </div>
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script>
-                document.write(new Date().getFullYear());
-              </script> - developed by
-              <b><a>PBL TRPL-605 DombaKu</a></b>
-            </span>
-            <br>
-            <span id="version-ruangadmin"></span>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>copyright &copy; <script>
+                  document.write(new Date().getFullYear());
+                </script> - developed by
+                <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
+              </span>
+              <br>
+              <span id="version-ruangadmin"></span>
+            </div>
           </div>
-        </div>
-      </footer>
-      <!-- Footer -->
+        </footer>
+        <!-- Footer -->
+      </div>
     </div>
-  </div>
 
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-  <!-- Scripts -->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-  <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
-  <script src="{{ asset('vendor/js/select2.min.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+    <script src="{{ asset('vendor/js/select2.min.js') }}"></script>
 
 
-  <!-- Page level plugins -->
-  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Page level plugins -->
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-  <!-- Page level custom scripts -->
-  <script>
-    $(document).ready(function() {
-      $('#dataTable').DataTable();
-      $('#dataTableHover').DataTable();
-      $('#eartag_betina').select2({
-        placeholder: "Pilih hingga 20 eartag betina",
-        maximumSelectionLength: 20,
-        width: '100%',
-      });
-    });
-  </script>
+    <!-- DataTables & Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
-  <script>
-    $('button[data-toggle="modal"]').on('click', function() {
-      var id = $(this).data('id');
-      console.log('ID yang diteruskan ke URL:', id);
+    <!-- Page level custom scripts -->
+    <script>
+      $(document).ready(function() {
+        $('#dataTable').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+            'copy',
+            {
+              extend: 'csvHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'pdfHtml5',
+              orientation: 'landscape',
+              pageSize: 'A4',
+              title: 'Data Ternak Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'print',
+              orientation: 'landscape',
+              title: 'Data Ternak Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            }
+          ]
+        });
 
-      var modal = $('#editModal' + id);
-      modal.modal('show');
+        $('#dataTableHover').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+            'copy',
+            {
+              extend: 'csvHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'pdfHtml5',
+              orientation: 'landscape',
+              pageSize: 'A4',
+              title: 'Data Ternak Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            },
+            {
+              extend: 'print',
+              orientation: 'landscape',
+              title: 'Data Ternak Domba',
+              exportOptions: {
+                columns: ':not(.noExport)'
+              }
+            }
+          ]
+        });
 
-      // Hapus event listener lama agar tidak terduplikasi
-      modal.find('form').off('submit').on('submit', function(e) {
-        e.preventDefault();
-
-        var form = $(this);
-        var formData = form.serialize(); // kirim sebagai x-www-form-urlencoded
-
-        console.log('Data yang akan dikirim:', formData);
-
-        $.ajax({
-          url: '/manajemendomba/update/' + id,
-          type: 'POST',
-          data: formData,
-          success: function(response) {
-            console.log('[AJAX] Success:', response);
-            window.location.reload();
-          },
-          error: function(xhr) {
-            console.error('[AJAX] Error:', xhr);
-            alert('Gagal memperbarui data domba.');
-          }
+        $('#eartag_betina').select2({
+          placeholder: "Pilih hingga 20 eartag betina",
+          maximumSelectionLength: 20,
+          width: '100%',
         });
       });
-    });
-  </script>
+    </script>
 
+    <script>
+      $('button[data-toggle="modal"]').on('click', function() {
+        var id = $(this).data('id');
+        console.log('ID yang diteruskan ke URL:', id);
+
+        var modal = $('#editModal' + id);
+        modal.modal('show');
+
+        // Hapus event listener lama agar tidak terduplikasi
+        modal.find('form').off('submit').on('submit', function(e) {
+          e.preventDefault();
+
+          var form = $(this);
+          var formData = form.serialize(); // kirim sebagai x-www-form-urlencoded
+
+          console.log('Data yang akan dikirim:', formData);
+
+          $.ajax({
+            url: '/manajemendomba/update/' + id,
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+              console.log('[AJAX] Success:', response);
+              window.location.reload();
+            },
+            error: function(xhr) {
+              console.error('[AJAX] Error:', xhr);
+              alert('Gagal memperbarui data domba.');
+            }
+          });
+        });
+      });
+    </script>
+
+    <script>
+      document.querySelectorAll('.filter-checkbox').forEach(cb => {
+        cb.addEventListener('change', function() {
+          const selected = Array.from(document.querySelectorAll('.filter-checkbox:checked'))
+            .map(x => x.value);
+
+          document.querySelectorAll('tr[data-warna]').forEach(row => {
+            const rowColor = row.getAttribute('data-warna');
+            if (selected.length === 0 || selected.includes(rowColor)) {
+              row.style.display = '';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
+
+    <!-- Tambahkan compromise.js -->
+    <script src="https://unpkg.com/compromise"></script>
+
+    <script>
+      document.getElementById("voiceButton").addEventListener("click", function() {
+        const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'id-ID'; // Bahasa Indonesia
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.start();
+
+        recognition.onresult = function(event) {
+          const command = event.results[0][0].transcript.toLowerCase();
+          document.getElementById("voiceOutput").innerText = "Perintah: " + command;
+
+          const doc = nlp(command);
+          const nouns = doc.nouns().out('array');
+          const verbs = doc.verbs().out('array');
+          const commandNLP = nouns.concat(verbs).join(" ");
+
+          // Cek apakah user mau lihat detail domba berdasarkan eartag (nomor)
+          // Contoh ucapan: "lihat detail domba 123" atau "buka domba eartag 456"
+          const regexEartag = /\b(\d{1,10})\b/; // mencari angka 1 sampai 10 digit dalam kalimat
+          const matchEartag = command.match(regexEartag);
+
+          if (commandNLP.includes("refresh halaman")) {
+            location.reload();
+          } else if (commandNLP.includes("beranda")) {
+            window.location.href = `/dashboard`;
+          } else if (commandNLP.includes("manajemen domba")) {
+            window.location.href = `/manajemendomba`;
+          } else if (commandNLP.includes("manajemen kandang")) {
+            window.location.href = `/manajemenkandang`;
+          } else if (commandNLP.includes("manajemen kelahiran")) {
+            window.location.href = `/kelahiran`;
+          } else if (commandNLP.includes("upload") || commandNLP.includes("training data")) {
+            window.location.href = `/uploadcsv`;
+          } else if (commandNLP.includes("rekomendasi kawin")) {
+            window.location.href = `/rekomendasikawin`;
+          } else if (commandNLP.includes("manajemen perkawinan")) {
+            window.location.href = `/perkawinan`;
+          } else if (commandNLP.includes("riwayat")) {
+            window.location.href = `/history`;
+          } else if (commandNLP.includes("denah kandang")) {
+            window.location.href = `/kandang`;
+          } else if (commandNLP.includes("laporan")) {
+            window.location.href = `/charts`;
+          } else if (commandNLP.includes("pengguna")) {
+            window.location.href = `/users`;
+          } else if ((commandNLP.includes("lihat") || commandNLP.includes("buka") || commandNLP.includes("detail")) && matchEartag) {
+            // jika perintah mengandung "lihat" atau "buka" atau "detail" dan ada nomor eartag
+            const eartag = matchEartag[1];
+
+            // cari baris di tabel yang punya eartag sama
+            const rows = document.querySelectorAll("#dataTableHover tbody tr");
+            let found = false;
+            rows.forEach(row => {
+              const eartagCell = row.querySelector("td:nth-child(2) a");
+              if (eartagCell && eartagCell.textContent.trim() === eartag) {
+                found = true;
+                // klik otomatis ke link detailnya
+                eartagCell.click();
+              }
+            });
+
+            if (!found) {
+              alert(`Domba dengan EARTAG ${eartag} tidak ditemukan.`);
+            }
+          } else {
+            alert("Perintah tidak dikenali: " + command);
+          }
+        };
+
+        recognition.onerror = function(event) {
+          alert("Terjadi error: " + event.error);
+        };
+      });
+    </script>
 
 </body>
 

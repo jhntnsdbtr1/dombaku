@@ -190,17 +190,17 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <p class="section-title bg-white text-start text-primary pe-3">Tentang DombaKu</p>
                     <h1 class="mb-4">DombaKu</h1>
-                    <p class="mb-4">DombaKu adalah platform berbasis teknologi untuk manajemen ternak domba yang membantu peternak dalam pengelolaan data ternak, pemilihan pasangan kawin, serta pemantauan kesehatan secara efisien dan akurat. Dengan menggunakan Self-Supervised Learning, DombaKu memudahkan pemantauan kesehatan dan perkawinan domba secara otomatis berdasarkan data genetik dan kesehatan yang tercatat.</p>
+                    <p class="mb-4">DombaKu adalah platform berbasis teknologi untuk manajemen ternak domba yang membantu peternak dalam pengelolaan data ternak, pemilihan pasangan kawin, serta pemantauan kesehatan secara efisien dan akurat. Dengan menggunakan Supervised Learning, DombaKu memudahkan pemantauan kesehatan dan perkawinan domba secara otomatis berdasarkan data genetik dan kesehatan yang tercatat.</p>
                     <div class="row g-5 pt-2 mb-5">
                         <div class="col-sm-6">
-                            <img class="img-fluid mb-4" src="img/service.png" alt="">
+                            <img class="img-fluid mb-4" alt="">
                             <h5 class="mb-3">Manajemen Ternak Domba</h5>
                             <span>Platform cerdas untuk memantau kesehatan, perkembangan, dan data genetik ternak domba.</span>
                         </div>
                         <div class="col-sm-6">
-                            <img class="img-fluid mb-4" src="img/product.png" alt="">
+                            <img class="img-fluid mb-4"  alt="">
                             <h5 class="mb-3">Rekomendasi Kawin Domba</h5>
-                            <span>Algoritma berbasis Decision Tree untuk menentukan pasangan kawin terbaik untuk domba Anda.</span>
+                            <span>Algoritma berbasis Tree-based Learning untuk menentukan pasangan kawin terbaik untuk domba Anda.</span>
                         </div>
                     </div>
                     <a class="btn btn-secondary rounded-pill py-3 px-5" href="">Pelajari Lebih Lanjut</a>
@@ -227,8 +227,8 @@
                             <div class="service-icon">
                                 <img class="img-fluid rounded-circle" src="{{ asset('page/img/service-1.jpg') }}" alt="">
                             </div>
-                            <h5 class="mb-3">Pemilihan Ternak Terbaik</h5>
-                            <p class="mb-4">Dengan algoritma Decision Tree, kami membantu Anda memilih pasangan kawin terbaik untuk meningkatkan kualitas keturunan domba Anda.</p>
+                            <h5 class="mb-3">Manajemen Data Ternak</h5>
+                            <p class="mb-4">Kami menyediakan platform untuk pengelolaan data ternak secara efisien, termasuk informasi genetik, kesehatan, dan riwayat perkawinan ternak Anda.</p>
                             <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
                         </div>
                     </div>
@@ -242,8 +242,8 @@
                             <div class="service-icon">
                                 <img class="img-fluid rounded-circle" src="{{ asset('page/img/service-2.jpg') }}" alt="" />
                             </div>
-                            <h5 class="mb-3">Perkawinan</h5>
-                            <p class="mb-4">Kami memberikan rekomendasi pasangan kawin optimal menggunakan teknologi berbasis data genetik dan kesehatan ternak, serta panduan perawatan terbaik untuk meningkatkan produktivitas ternak Anda.</p>
+                            <h5 class="mb-3">Rekomendasi Pasangan Kawin</h5>
+                            <p class="mb-4">Kami memberikan rekomendasi pasangan kawin yang optimal, menghindari inbreeding dengan mempertimbangkan faktor genetik dan kesehatan ternak, serta memberi panduan perawatan untuk meningkatkan hasil ternak Anda.</p>
                             <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
                         </div>
                     </div>
@@ -257,8 +257,8 @@
                             <div class="service-icon">
                                 <img class="img-fluid rounded-circle" src="{{ asset('page/img/service-3.jpg') }}" alt="" />
                             </div>
-                            <h5 class="mb-3">Manajemen Kesehatan Ternak</h5>
-                            <p class="mb-4">Dengan pemantauan kesehatan berbasis teknologi, kami memastikan ternak domba Anda tetap sehat dan produktif, mengurangi risiko penyakit dan meningkatkan hasil peternakan.</p>
+                            <h5 class="mb-3">Laporan Data Ternak</h5>
+                            <p class="mb-4">Kami menyediakan laporan lengkap mengenai jumlah domba berdasarkan umur, jenis kelamin, kelahiran, dan bulan lahir. Laporan ini disajikan dalam bentuk chart untuk mempermudah analisis dan pengambilan keputusan dalam manajemen ternak Anda.</p>
                             <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
                         </div>
                     </div>
@@ -270,6 +270,10 @@
 
     <!-- Gallery Start -->
     <div class="container-xxl py-5 px-0">
+        <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-center text-primary px-3">Gallery</p>
+            <h2 class="mb-5">Dokumentasi Domba</h2>
+        </div>
         <div class="row g-0">
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="row g-0">

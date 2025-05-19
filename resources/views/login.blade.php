@@ -50,27 +50,27 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <!-- Tambahkan Logo -->
+                    <!-- Logo -->
                     <img src="{{ asset('img/logo/dombaku.png') }}" alt="Logo DombaKu" class="mb-3" width="100">
 
-                    <!-- Tambahkan teks Selamat Datang -->
+                    <!-- Judul -->
                     <h3 class="font-weight-bold" style="color: #000000;">
                       Selamat Datang di <span style="color: #0F382A; font-family: 'Exo 2', sans-serif; font-weight: 600;">DombaKu</span>
                     </h3>
                   </div>
 
-                  <!-- Halaman Login -->
+                  <!-- Form Login -->
                   <form action="{{ url('/login') }}" method="POST" class="user">
-                    @csrf <!-- Token CSRF untuk keamanan -->
+                    @csrf
 
                     <div class="form-group">
-                      <input type="email" name="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username" required>
+                      <input type="email" name="email" class="form-control" placeholder="Enter Username" required>
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password" required>
+                      <input type="password" name="password" class="form-control" placeholder="Password" required>
                     </div>
                     <div class="form-group">
-                      <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
+                      <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
@@ -78,18 +78,29 @@
                     <div class="form-group">
                       <button type="submit" class="btn btn-block" style="background-color: #0F382A; color: white;">Masuk</button>
                     </div>
-                    <!-- Menampilkan Pesan Error -->
+
                     @if ($errors->any())
                     <div class="alert alert-danger">
-                      <ul>
+                      <ul class="mb-0">
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                         @endforeach
                       </ul>
                     </div>
                     @endif
+
                     <hr>
                   </form>
+
+                  <!-- Copyright -->
+                  <div class="text-center mt-4">
+                    <span style="font-size: 14px; color: #888;">
+                      &copy; <script>
+                        document.write(new Date().getFullYear());
+                      </script> - Developed by
+                      <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

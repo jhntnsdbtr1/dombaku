@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -16,8 +17,80 @@
   <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/css/select2.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
+  <style>
+    .table {
+      width: 100%;
+      table-layout: auto;
+      /* Agar lebar tabel menyesuaikan isi */
+      font-size: 12px;
+      /* Ukuran font lebih kecil supaya lebih muat */
+      border-collapse: collapse;
+    }
 
+    .table th,
+    .table td {
+      padding: 8px;
+      text-align: center;
+      white-space: nowrap;
+      /* Agar header tetap dalam satu baris */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* Jika terlalu panjang, tampilkan '...' */
+    }
+
+    .table th {
+      background-color: #f8f9fa;
+      /* Warna header lebih jelas */
+      font-size: 12px;
+    }
+
+    .table td {
+      font-size: 12px;
+    }
+
+    /* Atur ukuran tombol supaya tetap kecil */
+    .btn {
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    .badge-putih {
+      background-color: #ffffff;
+      color: black;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-merah {
+      background-color: #ff0000;
+      color: #fff;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-biru {
+      background-color: #0000ff;
+      color: #fff;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-hijau {
+      background-color: #00ff00;
+      color: black;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+
+    .badge-kuning {
+      background-color: #ffff00;
+      color: #000;
+      border: 1px solid #000;
+      /* Menambahkan border hitam */
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -34,20 +107,19 @@
       <li class="nav-item active">
         <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span>Beranda</span>
         </a>
       </li>
 
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
-        Features
+        Fitur
       </div>
 
       <!-- Manajemen -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-          aria-controls="collapseTable">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
           <span>Manajemen</span>
         </a>
@@ -56,16 +128,32 @@
             <h6 class="collapse-header">Manajemen Data</h6>
             <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
             <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
+            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a>
           </div>
         </div>
       </li>
 
-      <!-- Perkawinan & Silsilah -->
+      <!-- Perkawinan Domba -->
       <li class="nav-item">
-        <a class="nav-link" href="/perkawinan">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerkawinan" aria-expanded="false" aria-controls="collapsePerkawinan">
           <i class="fas fa-fw fa-link"></i>
-          <span>Perkawinan</span>
+          <span>Perkawinan Domba</span>
+        </a>
+        <div id="collapsePerkawinan" class="collapse" aria-labelledby="headingPerkawinan" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Perkawinan & Rekomendasi</h6>
+            <a class="collapse-item" href="/uploadcsv">Upload Training Data</a>
+            <a class="collapse-item" href="/rekomendasikawin">Rekomendasi Kawin</a>
+            <a class="collapse-item" href="/perkawinan">Manajemen Perkawinan</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Riwayat -->
+      <li class="nav-item">
+        <a class="nav-link" href="/history">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Riwayat</span>
         </a>
       </li>
 
@@ -73,15 +161,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/kandang">
           <i class="fas fa-fw fa-map"></i>
-          <span>Denah Kandang</span> <!-- Ditambahkan -->
-        </a>
-      </li>
-
-      <!-- History -->
-      <li class="nav-item">
-        <a class="nav-link" href="/history">
-          <i class="fas fa-fw fa-history"></i>
-          <span>Riwayat</span> <!-- Ditambahkan -->
+          <span>Denah Kandang</span>
         </a>
       </li>
 
@@ -93,14 +173,13 @@
         </a>
       </li>
 
-      <!-- Users -->
+      <!-- Pengguna -->
       <li class="nav-item">
         <a class="nav-link" href="/users">
-          <i class="fas fa-fw fa-user"></i> <!-- Mengubah ikon menjadi user -->
-          <span>Pengguna</span> <!-- Mengubah teks -->
+          <i class="fas fa-fw fa-user"></i>
+          <span>Pengguna</span>
         </a>
       </li>
-
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -112,70 +191,11 @@
           </button>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
+              <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
-                      aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="voiceDropdown">
+                <p id="voiceOutput" class="mt-2">Perintah akan ditampilkan di sini...</p>
               </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -186,19 +206,11 @@
                 <span class="ml-2 d-none d-lg-inline text-white small">
                   {{ session('username', 'Guest') }}
                 </span> </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">              
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  Keluar
                 </a>
               </div>
             </li>
@@ -210,8 +222,8 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Manajemen Perkawinan Domba</h1>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
+              <li class="breadcrumb-item"><a href="./">Halaman Utama</a></li>
+              <li class="breadcrumb-item">Perkawinan</li>
               <li class="breadcrumb-item active" aria-current="page">Manajemen Perkawinan Domba</li>
             </ol>
           </div>
@@ -222,7 +234,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary w-100">Detail Perkawinan Domba</h6>
-                  <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-toggle="modal" data-target="#tambahModal">
+                  <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
                     <i class="fas fa-plus mr-2"></i> Tambah
                   </button>
                 </div>
@@ -230,7 +242,7 @@
                   <table class="table align-items-center table-flush table-hover text-center" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Eartag Pejantan</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
@@ -240,33 +252,52 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($perkawinan as $index => $item)
                       <tr>
-                        <td>1</td>
-                        <td>DM001</td>
-                        <td>14-11-2024</td>
-                        <td>14-01-2025</td>
-                        <td>Koloni Baru</td>
-                        <td>20</td>
-                        <td><button class="btn btn-sm btn-primary detail-btn" data-toggle="modal" data-target="#detailModal">Detail</button></td>
+                        <td>{{ $index + 1 }}</td>
+                        <td>
+                          <span class="badge 
+                            @if($item['warna_eartag'] == 'Putih') badge-putih
+                            @elseif($item['warna_eartag'] == 'Merah') badge-merah
+                            @elseif($item['warna_eartag'] == 'Biru') badge-biru
+                            @elseif($item['warna_eartag'] == 'Hijau') badge-hijau
+                            @elseif($item['warna_eartag'] == 'Kuning') badge-kuning
+                            @else badge-secondary @endif">
+                            {{ $item['eartag_pejantan'] }}
+                          </span>
+                        </td>
+                        <td>{{ $item['tanggal_mulai'] }}</td>
+                        <td>{{ $item['tanggal_selesai'] }}</td>
+                        <td>{{ $item['kandang'] }}</td>
+                        <td>{{ count($item['betina']) }}</td>
+                        <td>
+                          <!-- Tombol Detail -->
+                          <button
+                            class="btn btn-sm btn-info"
+                            data-id="{{ $item['id'] }}"
+                            onclick="tampilkanDetailBetina(this)">
+                            Detail
+                          </button>
+
+                          <!-- Tombol Edit -->
+                          <button class="btn btn-sm btn-warning" data-id="{{ $item['id'] }}" onclick="openEditModal(this)">
+                            Edit
+                          </button>
+
+                          <!-- Tombol Hapus -->
+                          <form action="{{ route('perkawinan.destroy', $item['id']) }}"
+                            method="POST"
+                            style="display:inline-block;"
+                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                              Hapus
+                            </button>
+                          </form>
+                        </td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>DM002</td>
-                        <td>05-03-2024</td>
-                        <td>05-05-2024</td>
-                        <td>Semi Umbaran</td>
-                        <td>20</td>
-                        <td><button class="btn btn-sm btn-primary detail-btn" data-toggle="modal" data-target="#detailModal">Detail</button></td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>DM003</td>
-                        <td>10-03-2024</td>
-                        <td>10-05-2024</td>
-                        <td>Koloni 1</td>
-                        <td>20</td>
-                        <td><button class="btn btn-sm btn-primary detail-btn" data-toggle="modal" data-target="#detailModal">Detail</button></td>
-                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -286,51 +317,49 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form id="formTambah">
-                  <div class="form-group">
+                <form id="formTambah" action="{{ route('perkawinan.store') }}" method="POST">
+                  @csrf
+
+                  <div class="form-group mb-3">
                     <label for="eartagPejantan">Eartag Pejantan</label>
-                    <input type="text" class="form-control" id="eartagPejantan" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="tanggalMulai">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="tanggalMulai" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="tanggalSelesai">Tanggal Selesai</label>
-                    <input type="date" class="form-control" id="tanggalSelesai" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="kandang">Kandang</label>
-                    <input type="text" class="form-control" id="kandang" required>
-                  </div>
-                  <!-- Eartag Betina (Max 20) -->
-                  <div class="form-group">
-                    <label for="eartag_betina">Eartag Betina (Maks. 20)</label>
-                    <select class="form-control select2" id="eartag_betina" name="eartag_betina[]" multiple="multiple">
-                      <option value="BETINA-001">BETINA-001</option>
-                      <option value="BETINA-002">BETINA-002</option>
-                      <option value="BETINA-003">BETINA-003</option>
-                      <option value="BETINA-004">BETINA-004</option>
-                      <option value="BETINA-005">BETINA-005</option>
-                      <option value="BETINA-006">BETINA-006</option>
-                      <option value="BETINA-007">BETINA-007</option>
-                      <option value="BETINA-008">BETINA-008</option>
-                      <option value="BETINA-009">BETINA-009</option>
-                      <option value="BETINA-010">BETINA-010</option>
-                      <option value="BETINA-011">BETINA-011</option>
-                      <option value="BETINA-012">BETINA-012</option>
-                      <option value="BETINA-013">BETINA-013</option>
-                      <option value="BETINA-014">BETINA-014</option>
-                      <option value="BETINA-015">BETINA-015</option>
-                      <option value="BETINA-016">BETINA-016</option>
-                      <option value="BETINA-017">BETINA-017</option>
-                      <option value="BETINA-018">BETINA-018</option>
-                      <option value="BETINA-019">BETINA-019</option>
-                      <option value="BETINA-020">BETINA-020</option>
+                    <select class="form-control select2" name="eartag_pejantan" id="eartagPejantan" required>
+                      <option value="">-- Pilih Eartag Jantan --</option>
+                      @foreach($eartagJantan as $jantan)
+                      <option value="{{ $jantan['eartag'] }}">
+                        {{ $jantan['eartag'] }} - {{ $jantan['warna'] }}
+                      </option>
+                      @endforeach
                     </select>
                   </div>
-                  <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Batal</button>
+
+                  <div class="form-group mb-3">
+                    <label for="tanggalMulai">Tanggal Mulai</label>
+                    <input type="date" class="form-control" name="tanggal_mulai" id="tanggalMulai" required>
+                  </div>
+
+                  <div class="form-group mb-3">
+                    <label for="tanggalSelesai">Tanggal Selesai</label>
+                    <input type="date" class="form-control" name="tanggal_selesai" id="tanggalSelesai" required>
+                  </div>
+
+                  <div class="form-group mb-3">
+                    <label for="kandang">Kandang</label>
+                    <input type="text" class="form-control" name="kandang" id="kandang" required>
+                  </div>
+
+                  <div class="form-group mb-3">
+                    <label for="eartag_betina">Pilih Eartag Betina (maksimal 20)</label>
+                    <select class="form-control select2" name="eartag_betina[]" id="eartag_betina" multiple="multiple" required>
+                      @foreach($eartagBetina as $betina)
+                      <option value="{{ $betina['eartag'] }}">
+                        {{ $betina['eartag'] }} - {{ $betina['warna'] }}
+                      </option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-success">Simpan</button>
                   </div>
                 </form>
@@ -344,174 +373,118 @@
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Detail 20 Betina dan % Kehamilan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="detailModalLabel">Detail Betina</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
               </div>
               <div class="modal-body">
-                <table class="table table-bordered text-center">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Eartag Betina</th>
+                      <th>No</th>
+                      <th>Eartag</th>
                       <th>Persentase Kehamilan</th>
                     </tr>
                   </thead>
                   <tbody id="betinaTableBody">
-                    <tr>
-                      <td>1</td>
-                      <td>BT001</td>
-                      <td>75%</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>BT002</td>
-                      <td>80%</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>BT003</td>
-                      <td>65%</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>BT004</td>
-                      <td>85%</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>BT005</td>
-                      <td>90%</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>BT006</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>BT007</td>
-                      <td>95%</td>
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td>BT008</td>
-                      <td>60%</td>
-                    </tr>
-                    <tr>
-                      <td>9</td>
-                      <td>BT009</td>
-                      <td>88%</td>
-                    </tr>
-                    <tr>
-                      <td>10</td>
-                      <td>BT010</td>
-                      <td>92%</td>
-                    </tr>
-                    <tr>
-                      <td>11</td>
-                      <td>BT011</td>
-                      <td>78%</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BT012</td>
-                      <td>85%</td>
-                    </tr>
-                    <tr>
-                      <td>13</td>
-                      <td>BT013</td>
-                      <td>80%</td>
-                    </tr>
-                    <tr>
-                      <td>14</td>
-                      <td>BT014</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td>15</td>
-                      <td>BT015</td>
-                      <td>89%</td>
-                    </tr>
-                    <tr>
-                      <td>16</td>
-                      <td>BT016</td>
-                      <td>77%</td>
-                    </tr>
-                    <tr>
-                      <td>17</td>
-                      <td>BT017</td>
-                      <td>91%</td>
-                    </tr>
-                    <tr>
-                      <td>18</td>
-                      <td>BT018</td>
-                      <td>68%</td>
-                    </tr>
-                    <tr>
-                      <td>19</td>
-                      <td>BT019</td>
-                      <td>73%</td>
-                    </tr>
-                    <tr>
-                      <td>20</td>
-                      <td>BT020</td>
-                      <td>87%</td>
-                    </tr>
+                    <!-- Data akan ditampilkan di sini -->
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-        </table>
-      </div>
-    </div>
-  </div>
-  </div>
 
+        <!-- Modal Edit Perkawinan -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Perkawinan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+              </div>
+              <div class="modal-body">
+                <form id="editForm" method="POST" action="">
+                  @csrf
+                  @method('PATCH')
 
-  <!-- Modal Logout -->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                  <input type="hidden" id="editId" name="id">
+
+                  <div class="mb-3">
+                    <label for="editEartagPejantan" class="form-label">Eartag Pejantan</label>
+                    <input type="text" class="form-control" id="editEartagPejantan" name="eartag_pejantan" readonly>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="editTanggalMulai" class="form-label">Tanggal Mulai</label>
+                    <input type="date" class="form-control" id="editTanggalMulai" name="tanggal_mulai" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="editTanggalSelesai" class="form-label">Tanggal Selesai</label>
+                    <input type="date" class="form-control" id="editTanggalSelesai" name="tanggal_selesai" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="editKandang" class="form-label">Kandang</label>
+                    <input type="text" class="form-control" id="editKandang" name="kandang">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="editEartagBetina" class="form-label">Eartag Betina</label>
+                    <select id="editEartagBetina" name="eartag_betina[]" class="form-control select2" multiple required>
+                      <!-- Opsi betina akan dimuat oleh JavaScript -->
+                    </select>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <p>Are you sure you want to logout?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-          <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+
+        <!-- Modal Logout -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelLogout">Keluar dari Sistem?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah Anda yakin ingin keluar?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal">Batal</button>
+                <a href="{{ route('logout') }}" class="btn btn-success">Keluar</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  </div>
-  <!---Container Fluid-->
-  </div>
 
-  <!-- Footer -->
-  <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-      <div class="copyright text-center my-auto">
-        <span>copyright &copy; <script>
-            document.write(new Date().getFullYear());
-          </script> - developed by
-          <b><a>PBL TRPL-605 DombaKu</a></b>
-        </span>
-        <br>
-        <span id="version-ruangadmin"></span>
-      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>copyright &copy; <script>
+                document.write(new Date().getFullYear());
+              </script> - developed by
+              <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
+            </span>
+            <br>
+            <span id="version-ruangadmin"></span>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer -->
     </div>
-  </footer>
-  <!-- Footer -->
-  </div>
+    <!---Container Fluid-->
   </div>
 
   <!-- Scroll to top -->
@@ -531,11 +504,88 @@
 
   <script src="{{ asset('vendor/js/select2.min.js') }}"></script>
 
+  <!-- DataTables & Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
   <script>
     $(document).ready(function() {
-      $('#dataTable').DataTable();
-      $('#dataTableHover').DataTable();
+      $('#dataTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copy',
+          {
+            extend: 'csvHtml5',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          },
+          {
+            extend: 'excelHtml5',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          },
+          {
+            extend: 'pdfHtml5',
+            orientation: 'landscape',
+            pageSize: 'A4',
+            title: 'Data Perkawinan',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          },
+          {
+            extend: 'print',
+            orientation: 'landscape',
+            title: 'Data Perkawinan',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          }
+        ]
+      });
+
+      $('#dataTableHover').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copy',
+          {
+            extend: 'csvHtml5',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          },
+          {
+            extend: 'excelHtml5',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          },
+          {
+            extend: 'pdfHtml5',
+            orientation: 'landscape',
+            pageSize: 'A4',
+            title: 'Data Perkawinan',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          },
+          {
+            extend: 'print',
+            orientation: 'landscape',
+            title: 'Data Perkawinan',
+            exportOptions: {
+              columns: ':not(.noExport)'
+            }
+          }
+        ]
+      });
       $('#eartag_betina').select2({
         placeholder: "Pilih hingga 20 eartag betina",
         maximumSelectionLength: 20,
@@ -543,9 +593,196 @@
       });
     });
   </script>
+
   <script>
     console.log("jQuery version:", $.fn.jquery);
   </script>
+
+  <script>
+    $(document).ready(function() {
+      $('.select2').select2({
+        placeholder: "Pilih Eartag Domba",
+        maximumSelectionLength: 25,
+        width: '100%'
+      });
+    });
+  </script>
+
+  <script>
+    function openEditModal(buttonElement) {
+      const id = buttonElement.dataset.id;
+      const url = `/perkawinan/${id}/edit`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('editId').value = data.id;
+          document.getElementById('editEartagPejantan').value = data.eartag_pejantan;
+          document.getElementById('editTanggalMulai').value = data.tanggal_mulai;
+          document.getElementById('editTanggalSelesai').value = data.tanggal_selesai;
+          document.getElementById('editKandang').value = data.kandang;
+
+          const form = document.getElementById('editForm');
+          form.action = `/perkawinan/${data.id}`;
+
+          const eartagBetinaSelect = $('#editEartagBetina');
+          eartagBetinaSelect.empty(); // Bersihkan sebelumnya
+
+          // Mengisi Select2 dengan opsi baru
+          data.betina.forEach(betina => {
+            const option = new Option(betina['stringValue'], betina['stringValue'], false, false);
+            eartagBetinaSelect.append(option);
+          });
+
+          // Memastikan nilai yang sudah dipilih
+          if (data.selectedBetina && Array.isArray(data.selectedBetina)) {
+            eartagBetinaSelect.val(data.selectedBetina).trigger('change');
+          }
+
+          // Re-inisialisasi select2 jika perlu
+          eartagBetinaSelect.select2({
+            placeholder: "Pilih hingga 20 eartag betina",
+            maximumSelectionLength: 20,
+            width: '100%',
+          });
+        })
+        .catch(error => console.error('Error:', error));
+
+      const modal = new bootstrap.Modal(document.getElementById('editModal'));
+      modal.show();
+    }
+
+    function tampilkanDetailBetina(button) {
+      const id = button.getAttribute('data-id'); // Ambil ID dari data-id pada tombol
+
+      // Tampilkan loading sementara
+      document.getElementById('betinaTableBody').innerHTML = `
+        <tr>
+            <td colspan="4">Memuat...</td>
+        </tr>
+    `;
+
+      // Fetch data dari route /perkawinan/{id}
+      fetch(`/perkawinan/${id}`)
+        .then(response => response.json())
+        .then(data => {
+          const betinaList = data.betina || [];
+          let rows = '';
+
+          // Memasukkan data ke dalam tabel
+          betinaList.forEach((item, index) => {
+            // Tentukan kelas badge berdasarkan warna_eartag
+            let badgeClass = 'badge-secondary'; // Default
+
+            switch (item.warna_eartag.toLowerCase()) {
+              case 'merah':
+                badgeClass = 'badge-merah';
+                break;
+              case 'hijau':
+                badgeClass = 'badge-hijau';
+                break;
+              case 'biru':
+                badgeClass = 'badge-biru';
+                break;
+              case 'kuning':
+                badgeClass = 'badge-kuning';
+                break;
+              case 'putih':
+                badgeClass = 'badge-putih';
+                break;
+              default:
+                badgeClass = 'badge-secondary';
+            }
+
+            rows += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>
+                        <span class="badge ${badgeClass}">${item.eartag}</span>
+                    </td>
+                    <td>${item.persentase}</td>
+                </tr>
+            `;
+          });
+
+          document.getElementById('betinaTableBody').innerHTML = rows;
+        })
+        .catch(error => {
+          document.getElementById('betinaTableBody').innerHTML = `
+            <tr>
+                <td colspan="3">Gagal memuat data</td>
+            </tr>
+        `;
+          console.error('Gagal mengambil data:', error);
+        });
+
+      // Tampilkan modal Bootstrap
+      const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+      modal.show();
+
+    }
+  </script>
+
+  <!-- Tambahkan compromise.js -->
+  <script src="https://unpkg.com/compromise"></script>
+
+  <script>
+    document.getElementById("voiceButton").addEventListener("click", function() {
+      const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'id-ID'; // Bahasa Indonesia
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const command = event.results[0][0].transcript.toLowerCase();
+        document.getElementById("voiceOutput").innerText = "Perintah: " + command;
+
+        // Proses NLP dengan compromise.js
+        const doc = nlp(command);
+        const nouns = doc.nouns().out('array'); // ekstrak kata benda
+        const verbs = doc.verbs().out('array'); // ekstrak kata kerja
+
+        // Ubah jadi format string agar masih cocok dengan kode asli
+        const commandNLP = nouns.concat(verbs).join(" ");
+
+        // Kodingan asli tetap dipakai
+        if (commandNLP.includes("refresh halaman")) {
+          location.reload();
+        } else if (commandNLP.includes("beranda")) {
+          window.location.href = `/dashboard`;
+        } else if (commandNLP.includes("manajemen domba")) {
+          window.location.href = `/manajemendomba`;
+        } else if (commandNLP.includes("manajemen kandang")) {
+          window.location.href = `/manajemenkandang`;
+        } else if (commandNLP.includes("manajemen kelahiran")) {
+          window.location.href = `/kelahiran`;
+        } else if (commandNLP.includes("upload") || commandNLP.includes("training data")) {
+          window.location.href = `/uploadcsv`;
+        } else if (commandNLP.includes("rekomendasi kawin")) {
+          window.location.href = `/rekomendasikawin`;
+        } else if (commandNLP.includes("manajemen perkawinan")) {
+          window.location.href = `/perkawinan`;
+        } else if (commandNLP.includes("riwayat")) {
+          window.location.href = `/history`;
+        } else if (commandNLP.includes("denah kandang")) {
+          window.location.href = `/kandang`;
+        } else if (commandNLP.includes("laporan")) {
+          window.location.href = `/charts`;
+        } else if (commandNLP.includes("pengguna")) {
+          window.location.href = `/users`;
+        } else {
+          alert("Perintah tidak dikenali: " + command);
+        }
+      };
+
+      recognition.onerror = function(event) {
+        alert("Terjadi error: " + event.error);
+      };
+    });
+  </script>
+
 </body>
 
 </html>

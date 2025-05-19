@@ -32,20 +32,19 @@
       <li class="nav-item active">
         <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span>Beranda</span>
         </a>
       </li>
 
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
-        Features
+        Fitur
       </div>
 
       <!-- Manajemen -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-          aria-controls="collapseTable">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
           <span>Manajemen</span>
         </a>
@@ -54,16 +53,32 @@
             <h6 class="collapse-header">Manajemen Data</h6>
             <a class="collapse-item" href="/manajemendomba">Manajemen Domba</a>
             <a class="collapse-item" href="/manajemenkandang">Manajemen Kandang</a>
-            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a> <!-- Ditambahkan -->
+            <a class="collapse-item" href="/kelahiran">Manajemen Kelahiran</a>
           </div>
         </div>
       </li>
 
-      <!-- Perkawinan & Silsilah -->
+      <!-- Perkawinan Domba -->
       <li class="nav-item">
-        <a class="nav-link" href="/perkawinan">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerkawinan" aria-expanded="false" aria-controls="collapsePerkawinan">
           <i class="fas fa-fw fa-link"></i>
-          <span>Perkawinan</span>
+          <span>Perkawinan Domba</span>
+        </a>
+        <div id="collapsePerkawinan" class="collapse" aria-labelledby="headingPerkawinan" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Perkawinan & Rekomendasi</h6>
+            <a class="collapse-item" href="/uploadcsv">Upload Training Data</a>
+            <a class="collapse-item" href="/rekomendasikawin">Rekomendasi Kawin</a>
+            <a class="collapse-item" href="/perkawinan">Manajemen Perkawinan</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Riwayat -->
+      <li class="nav-item">
+        <a class="nav-link" href="/history">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Riwayat</span>
         </a>
       </li>
 
@@ -71,15 +86,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/kandang">
           <i class="fas fa-fw fa-map"></i>
-          <span>Denah Kandang</span> <!-- Ditambahkan -->
-        </a>
-      </li>
-
-      <!-- History -->
-      <li class="nav-item">
-        <a class="nav-link" href="/history">
-          <i class="fas fa-fw fa-history"></i>
-          <span>Riwayat</span> <!-- Ditambahkan -->
+          <span>Denah Kandang</span>
         </a>
       </li>
 
@@ -91,11 +98,11 @@
         </a>
       </li>
 
-      <!-- Users -->
+      <!-- Pengguna -->
       <li class="nav-item">
         <a class="nav-link" href="/users">
-          <i class="fas fa-fw fa-user"></i> <!-- Mengubah ikon menjadi user -->
-          <span>Pengguna</span> <!-- Mengubah teks -->
+          <i class="fas fa-fw fa-user"></i>
+          <span>Pengguna</span>
         </a>
       </li>
     </ul>
@@ -109,70 +116,11 @@
           </button>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
+              <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
-                      aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="voiceDropdown">
+                <p id="voiceOutput" class="mt-2">Perintah akan ditampilkan di sini...</p>
               </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -182,20 +130,12 @@
                 <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px">
                 <span class="ml-2 d-none d-lg-inline text-white small">
                   {{ session('username', 'Guest') }}
-                </span>              </a>
+                </span> </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  Keluar
                 </a>
               </div>
             </li>
@@ -207,11 +147,10 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Charts</h1>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item"><a href="./">Halaman Utama</a></li>
               <li class="breadcrumb-item active" aria-current="page">Charts</li>
             </ol>
           </div>
-
           <!-- Row -->
           <div class="row">
             <!-- Area Chart - Populasi Domba per Bulan -->
@@ -236,12 +175,13 @@
                 </div>
                 <div class="card-body">
                   <div class="chart-bar">
-                    <canvas id="ageDistributionChart"></canvas>
+                    <canvas id="ageChart"></canvas>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- Gender Distribution -->
             <div class="col-lg-6 d-flex justify-content-center">
               <div class="card shadow mb-4 w-100">
                 <div class="card-header py-3 text-center">
@@ -255,9 +195,7 @@
               </div>
             </div>
 
-
-
-            <!-- Line Chart - Fertilitas Domba -->
+            <!-- Fertility Chart -->
             <div class="col-lg-6">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -272,88 +210,22 @@
             </div>
           </div>
 
-          <!-- Chart.js -->
-          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-          <script>
-            // Data contoh untuk populasi domba per bulan
-            var ctx1 = document.getElementById('populationChart').getContext('2d');
-            var populationChart = new Chart(ctx1, {
-              type: 'line',
-              data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-                datasets: [{
-                  label: 'Populasi Domba',
-                  data: [50, 60, 80, 90, 120, 140],
-                  backgroundColor: 'rgba(78, 115, 223, 0.2)',
-                  borderColor: 'rgba(78, 115, 223, 1)',
-                  borderWidth: 2
-                }]
-              }
-            });
-
-            // Data contoh untuk distribusi umur domba
-            var ctx2 = document.getElementById('ageDistributionChart').getContext('2d');
-            var ageDistributionChart = new Chart(ctx2, {
-              type: 'bar',
-              data: {
-                labels: ['0-6 Bulan', '6-12 Bulan', '1-2 Tahun', '2+ Tahun'],
-                datasets: [{
-                  label: 'Jumlah Domba',
-                  data: [20, 35, 50, 25],
-                  backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                  borderColor: 'rgba(54, 162, 235, 1)',
-                  borderWidth: 1
-                }]
-              }
-            });
-
-            // Data contoh untuk proporsi jenis kelamin domba
-            var ctx3 = document.getElementById('genderChart').getContext('2d');
-            var genderChart = new Chart(ctx3, {
-              type: 'doughnut',
-              data: {
-                labels: ['Jantan', 'Betina'],
-                datasets: [{
-                  data: [45, 55],
-                  backgroundColor: ['rgba(255, 99, 132, 0.7)', 'rgba(75, 192, 192, 0.7)']
-                }]
-              }
-            });
-
-            // Data contoh untuk fertilitas domba
-            var ctx4 = document.getElementById('fertilityChart').getContext('2d');
-            var fertilityChart = new Chart(ctx4, {
-              type: 'line',
-              data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-                datasets: [{
-                  label: 'Keberhasilan Kawin',
-                  data: [30, 35, 40, 38, 50, 55],
-                  backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                  borderColor: 'rgba(255, 206, 86, 1)',
-                  borderWidth: 2
-                }]
-              }
-            });
-          </script>
-
-
           <!-- Modal Logout -->
           <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabelLogout">Keluar dari Sistem?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Are you sure you want to logout?</p>
+                  <p>Apakah Anda yakin ingin keluar?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                  <button type="button" class="btn btn-outline-success" data-dismiss="modal">Batal</button>
+                  <a href="{{ route('logout') }}" class="btn btn-success">Keluar</a>
                 </div>
               </div>
             </div>
@@ -368,7 +240,7 @@
               <span>copyright &copy; <script>
                   document.write(new Date().getFullYear());
                 </script> - developed by
-                <b><a>PBL TRPL-605 DombaKu</a></b>
+                <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
               </span>
               <br>
               <span id="version-ruangadmin"></span>
@@ -397,6 +269,141 @@
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-bar-demo.js') }}"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chart.js Script -->
+    <script>
+      const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
+      // Data dari Controller Laravel
+      const populationData = <?php echo json_encode($populasiPerBulan); ?>;
+      const genderData = <?php echo json_encode($genderData); ?>;
+      const fertilityData = <?php echo json_encode($fertilityData); ?>;
+      const ageData = <?php echo json_encode($ageData); ?>;
+
+      // Chart Populasi
+      var ctx1 = document.getElementById('populationChart').getContext('2d');
+      var populationChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: monthLabels,
+          datasets: [{
+            label: 'Populasi Domba',
+            data: populationData,
+            backgroundColor: 'rgba(40, 167, 69, 0.2)', // Ubah warna latar belakang menjadi hijau
+            borderColor: 'rgba(40, 167, 69, 1)', // Ubah warna garis border menjadi hijau
+            borderWidth: 2
+          }]
+        }
+      });
+
+      // Chart Jenis Kelamin
+      var ctx2 = document.getElementById('genderChart').getContext('2d');
+      var genderChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: ['Jantan', 'Betina'],
+          datasets: [{
+            data: genderData,
+            backgroundColor: ['rgba(255, 99, 132, 0.7)', 'rgba(75, 192, 192, 0.7)']
+          }]
+        }
+      });
+
+      // Chart Fertilitas
+      var ctx3 = document.getElementById('fertilityChart').getContext('2d');
+      var fertilityChart = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+          labels: monthLabels,
+          datasets: [{
+            label: 'Jumlah Kelahiran',
+            data: fertilityData, // ini sekarang benar
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        }
+      });
+
+      // Chart Umur
+      var ctx4 = document.getElementById('ageChart').getContext('2d');
+      var ageChart = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+          labels: ['0-6 Bulan', '7-12 Bulan', '13-24 Bulan', '25-36 Bulan', '37-48 Bulan', '49+ Bulan'],
+          datasets: [{
+            label: 'Jumlah Domba',
+            data: ageData,
+            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1
+          }]
+        }
+      });
+    </script>
+
+    <!-- Tambahkan compromise.js -->
+    <script src="https://unpkg.com/compromise"></script>
+
+    <script>
+      document.getElementById("voiceButton").addEventListener("click", function() {
+        const recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'id-ID'; // Bahasa Indonesia
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.start();
+
+        recognition.onresult = function(event) {
+          const command = event.results[0][0].transcript.toLowerCase();
+          document.getElementById("voiceOutput").innerText = "Perintah: " + command;
+
+          // Proses NLP dengan compromise.js
+          const doc = nlp(command);
+          const nouns = doc.nouns().out('array'); // ekstrak kata benda
+          const verbs = doc.verbs().out('array'); // ekstrak kata kerja
+
+          // Ubah jadi format string agar masih cocok dengan kode asli
+          const commandNLP = nouns.concat(verbs).join(" ");
+
+          // Kodingan asli tetap dipakai
+          if (commandNLP.includes("refresh halaman")) {
+            location.reload();
+          } else if (commandNLP.includes("beranda")) {
+            window.location.href = `/dashboard`;
+          } else if (commandNLP.includes("manajemen domba")) {
+            window.location.href = `/manajemendomba`;
+          } else if (commandNLP.includes("manajemen kandang")) {
+            window.location.href = `/manajemenkandang`;
+          } else if (commandNLP.includes("manajemen kelahiran")) {
+            window.location.href = `/kelahiran`;
+          } else if (commandNLP.includes("upload") || commandNLP.includes("training data")) {
+            window.location.href = `/uploadcsv`;
+          } else if (commandNLP.includes("rekomendasi kawin")) {
+            window.location.href = `/rekomendasikawin`;
+          } else if (commandNLP.includes("manajemen perkawinan")) {
+            window.location.href = `/perkawinan`;
+          } else if (commandNLP.includes("riwayat")) {
+            window.location.href = `/history`;
+          } else if (commandNLP.includes("denah kandang")) {
+            window.location.href = `/kandang`;
+          } else if (commandNLP.includes("laporan")) {
+            window.location.href = `/charts`;
+          } else if (commandNLP.includes("pengguna")) {
+            window.location.href = `/users`;
+          } else {
+            alert("Perintah tidak dikenali: " + command);
+          }
+        };
+
+        recognition.onerror = function(event) {
+          alert("Terjadi error: " + event.error);
+        };
+      });
+    </script>
 
 </body>
 
