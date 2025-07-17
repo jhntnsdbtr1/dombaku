@@ -167,6 +167,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-flex align-items-center mr-3">
+                            <div class="text-white small" id="realtime-clock">
+                                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -219,7 +225,7 @@
                                 <!-- File input field -->
                                 <div class="form-group">
                                     <label for="csv_file" class="font-weight-bold text-primary">Pilih file CSV:</label>
-                                    <input type="file" class="form-control-file border rounded-pill p-3" name="csv_file" accept=".csv" required>
+                                    <input type="file" id="csv_file" class="form-control-file border rounded-pill p-3" name="csv_file" accept=".csv" required>
                                 </div>
 
                                 <!-- Submit button -->
@@ -327,7 +333,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
         document.getElementById("voiceButton").addEventListener("click", function() {
@@ -384,6 +390,26 @@
                 alert("Terjadi error: " + event.error);
             };
         });
+    </script>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = now.toLocaleString('id-ID', {
+                month: 'long'
+            });
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+            document.getElementById('clock').textContent = fullDateTime;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 
 </body>

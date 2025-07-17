@@ -131,17 +131,21 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-        <a href="login.html" class="navbar-brand d-flex align-items-center">
+        <a href="/" class="navbar-brand d-flex align-items-center">
             <img src="img/logo/dombaku.png" alt="DombaKu Logo" class="img-fluid" style="max-height:50px; width: auto;">
             <h3 class="m-0" style="color: #0F382A; font-family: 'Exo 2', sans-serif; font-weight: 600;">DombaKu</h3>
         </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <!-- Button Login -->
-                <a href="/login" class="btn rounded-pill px-4 py-2" style="background-color: #0F382A; color: white;">Masuk</a>
+                <!-- Tombol Masuk (putih, border hijau) -->
+                <a href="/login" class="btn rounded-pill px-4 py-2 me-2" style="background-color: white; border: 2px solid #0F382A; color: #0F382A;">Masuk</a>
+                <!-- Tombol Daftar (hijau solid) -->
+                <a href="/register" class="btn rounded-pill px-4 py-2" style="background-color: #0F382A; color: white;">Daftar</a>
             </div>
         </div>
-
     </nav>
     <!-- Navbar End -->
 
@@ -190,7 +194,7 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <p class="section-title bg-white text-start text-primary pe-3">Tentang DombaKu</p>
                     <h1 class="mb-4">DombaKu</h1>
-                    <p class="mb-4">DombaKu adalah platform berbasis teknologi untuk manajemen ternak domba yang membantu peternak dalam pengelolaan data ternak, pemilihan pasangan kawin, serta pemantauan kesehatan secara efisien dan akurat. Dengan menggunakan Supervised Learning, DombaKu memudahkan pemantauan kesehatan dan perkawinan domba secara otomatis berdasarkan data genetik dan kesehatan yang tercatat.</p>
+                    <p class="mb-4">DombaKu adalah platform berbasis teknologi untuk manajemen ternak domba yang membantu peternak dalam pengelolaan data ternak, pemilihan pasangan kawin, serta pemantauan kesehatan secara efisien dan akurat. Dengan menggunakan Alg Supervised Learning, DombaKu memudahkan pemantauan kesehatan dan perkawinan domba secara otomatis berdasarkan data genetik dan kesehatan yang tercatat.</p>
                     <div class="row g-5 pt-2 mb-5">
                         <div class="col-sm-6">
                             <img class="img-fluid mb-4" alt="">
@@ -198,7 +202,7 @@
                             <span>Platform cerdas untuk memantau kesehatan, perkembangan, dan data genetik ternak domba.</span>
                         </div>
                         <div class="col-sm-6">
-                            <img class="img-fluid mb-4"  alt="">
+                            <img class="img-fluid mb-4" alt="">
                             <h5 class="mb-3">Rekomendasi Kawin Domba</h5>
                             <span>Algoritma berbasis Tree-based Learning untuk menentukan pasangan kawin terbaik untuk domba Anda.</span>
                         </div>
@@ -339,12 +343,12 @@
     <div class="container-fluid bg-dark footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
-                <!-- Our Office Section -->
+                <!-- Kantor Kami -->
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="text-white mb-4">Our Office</h5>
+                    <h5 class="text-white mb-4">Kantor Kami</h5>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Politeknik Negeri Batam, Batam, Indonesia</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+62 778 123 4567</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>dombaku@gmail.com</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>dombaku.id@gmail.com</p>
                     <div class="d-flex pt-3">
                         <a class="btn btn-square btn-secondary rounded-circle me-2" href="https://www.instagram.com/dombaku_id/"><i class="fab fa-instagram"></i></a>
                         <a class="btn btn-square btn-secondary rounded-circle me-2" href="https://www.instagram.com/dombaku_id/"><i class="fab fa-facebook-f"></i></a>
@@ -352,44 +356,47 @@
                     </div>
                 </div>
 
-                <!-- Quick Links Section -->
+                <!-- Tautan Cepat -->
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="text-white mb-4">Quick Links</h5>
-                    <a class="btn btn-link text-white" href="">About Us</a>
-                    <a class="btn btn-link text-white" href="">Contact Us</a>
-                    <a class="btn btn-link text-white" href="">Our Services</a>
-                    <a class="btn btn-link text-white" href="">Terms & Condition</a>
-                    <a class="btn btn-link text-white" href="">Support</a>
+                    <h5 class="text-white mb-4">Tautan Cepat</h5>
+                    <a class="btn btn-link text-white" href="">Tentang Kami</a>
+                    <a class="btn btn-link text-white" href="">Hubungi Kami</a>
+                    <a class="btn btn-link text-white" href="">Layanan Kami</a>
+                    <a class="btn btn-link text-white" href="">Syarat & Ketentuan</a>
+                    <a class="btn btn-link text-white" href="">Bantuan</a>
                 </div>
 
-                <!-- Business Hours Section -->
+                <!-- Jam Operasional -->
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="text-white mb-4">Business Hours</h5>
-                    <p class="mb-1">Monday - Friday</p>
-                    <h6 class="text-light">09:00 am - 05:00 pm</h6>
-                    <p class="mb-1">Saturday - Sunday</p>
-                    <h6 class="text-light">Closed</h6>
+                    <h5 class="text-white mb-4">Jam Operasional</h5>
+                    <p class="mb-1">Senin - Jumat</p>
+                    <h6 class="text-light">09:00 - 17:00 WIB</h6>
+                    <p class="mb-1">Sabtu - Minggu</p>
+                    <h6 class="text-light">Tutup</h6>
                 </div>
             </div>
         </div>
     </div>
     <!-- Footer End -->
 
-
     <!-- Copyright Start -->
     <div class="container-fluid bg-secondary text-body copyright py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="fw-semi-bold" href="#">PBL TRPL-605</a>, All Right Reserved.
+                    &copy; <span id="year"></span> <a class="fw-semi-bold" href="#">PBL TRPL-605</a>, Semua Hak Dilindungi.
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    Designed By <a class="fw-semi-bold" href="">PBL</a> | TRPL-605
+                    Dirancang oleh <a class="fw-semi-bold" href="">PBL</a> | TRPL-605
                 </div>
             </div>
         </div>
     </div>
     <!-- Copyright End -->
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>

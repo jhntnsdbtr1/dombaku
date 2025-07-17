@@ -155,6 +155,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-flex align-items-center mr-3">
+                            <div class="text-white small" id="realtime-clock">
+                                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -280,7 +286,7 @@
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary toggle-password">
+                                            <button type="button" class="btn btn-outline-secondary toggle-password" toggle="#password">
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                         </div>
@@ -289,7 +295,7 @@
 
                                 <!-- Tambahkan Input Username -->
                                 <div class="form-group">
-                                    <label for="username">Username</label>
+                                    <label for="username">Nama</label>
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" required>
                                 </div>
 
@@ -297,7 +303,7 @@
                                     <label for="role">Role</label>
                                     <select class="form-control" id="role" name="role" required>
                                         <option value="Admin">Admin</option>
-                                        <option value="User">User</option>
+                                        <option value="User">Peternak Lapangan</option>
                                     </select>
                                 </div>
 
@@ -506,35 +512,35 @@
 
             $('#dataTableHover').DataTable({
                 dom: 'Bfrtip',
-                buttons: [
-                    'copy',
-                    {
+                buttons: [{
                         extend: 'csvHtml5',
+                        title: 'Data  Daftar Pengguna',
                         exportOptions: {
-                            columns: ':not(.noExport)'
+                            columns: [0, 1, 2, 3, 4, 5]
                         }
                     },
                     {
                         extend: 'excelHtml5',
+                        title: 'Data  Daftar Pengguna',
                         exportOptions: {
-                            columns: ':not(.noExport)'
+                            columns: [0, 1, 2, 3, 4, 5]
                         }
                     },
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
                         pageSize: 'A4',
-                        title: 'Data Pengguna',
+                        title: 'Data  Daftar Pengguna',
                         exportOptions: {
-                            columns: ':not(.noExport)'
+                            columns: [0, 1, 2, 3, 4, 5]
                         }
                     },
                     {
                         extend: 'print',
                         orientation: 'landscape',
-                        title: 'Data Pengguna',
+                        title: 'Data  Daftar Pengguna',
                         exportOptions: {
-                            columns: ':not(.noExport)'
+                            columns: [0, 1, 2, 3, 4, 5]
                         }
                     }
                 ]
@@ -688,7 +694,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
         document.getElementById("voiceButton").addEventListener("click", function() {
@@ -747,6 +753,43 @@
         });
     </script>
 
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = now.toLocaleString('id-ID', {
+                month: 'long'
+            });
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+            document.getElementById('clock').textContent = fullDateTime;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(element) {
+            element.addEventListener('click', function() {
+                const input = document.querySelector(this.getAttribute('toggle'));
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

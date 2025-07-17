@@ -28,6 +28,12 @@ class DombaController extends Controller
             foreach ($data['documents'] as $document) {
                 $fields = $document['fields'] ?? [];
 
+                // Cek apakah nama_peternak sesuai dengan session
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue; // Skip data yang tidak cocok
+                }
+
                 $kelamin = $fields['kelamin']['stringValue'] ?? '';
                 $tanggalLahir = $fields['tanggal_lahir']['stringValue'] ?? '';
 
@@ -87,41 +93,48 @@ class DombaController extends Controller
             // Jika tidak ada data bulan lalu, anggap pertumbuhan 100% maksimal
             return $current > 0 ? 100 : 0;
         }
-    
+
         $diff = (($current - $lastMonth) / $lastMonth) * 100;
-    
+
         // Batasi maksimum ke 100%, minimum tetap bisa negatif (penurunan)
         return $diff > 100 ? 100 : $diff;
-    }    
+    }
 
     private function fetchPerkawinanAlerts()
     {
         $perkawinanUrl = $this->baseFirebaseUrl . '/perkawinan';
         $alertUrl = $this->baseFirebaseUrl . '/alert';
-    
+
         $response = Http::timeout(30)->get($perkawinanUrl);
         $data = $response->json();
-    
+
         $alerts = [];
-    
+
         if (isset($data['documents'])) {
             foreach ($data['documents'] as $document) {
                 $fields = $document['fields'] ?? [];
+
+                // Cek apakah nama_peternak sesuai dengan session
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue; // Skip data yang tidak cocok
+                }
+
                 $eartagPejantan = $fields['eartag_pejantan']['stringValue'] ?? null;
                 $tanggalSelesai = $fields['tanggal_selesai']['stringValue'] ?? null;
-    
+
                 if ($tanggalSelesai && $eartagPejantan) {
                     $tanggalCarbon = Carbon::parse($tanggalSelesai);
                     $now = Carbon::now()->startOfDay();
-    
+
                     if ($tanggalCarbon->equalTo($now) || $tanggalCarbon->lessThan($now)) {
                         $message = "Perkawinan pejantan {$eartagPejantan} selesai pada {$tanggalCarbon->format('d M Y')}";
-    
+
                         // Ambil data alert yang sudah ada
                         $existingAlerts = Http::get($alertUrl)->json();
                         $alreadyExists = false;
                         $alertId = null;  // ID alert yang ditemukan (jika ada)
-    
+
                         if (isset($existingAlerts['documents'])) {
                             foreach ($existingAlerts['documents'] as $alertDoc) {
                                 $alertFields = $alertDoc['fields'] ?? [];
@@ -135,7 +148,7 @@ class DombaController extends Controller
                                 }
                             }
                         }
-    
+
                         // Jika alert belum ada, kirim alert baru
                         if (!$alreadyExists) {
                             Http::post($alertUrl, [
@@ -147,7 +160,7 @@ class DombaController extends Controller
                                 ],
                             ]);
                         }
-    
+
                         $alerts[] = [
                             'message' => $message,
                             'tanggal' => $tanggalCarbon->format('Y-m-d'),
@@ -157,15 +170,23 @@ class DombaController extends Controller
                 }
             }
         }
-    
+
         // Ambil hanya alert yang belum dibaca
         $finalAlerts = [];
         $existingAlerts = Http::get($alertUrl)->json();
         if (isset($existingAlerts['documents'])) {
             foreach ($existingAlerts['documents'] as $alertDoc) {
                 $fields = $alertDoc['fields'] ?? [];
+
+                // Cek apakah nama_peternak sesuai dengan session
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue; // Skip data yang tidak cocok
+                }
+
+            
                 $isRead = $fields['read']['booleanValue'] ?? true;
-    
+
                 // Tambahkan hanya alert yang belum dibaca
                 if (!$isRead) {
                     $finalAlerts[] = [
@@ -177,22 +198,22 @@ class DombaController extends Controller
                 }
             }
         }
-    
+
         return $finalAlerts;
     }
-    
+
     public function markAlertAsRead($alertId)
     {
         $alertUrl = $this->baseFirebaseUrl . '/alert/' . $alertId;
-    
+
         // Ambil data alert sebelumnya
         $existingAlert = Http::get($alertUrl)->json();
         $fields = $existingAlert['fields'] ?? null;
-    
+
         if (!$fields) {
             return response()->json(['error' => 'Data alert tidak ditemukan'], 404);
         }
-    
+
         // Kirim ulang semua field dengan `read: true`
         $updateResponse = Http::patch($alertUrl, [
             'fields' => [
@@ -202,14 +223,13 @@ class DombaController extends Controller
                 'read' => ['booleanValue' => true], // status "sudah dibaca"
             ]
         ]);
-    
+
         // Ambil kembali semua alert yang belum dibaca
         $finalAlerts = $this->fetchPerkawinanAlerts();
-    
+
         // Kembalikan jumlah alert yang belum dibaca
         return response()->json([
             'newCount' => count($finalAlerts)
         ]);
     }
-    
 }

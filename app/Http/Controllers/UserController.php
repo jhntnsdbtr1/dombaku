@@ -18,16 +18,25 @@ class UserController extends Controller
         $response = Http::get($this->firebaseUrl);
         $data = $response->json();
 
-        $userList = collect($data['documents'] ?? [])->map(function ($user) {
-            return [
-                'id' => basename($user['name']), // Ambil ID dari 'name'
-                'email' => $user['fields']['email']['stringValue'] ?? 'Tidak ada email',
-                'username' => $user['fields']['username']['stringValue'] ?? 'Tidak ada username',
-                'role' => $user['fields']['role']['stringValue'] ?? 'Tidak ada role',
-                'status' => $user['fields']['status']['stringValue'] ?? 'Tidak ada status',
-                'createdAt' => $user['fields']['createdAt']['stringValue'] ?? now()->toDateTimeString(),
-            ];
-        })->toArray(); // Convert ke array biasa
+        $userList = collect($data['documents'] ?? [])
+            ->filter(function ($user) {
+                $fields = $user['fields'] ?? [];
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                return $namaPeternak === session('nama_peternak'); // Filter sesuai session
+            })
+            ->map(function ($user) {
+                $fields = $user['fields'] ?? [];
+                return [
+                    'id' => basename($user['name']), // Ambil ID dari 'name'
+                    'email' => $fields['email']['stringValue'] ?? 'Tidak ada email',
+                    'username' => $fields['username']['stringValue'] ?? 'Tidak ada username',
+                    'role' => $fields['role']['stringValue'] ?? 'Tidak ada role',
+                    'status' => $fields['status']['stringValue'] ?? 'Tidak ada status',
+                    'createdAt' => $fields['createdAt']['stringValue'] ?? now()->toDateTimeString(),
+                ];
+            })
+            ->values()  // <- reset keys mulai dari 0
+            ->toArray();
 
         return view('users', ['userList' => $userList]);
     }
@@ -71,6 +80,7 @@ class UserController extends Controller
                 "password" => ["stringValue" => bcrypt($request->password)],
                 "createdAt" => ["stringValue" => $createdAt],
                 "firebaseToken" => ["stringValue" => $firebaseResponse['idToken']],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')],
             ]
         ];
 
@@ -106,6 +116,7 @@ class UserController extends Controller
                 "role" => ["stringValue" => $request->role],
                 "status" => ["stringValue" => $request->status],
                 "password" => ["stringValue" => bcrypt($request->password)],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')],
             ]
         ];
 
@@ -146,5 +157,27 @@ class UserController extends Controller
         }
 
         return response()->json(['message' => 'Pengguna berhasil dihapus dari Firestore dan Firebase Authentication']);
+    }
+    public function upgrade(Request $request)
+    {
+        $uid = session('uid'); // pastikan uid disimpan saat login
+        if (!$uid) {
+            return redirect()->back()->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $url = "https://firestore.googleapis.com/v1/projects/dombaku-974fe/databases/(default)/documents/users/{$uid}?updateMask.fieldPaths=is_paid";
+
+        $response = Http::patch($url, [
+            'fields' => [
+                'is_paid' => ['booleanValue' => true],
+            ]
+        ]);
+
+        if ($response->successful()) {
+            session(['is_paid' => true]); // update juga di session
+            return redirect()->back()->with('success', 'Akun Anda berhasil di-upgrade ke Premium.');
+        }
+
+        return redirect()->back()->with('error', 'Gagal upgrade. Coba lagi nanti.');
     }
 }

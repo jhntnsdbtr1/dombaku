@@ -55,6 +55,13 @@ class PerkawinanController extends Controller
             foreach ($data['documents'] as $doc) {
                 if (isset($doc['fields']) && is_array($doc['fields'])) {
                     $fields = $doc['fields'];
+
+                    // Cek apakah nama_peternak sesuai dengan session
+                    $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                    if ($namaPeternak !== session('nama_peternak')) {
+                        continue; // Skip data yang tidak cocok
+                    }
+
                     $id = basename($doc['name']);
                     $eartag_pejantan = $fields['eartag_pejantan']['stringValue'] ?? '';
 
@@ -66,6 +73,7 @@ class PerkawinanController extends Controller
                         'kandang' => $fields['kandang']['stringValue'] ?? '',
                         'betina' => $fields['betina']['arrayValue']['values'] ?? [],
                         'warna_eartag' => $warnaEartagMap[$eartag_pejantan] ?? 'Tidak Diketahui',
+                        'nama_peternak' => ['stringValue' => (string) session('nama_peternak')], // <-- ini tambahan
                     ];
                 } else {
                     continue;
@@ -172,6 +180,7 @@ class PerkawinanController extends Controller
                         }, $request->eartag_betina)
                     ]
                 ],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')], // <-- ini tambahan
             ]
         ];
 

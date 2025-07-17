@@ -207,7 +207,13 @@
             <i class="fa fa-bars"></i>
           </button>
           <ul class="navbar-nav ml-auto">
-             <li class="nav-item dropdown no-arrow">
+            <li class="nav-item d-flex align-items-center mr-3">
+              <div class="text-white small" id="realtime-clock">
+                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
               </a>
@@ -250,7 +256,7 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary w-100">Detail Kandang Domba</h6>
+                  <h6 class="m-0 font-weight-bold text-primary w-100">Rekap Kandang Domba</h6>
                   <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
                     <i class="fas fa-plus mr-2"></i> Tambah
                   </button>
@@ -527,6 +533,9 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <script src="{{ asset('js/firebase-init.js') }}"></script>
 
+    <script>
+      const namaPeternak = <?php echo json_encode(session('nama_peternak') ?? ''); ?>;
+    </script>
 
     <script type="text/javascript">
       $(document).ready(function() {
@@ -538,48 +547,9 @@
             location.reload(); // jika datatable biasa
           }
         }
-
-        $('#dataTable').DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-            'copy',
-            {
-              extend: 'csvHtml5',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            },
-            {
-              extend: 'excelHtml5',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            },
-            {
-              extend: 'pdfHtml5',
-              orientation: 'landscape',
-              pageSize: 'A4',
-              title: 'Data Ternak Domba',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            },
-            {
-              extend: 'print',
-              orientation: 'landscape',
-              title: 'Data Ternak Domba',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            }
-          ]
-        });
-
         $('#dataTableHover').DataTable({
           dom: 'Bfrtip',
-          buttons: [
-            'copy',
-            {
+          buttons: [{
               extend: 'csvHtml5',
               text: 'CSV', // Nama tombol untuk ekspor CSV
               exportOptions: {
@@ -594,7 +564,7 @@
             {
               extend: 'excelHtml5',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [1, 2, 3, 4] // Kolom Nama Kandang, Jumlah Domba, Kapasitas Maksimal, Status
               }
             },
             {
@@ -603,7 +573,7 @@
               pageSize: 'A4',
               title: 'Data Kandang Domba',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [1, 2, 3, 4] // Kolom Nama Kandang, Jumlah Domba, Kapasitas Maksimal, Status
               }
             },
             {
@@ -611,7 +581,7 @@
               orientation: 'landscape',
               title: 'Data Kandang Domba',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [1, 2, 3, 4] // Kolom Nama Kandang, Jumlah Domba, Kapasitas Maksimal, Status
               }
             }
           ]
@@ -703,7 +673,8 @@
                 nama_kandang: namaKandang,
                 kapasitas_maks: kapasitasMaks,
                 status: status,
-                eartag_domba: firebase.firestore.FieldValue.arrayUnion(...eartags) // Menambahkan semua eartag ke array
+                eartag_domba: firebase.firestore.FieldValue.arrayUnion(...eartags), // Menambahkan semua eartag ke array
+                nama_peternak: namaPeternak // ✅ TAMBAHKAN INI
               });
 
               // Update domba dengan kandang yang baru
@@ -811,7 +782,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
       document.getElementById("voiceButton").addEventListener("click", function() {
@@ -868,6 +839,26 @@
           alert("Terjadi error: " + event.error);
         };
       });
+    </script>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = now.toLocaleString('id-ID', {
+          month: 'long'
+        });
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+        document.getElementById('clock').textContent = fullDateTime;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
     </script>
 
 </body>

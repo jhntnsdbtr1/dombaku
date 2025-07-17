@@ -13,6 +13,8 @@ class ChartController extends Controller
 
     public function index()
     {
+        $tahun = request()->query('tahun'); // ambil dari query string, contoh: charts?tahun=2023
+
         // Ambil data dari Firebase
         $responseDomba = Http::get($this->firebaseUrlDomba);
         $responseKelahiran = Http::get($this->firebaseUrlKelahiran);
@@ -42,17 +44,23 @@ class ChartController extends Controller
             0,
             0,
             0,
-            0  // Data untuk distribusi umur
+            0
         ];
 
         $now = Carbon::now();
 
         // === Proses manajemendomba ===
-        $populasiPerBulan = array_fill(0, 12, 0); // Array untuk menghitung populasi per bulan
+        $populasiPerBulan = array_fill(0, 12, 0);
 
         if (isset($dataDomba['documents'])) {
             foreach ($dataDomba['documents'] as $domba) {
                 $fields = $domba['fields'] ?? [];
+
+                // Cek apakah nama_peternak sesuai dengan session
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue;
+                }
 
                 $gender = $fields['kelamin']['stringValue'] ?? '';
                 $birthDate = $fields['tanggal_lahir']['stringValue'] ?? '';
@@ -60,20 +68,23 @@ class ChartController extends Controller
                 $age = 0;
                 if (!empty($birthDate)) {
                     try {
-                        $age = Carbon::parse($birthDate)->diffInMonths($now);
+                        $parsedDate = Carbon::parse($birthDate);
+                        if ($tahun && $parsedDate->year != $tahun) {
+                            continue; // skip jika bukan tahun yang dicari
+                        }
+
+                        $age = $parsedDate->diffInMonths($now);
                     } catch (\Exception $e) {
                         $age = 0;
                     }
                 }
 
-                // Hitung kelamin
                 if ($gender == 'Jantan') {
                     $jantan++;
                 } elseif ($gender == 'Betina') {
                     $betina++;
                 }
 
-                // Hitung distribusi umur
                 if ($age <= 6) {
                     $umurDistribusi['0-6 Bulan']++;
                     $ageData[0]++;
@@ -94,51 +105,58 @@ class ChartController extends Controller
                     $ageData[5]++;
                 }
 
-                // Hitung populasi per bulan berdasarkan tanggal lahir
                 if (!empty($birthDate)) {
-                    $birthMonth = Carbon::parse($birthDate)->month - 1; // Bulan 0-11
+                    $birthMonth = Carbon::parse($birthDate)->month - 1;
                     $populasiPerBulan[$birthMonth]++;
                 }
             }
         }
 
         // === Proses manajemenkelahiran ===
-        $rekapBulanan = array_fill(0, 12, 0); // Initialize the monthly birth recap array
+        $rekapBulanan = array_fill(0, 12, 0);
 
         if (isset($dataKelahiran['documents'])) {
             foreach ($dataKelahiran['documents'] as $kelahiran) {
                 $fields = $kelahiran['fields'] ?? [];
 
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue;
+                }
+
                 $birthDate = $fields['tanggal_lahir']['stringValue'] ?? '';
                 $kelaminBetina = $fields['kelamin_betina']['integerValue'] ?? 0;
                 $kelaminJantan = $fields['kelamin_jantan']['integerValue'] ?? 0;
 
-                // Hitung kelahiran per bulan
                 if (!empty($birthDate)) {
                     try {
-                        $month = Carbon::parse($birthDate)->month - 1;
+                        $parsedDate = Carbon::parse($birthDate);
+                        if ($tahun && $parsedDate->year != $tahun) {
+                            continue;
+                        }
+
+                        $month = $parsedDate->month - 1;
                         $rekapBulanan[$month]++;
                     } catch (\Exception $e) {
-                        continue; // skip jika tanggal tidak valid
+                        continue;
                     }
                 }
 
-                // Hitung total anak berdasarkan kelamin
                 $totalAnakBetina += (int) $kelaminBetina;
                 $totalAnakJantan += (int) $kelaminJantan;
             }
         }
 
-        // Kirim data ke view
         return view('charts', [
             'rekapBulanan' => $rekapBulanan,
-            'populasiPerBulan' => $populasiPerBulan,  // Data populasi berdasarkan bulan kelahiran
+            'populasiPerBulan' => $populasiPerBulan,
             'genderData' => [$jantan, $betina],
             'fertilityData' => $rekapBulanan,
             'umurDistribusi' => $umurDistribusi,
-            'ageData' => $ageData,  // Pastikan ageData dikirim ke view
+            'ageData' => $ageData,
             'jantan' => $jantan,
-            'betina' => $betina
+            'betina' => $betina,
+            'tahun' => $tahun // kirim ke view agar bisa tetap tampil saat reload
         ]);
     }
 }

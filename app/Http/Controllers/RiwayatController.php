@@ -12,47 +12,53 @@ class RiwayatController extends Controller
     {
         $eartag = $request->input('eartag');
         $warnaEartag = $request->input('warna_eartag'); // Warna yang dipilih (opsional)
-    
+
         // Log input eartag untuk memastikan yang dikirimkan oleh user
         Log::info("Menerima eartag: " . $eartag);
-    
+
         // Jika Eartag belum diisi, tampilkan error
         if (!$eartag) {
             return view('history')->with('error', 'Eartag harus diisi!');
         }
-    
+
         $url = "https://firestore.googleapis.com/v1/projects/dombaku-974fe/databases/(default)/documents/riwayat";
         $response = Http::get($url);
-    
+
         // Log response dari Firestore untuk memastikan data diterima dengan benar
         Log::info("Response dari Firestore: " . json_encode($response->json()));
-    
+
         if ($response->failed()) {
             return view('history')->with('error', 'Gagal mengambil data dari Firestore!');
         }
-    
+
         $riwayatSemua = $response->json()['documents'] ?? [];
         $riwayatDomba = [];
         $warna_eartag_list = [];  // Inisialisasi variabel warna_eartag_list
-    
+
         // Memproses semua riwayat untuk menemukan warna eartag yang berbeda
         foreach ($riwayatSemua as $riwayat) {
             $fields = $riwayat['fields'] ?? [];
-    
+
+            // Cek apakah nama_peternak sesuai dengan session
+            $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+            if ($namaPeternak !== session('nama_peternak')) {
+                continue; // Skip data yang tidak cocok
+            }
+            
             // Mengakses eartag dan warna eartag langsung dari fields
             $eartagDomba = $fields['eartag']['stringValue'] ?? null;
             $warnaEartagDomba = $fields['warna_eartag']['stringValue'] ?? null;
-    
+
             if ($eartagDomba === $eartag) {
                 // Menambahkan warna eartag ke dalam daftar jika belum ada
                 if (!in_array($warnaEartagDomba, $warna_eartag_list)) {
                     $warna_eartag_list[] = $warnaEartagDomba;
                 }
-    
+
                 // Menambahkan riwayat ke dalam array
                 $timestamp = $fields['waktu']['timestampValue'] ?? null;
                 $kategori = $fields['kategori']['stringValue'] ?? 'Tidak Diketahui';
-    
+
                 $riwayatDomba[] = [
                     'tanggal' => $timestamp ? $this->formatDate($timestamp) : '-',
                     'kategori' => $kategori,
@@ -64,19 +70,19 @@ class RiwayatController extends Controller
                 ];
             }
         }
-    
+
         // Jika ada warna yang dipilih, filter riwayat berdasarkan warna eartag
         if ($warnaEartag) {
             $riwayatDomba = array_filter($riwayatDomba, function ($riwayat) use ($warnaEartag) {
                 return $riwayat['warna_eartag'] === $warnaEartag;
             });
         }
-    
+
         // Urutkan dari terbaru
         usort($riwayatDomba, function ($a, $b) {
             return strtotime(str_replace('-', '/', $b['tanggal'])) - strtotime(str_replace('-', '/', $a['tanggal']));
         });
-    
+
         return view('history', [
             'riwayatDomba' => $riwayatDomba,
             'eartag' => $eartag,
@@ -84,7 +90,7 @@ class RiwayatController extends Controller
             'warna_eartag' => $warnaEartag // Warna yang dipilih (jika ada)
         ]);
     }
-    
+
 
     // Fungsi untuk memformat tanggal Firestore ke format yang diinginkan
     private function formatDate($timestamp)

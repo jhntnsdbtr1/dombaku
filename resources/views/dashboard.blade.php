@@ -15,6 +15,55 @@
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('css/ruang-admin.min.css') }}" rel="stylesheet">
+
+  <style>
+    /* Welcome message box */
+    .welcome-message {
+      background: linear-gradient(135deg, #ffffff, #ffffff, #e0f7fa);
+      border-radius: 1rem;
+      box-shadow: 0 12px 20px rgba(22, 160, 133, 0.15);
+      color: #34495e;
+      font-weight: 500;
+      transition: transform 0.3s ease;
+    }
+
+    .welcome-message:hover {
+      transform: scale(1.02);
+    }
+
+    /* Icons */
+    .col-auto i {
+      color: #16a085;
+      transition: color 0.3s ease;
+    }
+
+    /* Card titles */
+    .card-body .text-uppercase {
+      color: #16a085;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    .card:hover .col-auto i {
+      color: #1abc9c;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Chart card headers */
+    .card-header {
+      background: linear-gradient(135deg, #fffff8, #ffffff);
+      color: #16a085 !important;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(22, 160, 133, 0.25);
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -116,6 +165,12 @@
           </button>
 
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-flex align-items-center mr-3">
+              <div class="text-white small" id="realtime-clock">
+                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+              </div>
+            </li>
+
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -177,16 +232,30 @@
         </nav>
         <!-- Topbar -->
 
-        <!-- Container Fluid-->
+        <!-- Container Fluid -->
         <div class="container-fluid" id="container-wrapper">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./">Halaman Utama</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Beranda</li>
-            </ol>
-          </div>
 
+          <!-- Upgrade Button (jika belum premium) -->
+          @if (!(session('is_paid') ?? false))
+          <div class="d-flex justify-content-end mb-3">
+            <form method="POST" action="{{ route('upgrade.premium') }}">
+              @csrf
+              <button type="submit" class="btn btn-sm btn-primary shadow-sm">
+                Upgrade ke Premium
+              </button>
+            </form>
+          </div>
+          @endif
+
+          <!-- Welcome Message -->
+          <div class="welcome-message p-4 mb-5 bg-light rounded shadow-sm">
+            <h2 class="mb-2" style="font-weight: 600; font-size: 1.8rem; color: #2c3e50;">
+              Selamat datang, <span style="color: #16a085;">{{ session('nama_peternak') }}</span>!
+            </h2>
+            <p style="color: #7f8c8d; font-size: 1rem; max-width: 600px;">
+              Semoga harimu menyenangkan dan peternakanmu selalu berkembang dengan baik.
+            </p>
+          </div>
 
           <!-- Row untuk statistik -->
           <div class="row mb-3">
@@ -289,7 +358,7 @@
               <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between">
                   <!-- Menampilkan tahun yang dipilih dalam judul -->
-                  <h6 class="m-0 font-weight-bold text-primary text-center">
+                  <h6 class="m-0 font-weight-bold text-gray text-center">
                     Rekap Bulanan Domba {{ $selectedYear }} <!-- Menampilkan tahun di sini -->
                   </h6>
 
@@ -317,7 +386,7 @@
             <div class="col-xl-4 col-lg-4 col-md-12 mb-4"> <!-- Ukuran kolom lebih kecil -->
               <div class="card shadow mb-4 h-100">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary text-center">Distribusi Populasi Domba</h6>
+                  <h6 class="m-0 font-weight-bold text-black text-center">Distribusi Populasi Domba</h6>
                 </div>
                 <div class="card-body d-flex flex-column align-items-center p-3">
                   <!-- Grafik Pie -->
@@ -627,6 +696,26 @@
               alert("Terjadi error: " + event.error);
             };
           });
+        </script>
+
+        <script>
+          function updateClock() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = now.toLocaleString('id-ID', {
+              month: 'long'
+            });
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+            document.getElementById('clock').textContent = fullDateTime;
+          }
+
+          setInterval(updateClock, 1000);
+          updateClock();
         </script>
 
 </body>

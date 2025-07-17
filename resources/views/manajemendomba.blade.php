@@ -272,6 +272,11 @@
             <i class="fa fa-bars"></i>
           </button>
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-flex align-items-center mr-3">
+              <div class="text-white small" id="realtime-clock">
+                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+              </div>
+            </li>
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -299,6 +304,7 @@
           </ul>
         </nav>
         <!-- Topbar -->
+
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -314,14 +320,16 @@
             <!-- DataTable with Hover -->
             <div class="col-lg-12">
               <div class="card mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary w-100">Detail Domba</h6>
-                  <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
-                    <i class="fas fa-plus mr-2"></i> Tambah
-                  </button>
+                <div class="card-header py-3">
+                  <div class="d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Rekap Data Domba</h6>
+                    <button type="button" class="btn btn-sm d-flex align-items-center" style="background-color: #0F382A; color: white; border: none;" data-toggle="modal" data-target="#tambahModal">
+                      <i class="fas fa-plus mr-2"></i> Tambah
+                    </button>
+                  </div>
                 </div>
 
-                <div class="legend-box mb-3 d-flex flex-wrap gap-4 align-items-center text-center">
+                <div class="legend-box d-flex flex-wrap gap-4 align-items-center text-center">
                   <label><span class="legend-color putih"></span> Betina lahir di kandang, siap kawin <input type="checkbox" class="filter-checkbox ms-2" value="Putih"></label>
                   <label><span class="legend-color merah"></span> Indukan luar <input type="checkbox" class="filter-checkbox ms-2" value="Merah"></label>
                   <label><span class="legend-color biru"></span> Jantan <input type="checkbox" class="filter-checkbox ms-2" value="Biru"></label>
@@ -335,17 +343,23 @@
                       <tr>
                         <th>No</th>
                         <th>EARTAG</th>
-                        <th>Kelamin</th>
+                        <th>Warna Eartag</th>
+                        <th>Jenis Kelamin</th>
                         <th>Tanggal Lahir</th>
-                        <th>Umur</th>
-                        <th>Bobot Badan (kg)</th>
+                        <th>Usia</th>
+                        <th>Berat</th>
                         <th>Induk Betina</th>
+                        <th>Warna Induk Betina</th>
                         <th>Induk Jantan</th>
+                        <th>Warna Induk Jantan</th>
                         <th>Kakek</th>
+                        <th>Warna Kakek</th>
                         <th>Buyut</th>
+                        <th>Warna Buyut</th>
                         <th>Kandang</th>
                         <th>Kesehatan</th>
                         <th>Keterangan</th>
+                        <th>RiwayatKawin</th>
                         <th class="noExport">Dokumentasi</th>
                         <th class="noExport">Aksi</th>
                       </tr>
@@ -354,17 +368,18 @@
                       @foreach($dombaData as $index => $domba)
                       <tr data-warna="{{ $domba['warna_eartag'] }}">
                         <td>{{ $index + 1 }}</td>
-                        <td>
+                        <td data-warna="{{ $domba['warna_eartag'] }}">
                           <a href="{{ route('manajemendomba.show', $domba['id']) }}" class="badge
-                            @if($domba['warna_eartag'] == 'Putih') badge-putih
-                            @elseif($domba['warna_eartag'] == 'Merah') badge-merah
-                            @elseif($domba['warna_eartag'] == 'Biru') badge-biru
-                            @elseif($domba['warna_eartag'] == 'Hijau') badge-hijau
-                            @elseif($domba['warna_eartag'] == 'Kuning') badge-kuning
-                            @else badge-secondary @endif">
+                              @if($domba['warna_eartag'] == 'Putih') badge-putih
+                              @elseif($domba['warna_eartag'] == 'Merah') badge-merah
+                              @elseif($domba['warna_eartag'] == 'Biru') badge-biru
+                              @elseif($domba['warna_eartag'] == 'Hijau') badge-hijau
+                              @elseif($domba['warna_eartag'] == 'Kuning') badge-kuning
+                              @else badge-secondary @endif">
                             {{ $domba['eartag'] }}
                           </a>
                         </td>
+                        <td>{{ $domba['warna_eartag'] }}</td> {{-- kolom warna_eartag yang disembunyikan --}}
                         <td>{{ $domba['kelamin'] }}</td>
                         <td>{{ $domba['tanggal_lahir'] }}</td>
                         <td>{{ $domba['umur'] }}</td>
@@ -385,7 +400,7 @@
                           -
                           @endif
                         </td>
-
+                        <td>{{ $domba['warna_induk_betina'] ?? '' }}</td>
                         <!-- Induk Jantan -->
                         <td>
                           @if(!empty($domba['induk_jantan']))
@@ -402,6 +417,7 @@
                           -
                           @endif
                         </td>
+                        <td>{{ $domba['warna_induk_jantan'] ?? '' }}</td>
 
                         <!-- Kakek -->
                         <td>
@@ -419,6 +435,7 @@
                           -
                           @endif
                         </td>
+                        <td>{{ $domba['warna_kakek'] ?? '' }}</td>
 
                         <!-- Buyut -->
                         <td>
@@ -436,6 +453,7 @@
                           -
                           @endif
                         </td>
+                        <td>{{ $domba['warna_buyut'] ?? '' }}</td>
                         <td>{{ $domba['kandang'] }}</td>
                         <td>
                           <span class="badge 
@@ -447,6 +465,13 @@
                           </span>
                         </td>
                         <td>{{ $domba['keterangan'] }}</td>
+                        <td>
+                          @if(isset($domba['pernah_kawin']) && $domba['pernah_kawin'])
+                          <span class="badge bg-success text-white">Sudah</span>
+                          @else
+                          <span class="badge bg-warning text-white">Belum</span>
+                          @endif
+                        </td>
                         <td>
                           <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalLihat{{ $domba['id'] }}">
                             Lihat
@@ -564,7 +589,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form class="edit-domba-form">
+                  <form class="edit-domba-form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
                     <div class="form-group">
@@ -593,7 +618,7 @@
 
                     <div class="form-group">
                       <label for="tanggal_lahir">Tanggal Lahir</label>
-                      <input type="date" class="form-control" name="tanggal_lahir" value="{{ $domba['tanggal_lahir'] }}" required>
+                      <input type="date" class="form-control" name="tanggal_lahir" value="{{ \Carbon\Carbon::parse($domba['tanggal_lahir'])->format('Y-m-d') }}" required>
                     </div>
 
                     <div class="form-group">
@@ -746,79 +771,70 @@
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
-    <!-- Page level custom scripts -->
     <script>
       $(document).ready(function() {
-        $('#dataTable').DataTable({
+        var table = $('#dataTableHover').DataTable({
           dom: 'Bfrtip',
-          buttons: [
-            'copy',
-            {
+          columnDefs: [{
+            targets: [2, 8, 10, 12, 14], // Kolom disembunyikan
+            visible: false,
+            searchable: false
+          }],
+          buttons: [{
               extend: 'csvHtml5',
+              title: 'data_asli',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18]
+              },
+              format: {
+                body: function(data, row, column, node) {
+                  if (column === 5) { // Kolom Umur
+                    var newData = data.replace(/,/g, ';'); // ganti koma jadi titik koma
+                    return `"${newData}"`; // bungkus tanda kutip supaya dianggap 1 field
+                  }
+                  return data;
+                }
+              },
+              customize: function(csv) {
+                // Jangan hapus tanda kutip supaya data tetap valid
+                return csv;
               }
             },
             {
               extend: 'excelHtml5',
+              orientation: 'landscape',
+              pageSize: 'A4',
+              title: 'Data Daftar Domba',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
               }
             },
             {
               extend: 'pdfHtml5',
               orientation: 'landscape',
               pageSize: 'A4',
-              title: 'Data Ternak Domba',
+              title: 'Data Daftar Domba',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
               }
             },
             {
               extend: 'print',
               orientation: 'landscape',
-              title: 'Data Ternak Domba',
+              title: 'Data Daftar Domba',
               exportOptions: {
-                columns: ':not(.noExport)'
+                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
               }
             }
-          ]
-        });
-
-        $('#dataTableHover').DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-            'copy',
-            {
-              extend: 'csvHtml5',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            },
-            {
-              extend: 'excelHtml5',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            },
-            {
-              extend: 'pdfHtml5',
-              orientation: 'landscape',
-              pageSize: 'A4',
-              title: 'Data Ternak Domba',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
-            },
-            {
-              extend: 'print',
-              orientation: 'landscape',
-              title: 'Data Ternak Domba',
-              exportOptions: {
-                columns: ':not(.noExport)'
-              }
+          ],
+          createdRow: function(row, data, dataIndex) {
+            // Ambil warna dari atribut data-warna atau kolom ke-2
+            var warna = $(row).attr('data-warna') || data[2];
+            if (warna) {
+              warna = warna.toLowerCase().replace(/\s/g, '');
+              $(row).addClass('bg-' + warna);
             }
-          ]
+          }
         });
 
         $('#eartag_betina').select2({
@@ -830,6 +846,12 @@
     </script>
 
     <script>
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
       $('button[data-toggle="modal"]').on('click', function() {
         var id = $(this).data('id');
         console.log('ID yang diteruskan ke URL:', id);
@@ -837,31 +859,35 @@
         var modal = $('#editModal' + id);
         modal.modal('show');
 
-        // Hapus event listener lama agar tidak terduplikasi
+        // Hapus event listener lama agar tidak double
         modal.find('form').off('submit').on('submit', function(e) {
           e.preventDefault();
 
-          var form = $(this);
-          var formData = form.serialize(); // kirim sebagai x-www-form-urlencoded
+          var form = this;
+          var formData = new FormData(form); // ✅ Ambil semua form input
+          formData.append('_method', 'PATCH'); // ✅ Tambah PATCH override
 
-          console.log('Data yang akan dikirim:', formData);
+          console.log('[FormData] Akan dikirim ke:', '/manajemendomba/update/' + id);
 
           $.ajax({
             url: '/manajemendomba/update/' + id,
-            type: 'POST',
+            type: 'POST', // tetap POST, Laravel akan baca _method = PATCH
             data: formData,
+            contentType: false,
+            processData: false,
             success: function(response) {
               console.log('[AJAX] Success:', response);
               window.location.reload();
             },
             error: function(xhr) {
-              console.error('[AJAX] Error:', xhr);
+              console.error('[AJAX] Error:', xhr.responseText);
               alert('Gagal memperbarui data domba.');
             }
           });
         });
       });
     </script>
+
 
     <script>
       document.querySelectorAll('.filter-checkbox').forEach(cb => {
@@ -882,7 +908,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
       document.getElementById("voiceButton").addEventListener("click", function() {
@@ -959,6 +985,46 @@
           alert("Terjadi error: " + event.error);
         };
       });
+    </script>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = now.toLocaleString('id-ID', {
+          month: 'long'
+        });
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        const fullDateTime = `${day} : ${month} : ${year}, ${hours} : ${minutes} : ${seconds}`;
+        document.getElementById('clock').textContent = fullDateTime;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = now.toLocaleString('id-ID', {
+          month: 'long'
+        });
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+        document.getElementById('clock').textContent = fullDateTime;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
     </script>
 
 </body>

@@ -115,6 +115,12 @@
             <i class="fa fa-bars"></i>
           </button>
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-flex align-items-center mr-3">
+              <div class="text-white small" id="realtime-clock">
+                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+              </div>
+            </li>
+
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -151,6 +157,16 @@
               <li class="breadcrumb-item active" aria-current="page">Charts</li>
             </ol>
           </div>
+          
+          <form method="GET">
+            <label for="tahun">Pilih Tahun:</label>
+            <select name="tahun" id="tahun" onchange="this.form.submit()">
+              @for ($i = now()->year; $i >= 2020; $i--)
+              <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
+              @endfor
+            </select>
+          </form>
+
           <!-- Row -->
           <div class="row">
             <!-- Area Chart - Populasi Domba per Bulan -->
@@ -346,7 +362,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
       document.getElementById("voiceButton").addEventListener("click", function() {
@@ -403,6 +419,26 @@
           alert("Terjadi error: " + event.error);
         };
       });
+    </script>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = now.toLocaleString('id-ID', {
+          month: 'long'
+        });
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+        document.getElementById('clock').textContent = fullDateTime;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
     </script>
 
 </body>

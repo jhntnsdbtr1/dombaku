@@ -152,6 +152,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-flex align-items-center mr-3">
+                            <div class="text-white small" id="realtime-clock">
+                                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -291,8 +297,37 @@
                                                 </td>
                                                 <td>{{ $ayah['kelamin'] }}</td>
                                                 <td>{{ $ayah['tanggal_lahir'] }}</td>
-                                                <td>{{ $ayah['induk_betina'] }}</td>
-                                                <td>{{ $ayah['induk_jantan'] }}</td>
+                                                <td>
+                                                    @if(isset($indukBetinaData))
+                                                    <a href="{{ route('manajemendomba.show', $indukBetinaData['id']) }}" class="badge 
+            @if($indukBetinaData['warna_eartag'] == 'Putih') badge-putih
+            @elseif($indukBetinaData['warna_eartag'] == 'Merah') badge-merah
+            @elseif($indukBetinaData['warna_eartag'] == 'Biru') badge-biru
+            @elseif($indukBetinaData['warna_eartag'] == 'Hijau') badge-hijau
+            @elseif($indukBetinaData['warna_eartag'] == 'Kuning') badge-kuning
+            @else badge-secondary @endif">
+                                                        {{ $indukBetinaData['eartag'] }}
+                                                    </a>
+                                                    @else
+                                                    {{ $ayah['induk_betina'] }}
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    @if(isset($indukJantanData))
+                                                    <a href="{{ route('manajemendomba.show', $indukJantanData['id']) }}" class="badge 
+            @if($indukJantanData['warna_eartag'] == 'Putih') badge-putih
+            @elseif($indukJantanData['warna_eartag'] == 'Merah') badge-merah
+            @elseif($indukJantanData['warna_eartag'] == 'Biru') badge-biru
+            @elseif($indukJantanData['warna_eartag'] == 'Hijau') badge-hijau
+            @elseif($indukJantanData['warna_eartag'] == 'Kuning') badge-kuning
+            @else badge-secondary @endif">
+                                                        {{ $indukJantanData['eartag'] }}
+                                                    </a>
+                                                    @else
+                                                    {{ $ayah['induk_jantan'] }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -334,8 +369,38 @@
                                                 </td>
                                                 <td>{{ $kakek['kelamin'] }}</td>
                                                 <td>{{ $kakek['tanggal_lahir'] }}</td>
-                                                <td>{{ $kakek['induk_betina'] }}</td>
-                                                <td>{{ $kakek['induk_jantan'] }}</td>
+                                                <td>
+                                                    @if(isset($indukBetinaKakekData))
+                                                    <a href="{{ route('manajemendomba.show', $indukBetinaKakekData['id']) }}" class="badge 
+            @if($indukBetinaKakekData['warna_eartag'] == 'Putih') badge-putih
+            @elseif($indukBetinaKakekData['warna_eartag'] == 'Merah') badge-merah
+            @elseif($indukBetinaKakekData['warna_eartag'] == 'Biru') badge-biru
+            @elseif($indukBetinaKakekData['warna_eartag'] == 'Hijau') badge-hijau
+            @elseif($indukBetinaKakekData['warna_eartag'] == 'Kuning') badge-kuning
+            @else badge-secondary @endif">
+                                                        {{ $indukBetinaKakekData['eartag'] }}
+                                                    </a>
+                                                    @else
+                                                    {{ $kakek['induk_betina'] }}
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    @if(isset($indukJantanKakekData))
+                                                    <a href="{{ route('manajemendomba.show', $indukJantanKakekData['id']) }}" class="badge 
+            @if($indukJantanKakekData['warna_eartag'] == 'Putih') badge-putih
+            @elseif($indukJantanKakekData['warna_eartag'] == 'Merah') badge-merah
+            @elseif($indukJantanKakekData['warna_eartag'] == 'Biru') badge-biru
+            @elseif($indukJantanKakekData['warna_eartag'] == 'Hijau') badge-hijau
+            @elseif($indukJantanKakekData['warna_eartag'] == 'Kuning') badge-kuning
+            @else badge-secondary @endif">
+                                                        {{ $indukJantanKakekData['eartag'] }}
+                                                    </a>
+                                                    @else
+                                                    {{ $kakek['induk_jantan'] }}
+                                                    @endif
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -377,8 +442,37 @@
                                                 </td>
                                                 <td>{{ $buyut['kelamin'] }}</td>
                                                 <td>{{ $buyut['tanggal_lahir'] }}</td>
-                                                <td>{{ $buyut['induk_betina'] }}</td>
-                                                <td>{{ $buyut['induk_jantan'] }}</td>
+                                                <td>
+                                                    @if(isset($indukBetinaBuyutData))
+                                                    <a href="{{ route('manajemendomba.show', $indukBetinaBuyutData['id']) }}" class="badge 
+        @if($indukBetinaBuyutData['warna_eartag'] == 'Putih') badge-putih
+        @elseif($indukBetinaBuyutData['warna_eartag'] == 'Merah') badge-merah
+        @elseif($indukBetinaBuyutData['warna_eartag'] == 'Biru') badge-biru
+        @elseif($indukBetinaBuyutData['warna_eartag'] == 'Hijau') badge-hijau
+        @elseif($indukBetinaBuyutData['warna_eartag'] == 'Kuning') badge-kuning
+        @else badge-secondary @endif">
+                                                        {{ $indukBetinaBuyutData['eartag'] }}
+                                                    </a>
+                                                    @else
+                                                    {{ $buyut['induk_betina'] ?? '-' }}
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    @if(isset($indukJantanBuyutData))
+                                                    <a href="{{ route('manajemendomba.show', $indukJantanBuyutData['id']) }}" class="badge 
+        @if($indukJantanBuyutData['warna_eartag'] == 'Putih') badge-putih
+        @elseif($indukJantanBuyutData['warna_eartag'] == 'Merah') badge-merah
+        @elseif($indukJantanBuyutData['warna_eartag'] == 'Biru') badge-biru
+        @elseif($indukJantanBuyutData['warna_eartag'] == 'Hijau') badge-hijau
+        @elseif($indukJantanBuyutData['warna_eartag'] == 'Kuning') badge-kuning
+        @else badge-secondary @endif">
+                                                        {{ $indukJantanBuyutData['eartag'] }}
+                                                    </a>
+                                                    @else
+                                                    {{ $buyut['induk_jantan'] ?? '-' }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -420,8 +514,43 @@
                                                 </td>
                                                 <td>{{ $sdr['kelamin'] }}</td>
                                                 <td>{{ $sdr['tanggal_lahir'] }}</td>
-                                                <td>{{ $sdr['induk_betina'] }}</td>
-                                                <td>{{ $sdr['induk_jantan'] }}</td>
+                                                <!-- Induk Betina -->
+                                                <td>
+                                                    @if(!empty($indukBetinaSaudaraData))
+                                                    @foreach($indukBetinaSaudaraData as $indukBetina)
+                                                    <a href="{{ route('manajemendomba.show', $indukBetina['id']) }}" class="badge 
+                @if($indukBetina['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukBetina['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukBetina['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukBetina['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukBetina['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukBetina['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_betina'] ?? '-' }}
+                                                    @endif
+                                                </td>
+
+                                                <!-- Induk Jantan -->
+                                                <td>
+                                                    @if(!empty($indukJantanSaudaraData))
+                                                    @foreach($indukJantanSaudaraData as $indukJantan)
+                                                    <a href="{{ route('manajemendomba.show', $indukJantan['id']) }}" class="badge 
+                @if($indukJantan['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukJantan['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukJantan['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukJantan['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukJantan['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukJantan['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_jantan'] ?? '-' }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                             @empty
                                             <tr>
@@ -459,8 +588,43 @@
                                                 </td>
                                                 <td>{{ $sepupuKakek['kelamin'] }}</td>
                                                 <td>{{ $sepupuKakek['tanggal_lahir'] }}</td>
-                                                <td>{{ $sepupuKakek['induk_betina'] }}</td>
-                                                <td>{{ $sepupuKakek['induk_jantan'] }}</td>
+                                                <!-- Induk Betina -->
+                                                <td>
+                                                    @if(!empty($indukBetinaSepupuKakekData))
+                                                    @foreach($indukBetinaSepupuKakekData as $indukBetina)
+                                                    <a href="{{ route('manajemendomba.show', $indukBetina['id']) }}" class="badge 
+                @if($indukBetina['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukBetina['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukBetina['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukBetina['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukBetina['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukBetina['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_betina'] ?? '-' }}
+                                                    @endif
+                                                </td>
+
+                                                <!-- Induk Jantan -->
+                                                <td>
+                                                    @if(!empty($indukJantanSepupuKakekData))
+                                                    @foreach($indukJantanSepupuKakekData as $indukJantan)
+                                                    <a href="{{ route('manajemendomba.show', $indukJantan['id']) }}" class="badge 
+                @if($indukJantan['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukJantan['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukJantan['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukJantan['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukJantan['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukJantan['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_jantan'] ?? '-' }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                             @empty
                                             <tr>
@@ -498,8 +662,43 @@
                                                 </td>
                                                 <td>{{ $sepupuBuyut['kelamin'] }}</td>
                                                 <td>{{ $sepupuBuyut['tanggal_lahir'] }}</td>
-                                                <td>{{ $sepupuBuyut['induk_betina'] }}</td>
-                                                <td>{{ $sepupuBuyut['induk_jantan'] }}</td>
+                                                <!-- Induk Betina -->
+                                                <td>
+                                                    @if(!empty($indukBetinaSepupuBuyutData))
+                                                    @foreach($indukBetinaSepupuBuyutData as $indukBetina)
+                                                    <a href="{{ route('manajemendomba.show', $indukBetina['id']) }}" class="badge 
+                @if($indukBetina['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukBetina['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukBetina['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukBetina['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukBetina['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukBetina['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_betina'] ?? '-' }}
+                                                    @endif
+                                                </td>
+
+                                                <!-- Induk Jantan -->
+                                                <td>
+                                                    @if(!empty($indukJantanSepupuBuyutData))
+                                                    @foreach($indukJantanSepupuBuyutData as $indukJantan)
+                                                    <a href="{{ route('manajemendomba.show', $indukJantan['id']) }}" class="badge 
+                @if($indukJantan['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukJantan['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukJantan['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukJantan['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukJantan['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukJantan['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_jantan'] ?? '-' }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                             @empty
                                             <tr>
@@ -537,8 +736,44 @@
                                                 </td>
                                                 <td>{{ $an['kelamin'] }}</td>
                                                 <td>{{ $an['tanggal_lahir'] }}</td>
-                                                <td>{{ $an['induk_betina'] }}</td>
-                                                <td>{{ $an['induk_jantan'] }}</td>
+                                                <!-- Induk Betina -->
+                                                <td>
+                                                    @if(!empty($indukBetinaAnakData))
+                                                    @foreach($indukBetinaAnakData as $indukBetina)
+                                                    <a href="{{ route('manajemendomba.show', $indukBetina['id']) }}" class="badge 
+                @if($indukBetina['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukBetina['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukBetina['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukBetina['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukBetina['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukBetina['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_betina'] ?? '-' }}
+                                                    @endif
+                                                </td>
+
+                                                <!-- Induk Jantan -->
+                                                <td>
+                                                    @if(!empty($indukJantanAnakData))
+                                                    @foreach($indukJantanAnakData as $indukJantan)
+                                                    <a href="{{ route('manajemendomba.show', $indukJantan['id']) }}" class="badge 
+                @if($indukJantan['warna_eartag'] == 'Putih') badge-putih
+                @elseif($indukJantan['warna_eartag'] == 'Merah') badge-merah
+                @elseif($indukJantan['warna_eartag'] == 'Biru') badge-biru
+                @elseif($indukJantan['warna_eartag'] == 'Hijau') badge-hijau
+                @elseif($indukJantan['warna_eartag'] == 'Kuning') badge-kuning
+                @else badge-secondary @endif">
+                                                        {{ $indukJantan['eartag'] }}
+                                                    </a>
+                                                    @endforeach
+                                                    @else
+                                                    {{ $an['induk_jantan'] ?? '-' }}
+                                                    @endif
+                                                </td>
+
                                             </tr>
                                             @empty
                                             <tr>
@@ -551,7 +786,7 @@
                                     <!-- Menampilkan Grafik Bar Generasi -->
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h5 class="text-center mb-4">Grafik Generasi Keturunan</h5>
+                                            <h5 class="text-center mt-4">Grafik Generasi Keturunan</h5>
                                             <div id="chart_div"></div>
                                         </div>
                                     </div>
@@ -654,7 +889,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
         document.getElementById("voiceButton").addEventListener("click", function() {
@@ -711,6 +946,26 @@
                 alert("Terjadi error: " + event.error);
             };
         });
+    </script>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = now.toLocaleString('id-ID', {
+                month: 'long'
+            });
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+            document.getElementById('clock').textContent = fullDateTime;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 
 </body>

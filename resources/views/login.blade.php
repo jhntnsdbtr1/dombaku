@@ -36,6 +36,34 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 0;
     }
+
+
+    .input-group .form-control {
+      border-left: none;
+    }
+
+    .btn-success {
+      background-color: #0F382A;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+      background-color: #0c2f23;
+    }
+
+    input::placeholder {
+      font-weight: 400;
+      color: #999;
+    }
+
+    .toggle-password i {
+      color: #6c757d;
+    }
+
+    .fw-bold {
+      font-weight: 600;
+    }
   </style>
 </head>
 
@@ -63,12 +91,25 @@
                   <form action="{{ url('/login') }}" method="POST" class="user">
                     @csrf
 
-                    <div class="form-group">
-                      <input type="email" name="email" class="form-control" placeholder="Enter Username" required>
+                    <!-- Email -->
+                    <div class="form-group mb-3">
+                      <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-envelope text-muted"></i></span>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <input type="password" name="password" class="form-control" placeholder="Password" required>
+
+                    <!-- Password -->
+                    <div class="form-group mb-3 position-relative">
+                      <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-lock text-muted"></i></span>
+                        <input type="password" name="password" id="passwordLogin" class="form-control" placeholder="Password" required>
+                        <span class="input-group-text toggle-password" toggle="#passwordLogin" style="cursor: pointer;">
+                          <i class="fas fa-eye"></i>
+                        </span>
+                      </div>
                     </div>
+
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
@@ -77,6 +118,10 @@
                     </div>
                     <div class="form-group">
                       <button type="submit" class="btn btn-block" style="background-color: #0F382A; color: white;">Masuk</button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                      Belum punya akun? <a href="{{ url('/register') }}" style="color: #0F382A;">Daftar di sini</a>
                     </div>
 
                     @if ($errors->any())
@@ -88,19 +133,7 @@
                       </ul>
                     </div>
                     @endif
-
-                    <hr>
                   </form>
-
-                  <!-- Copyright -->
-                  <div class="text-center mt-4">
-                    <span style="font-size: 14px; color: #888;">
-                      &copy; <script>
-                        document.write(new Date().getFullYear());
-                      </script> - Developed by
-                      <b><a href="{{ route('landingpage') }}" style="color: #0F382A; text-decoration: none;">PBL-TRPL605</a></b>
-                    </span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -116,6 +149,23 @@
   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
   <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
 
+  <script>
+    document.querySelectorAll('.toggle-password').forEach(function(element) {
+      element.addEventListener('click', function() {
+        const input = document.querySelector(this.getAttribute('toggle'));
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          input.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

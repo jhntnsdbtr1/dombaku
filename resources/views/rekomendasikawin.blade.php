@@ -105,6 +105,41 @@
             z-index: 9999;
             /* Menjamin tombol di atas elemen lainnya */
         }
+
+        .badge-putih {
+            background-color: #ffffff;
+            color: black;
+            border: 1px solid #000;
+            /* Menambahkan border hitam */
+        }
+
+        .badge-merah {
+            background-color: #ff0000;
+            color: #fff;
+            border: 1px solid #000;
+            /* Menambahkan border hitam */
+        }
+
+        .badge-biru {
+            background-color: #0000ff;
+            color: #fff;
+            border: 1px solid #000;
+            /* Menambahkan border hitam */
+        }
+
+        .badge-hijau {
+            background-color: #00ff00;
+            color: black;
+            border: 1px solid #000;
+            /* Menambahkan border hitam */
+        }
+
+        .badge-kuning {
+            background-color: #ffff00;
+            color: #000;
+            border: 1px solid #000;
+            /* Menambahkan border hitam */
+        }
     </style>
 </head>
 
@@ -205,6 +240,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-flex align-items-center mr-3">
+                            <div class="text-white small" id="realtime-clock">
+                                <i class="fas fa-clock mr-1"></i> <span id="clock"></span>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="voiceDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-microphone fa-fw" id="voiceButton" style="cursor: pointer;"></i>
@@ -255,7 +296,7 @@
                                         class="form-control rounded-pill px-4 py-2"
                                         id="id_jantan"
                                         name="id_jantan"
-                                        placeholder="Contoh: D007"
+                                        placeholder="Contoh: 007"
                                         required
                                         style="font-size: 1rem;">
                                 </div>
@@ -458,38 +499,49 @@
                         }
 
                         html = `
-                        <h3 class="mt-4">Hasil Rekomendasi Kawin:</h3>
-                        <div class="table-responsive p-3" data-aos="fade-up">
-                            <table class="table table-bordered table-hover text-center">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>ID Jantan</th>
-                                        <th>ID Betina</th>
-                                        <th>Skor Kecocokan</th>
-                                        <th>Inbreeding</th>
-                                        <th>Checklist</th>
-                                    </tr>
-                                </thead>
-                                <tbody>`;
+<h3 class="mt-4">Hasil Rekomendasi Kawin:</h3>
+<div class="table-responsive p-3" data-aos="fade-up">
+    <table class="table table-bordered table-hover text-center">
+        <thead class="thead-light">
+            <tr>
+                <th>Eartag Jantan</th>
+                <th>Eartag Betina</th>
+                <th>Skor Kecocokan</th>
+                <th>Status Inbreeding</th>
+                <th>Checklist</th>
+            </tr>
+        </thead>
+        <tbody>`;
 
-                        // 🔽 Urutkan dari skor tertinggi ke terendah
                         filteredData.sort((a, b) => b.skor_kecocokan - a.skor_kecocokan);
 
                         filteredData.forEach((item, index) => {
+                            // Badge warna eartag
+                            const warnaBadgeJantan = warnaBadgeClass(item.warna_eartag_jantan);
+                            const warnaBadgeBetina = warnaBadgeClass(item.warna_eartag_betina);
+
+                            // Status dan badge inbreeding
+                            const isAman = item.koefisien_inbreeding === 1;
+                            const labelInbreeding = isAman ? "Aman Kawin" : "Berisiko Inbreeding";
+                            const badgeInbreeding = isAman ? "badge-success" : "badge-danger";
+
                             html += `
                             <tr>
-                                <td>${item.id_jantan}</td>
-                                <td>${item.id_betina}</td>
+                                <td><span class="badge ${warnaBadgeJantan}">${item.id_jantan}</span></td>
+                                <td><span class="badge ${warnaBadgeBetina}">${item.id_betina}</span></td>
                                 <td>${(item.skor_kecocokan * 100).toFixed(2)}%</td>
-                                <td>${(item.inbreeding * 100).toFixed(2)}%</td>
+                                <td><span class="badge ${badgeInbreeding}">${labelInbreeding}</span></td>
                                 <td>
                                     <input type="checkbox" class="pilih-betina" id="betina_${index}" data-id="${item.id_betina}">
                                 </td>
                             </tr>`;
                         });
 
+                        html += `
+                                </tbody>
+                            </table>
+                        </div>`;
 
-                        html += `</tbody></table></div>`;
                         $('#hasil-rekomendasi').html(html);
 
                         // Inisialisasi data chart
@@ -623,7 +675,7 @@
     </script>
 
     <!-- Tambahkan compromise.js -->
-    <script src="https://unpkg.com/compromise"></script>
+    <script src="{{ asset('js/compromise.js') }}"></script>
 
     <script>
         document.getElementById("voiceButton").addEventListener("click", function() {
@@ -680,6 +732,44 @@
                 alert("Terjadi error: " + event.error);
             };
         });
+
+        function warnaBadgeClass(warna) {
+            warna = warna?.toLowerCase();
+            switch (warna) {
+                case 'putih':
+                    return 'badge-putih';
+                case 'merah':
+                    return 'badge-merah';
+                case 'biru':
+                    return 'badge-biru';
+                case 'hijau':
+                    return 'badge-hijau';
+                case 'kuning':
+                    return 'badge-kuning';
+                default:
+                    return 'badge-secondary';
+            }
+        }
+    </script>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = now.toLocaleString('id-ID', {
+                month: 'long'
+            });
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const fullDateTime = `${day}  ${month}  ${year}, ${hours} : ${minutes} : ${seconds}`;
+            document.getElementById('clock').textContent = fullDateTime;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 
 </body>

@@ -27,6 +27,13 @@ class ManajemenKelahiranController extends Controller
         if (isset($data['documents'])) {
             foreach ($data['documents'] as $doc) {
                 $fields = $doc['fields'];
+
+                // Cek apakah nama_peternak sesuai dengan session
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue; // Skip data yang tidak cocok
+                }
+
                 $jumlahAnak = isset($fields['jumlah_anak']['integerValue']) ? (int) $fields['jumlah_anak']['integerValue'] : 0;
                 $kelaminBetina = isset($fields['kelamin_betina']['integerValue']) ? (int) $fields['kelamin_betina']['integerValue'] : 0;
                 $kelaminJantan = isset($fields['kelamin_jantan']['integerValue']) ? (int) $fields['kelamin_jantan']['integerValue'] : 0;
@@ -102,7 +109,9 @@ class ManajemenKelahiranController extends Controller
             }
         }
 
-        // =====================================================
+        usort($dataKelahiran, function ($a, $b) {
+            return strcmp($a['tanggal_lahir'], $b['tanggal_lahir']);
+        });
 
         // Pastikan return view mengirim semua variabel yang dibutuhkan
         return view('kelahiran', compact('dataKelahiran', 'rekapData', 'eartagJantan', 'eartagBetina'));
@@ -163,6 +172,7 @@ class ManajemenKelahiranController extends Controller
                 'mortalitas' => ['integerValue' => $request->mortalitas],
                 'persentase_mortalitas' => ['doubleValue' => $persentase],
                 'keterangan' => ['stringValue' => $request->keterangan ?? ''],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')],
             ]
         ]);
 
@@ -235,10 +245,10 @@ class ManajemenKelahiranController extends Controller
             'keterangan' => 'nullable|string',
             'jenisKelaminAnak' => 'required|in:betina,jantan',
         ]);
-    
+
         // Hitung persentase mortalitas
         $persentase = ($request->jumlahAnak > 0) ? ($request->mortalitas / $request->jumlahAnak) * 100 : 0;
-    
+
         // Mengirim data yang diperbarui ke Firebase
         $response = Http::patch("{$this->firebaseUrl}/{$id}", [
             'fields' => [
@@ -253,9 +263,10 @@ class ManajemenKelahiranController extends Controller
                 'mortalitas' => ['integerValue' => $request->mortalitas],
                 'persentase_mortalitas' => ['doubleValue' => $persentase],
                 'keterangan' => ['stringValue' => $request->keterangan ?? ''],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')],
             ]
         ]);
-    
+
         // Cek status code dan error dari API
         if ($response->successful()) {
             return redirect()->route('kelahiran.index')->with('success', 'Data berhasil diperbarui');
@@ -264,7 +275,7 @@ class ManajemenKelahiranController extends Controller
             Log::error('Error updating data', ['response' => $response->json()]);
             return back()->with('error', 'Gagal memperbarui data. Coba lagi nanti.');
         }
-    }    
+    }
 
     // Hapus data
     public function destroy($id)

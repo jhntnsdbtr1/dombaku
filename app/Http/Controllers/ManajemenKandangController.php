@@ -41,6 +41,13 @@ class ManajemenKandangController extends Controller
         if (!empty($data['documents'])) {
             foreach ($data['documents'] as $doc) {
                 $fields = $doc['fields'] ?? [];
+
+                // Cek apakah nama_peternak sesuai dengan session
+                $namaPeternak = $fields['nama_peternak']['stringValue'] ?? '';
+                if ($namaPeternak !== session('nama_peternak')) {
+                    continue; // Skip data yang tidak cocok
+                }
+
                 $eartagIds = $fields['eartag_domba']['arrayValue']['values'] ?? [];
 
                 // Jika data eartag_domba berupa array, kita ambil semua nilai string
@@ -61,6 +68,11 @@ class ManajemenKandangController extends Controller
             }
         }
 
+        // ✅ Tambahkan ini untuk sorting ASC berdasarkan nama_kandang
+        usort($kandangs, function ($a, $b) {
+            return strcmp($a['nama_kandang'], $b['nama_kandang']);
+        });
+        
         return view('manajemenkandang', compact('kandangs', 'semuaEartag', 'dombaMap'));
     }
 
@@ -84,6 +96,7 @@ class ManajemenKandangController extends Controller
                         return ['stringValue' => (string)$eartag];
                     }, $request->eartag_domba)
                 ]],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')],
             ]
         ];
 
@@ -136,6 +149,7 @@ class ManajemenKandangController extends Controller
                         }, $eartags)
                     ]
                 ],
+                'nama_peternak' => ['stringValue' => (string) session('nama_peternak')],
             ]
         ];
 
